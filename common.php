@@ -12,8 +12,9 @@
 //crée la session
 session_start();
 //Crée un jeton si besoin
-if (!isset($_SESSION['jeton']))
+if (!isset($_SESSION['jeton'])) {
     $_SESSION['jeton'] = hash('sha256', uniqid());
+}
 
 //class loader des fonctions crée
 
@@ -27,13 +28,15 @@ if (!isset($_SESSION['jeton']))
  */
 function loadClasses($classname) {
     // le répertoire d'installation de l'application
-    if (is_file($classname . '.php'))
+    if (is_file($classname . '.php')) {
         require_once $classname . '.php';
+    }
     $myAppDirs = array('Controller', 'Model', 'View', 'Exception');
     foreach ($myAppDirs as $cdir) {
         $filepath = $cdir . DIRECTORY_SEPARATOR . $classname . '.php';
-        if (is_file($filepath))
+        if (is_file($filepath)) {
             require_once $filepath;
+        }
     }
 }
 

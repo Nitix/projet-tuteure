@@ -93,7 +93,7 @@ class Document {
         $nb = $query->execute();
 
         $this->id = $pdo->lastInsertId();
-        return $query->execute();
+        return $nb;
     }
 
     /**
@@ -120,8 +120,9 @@ class Document {
      * @param $attr_value valeur à définir
      */
     public function __set($attr_name, $attr_value) {
-        if (!property_exists(__CLASS__, $attr_name))
+        if (!property_exists(__CLASS__, $attr_name)) {
             throw new ParameterException(__CLASS__ . " " . $attr_name . "does not exist, cannot set");
+        }
         $this->$attr_name = $attr_value;
     }
 
@@ -131,11 +132,12 @@ class Document {
      * @return mixed valeur de l'attribut
      */
     public function __get($attr_name) {
-        if (!property_exists(__CLASS__, $attr_name))
+        if (!property_exists(__CLASS__, $attr_name)) {
             throw new ParameterException(__CLASS__ . " " . $attr_name . "does not exist, cannot get");
+        }
         return $this->$attr_name;
     }
 
 }
 
-?>
+
