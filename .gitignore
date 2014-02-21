@@ -56,3 +56,6 @@ Thumbs.db
 *~
 
 database.php
+/nbproject/private/
+/nbproject/project.xml
+/nbproject/project.properties
