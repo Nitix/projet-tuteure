@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Prépare toutes les configurations du site
  * 
@@ -8,12 +9,11 @@
  * Prépare la session et crée un jeton aléatoire de session
  */
 //fonctions neccessaires au bon fonctionnement du site
-
 //crée la session
 session_start();
 //Crée un jeton si besoin
-if(!isset($_SESSION['jeton']))
-	$_SESSION['jeton'] = hash('sha256', uniqid());
+if (!isset($_SESSION['jeton']))
+    $_SESSION['jeton'] = hash('sha256', uniqid());
 
 //class loader des fonctions crée
 
@@ -26,13 +26,15 @@ if(!isset($_SESSION['jeton']))
  * @ignore
  */
 function loadClasses($classname) {
-	 // le répertoire d'installation de l'application
-	 if (is_file( $classname.'.php' )) require_once $classname.'.php' ;
-	 $myAppDirs = array( 'Controller', 'Model', 'View', 'Exception') ; 
-	 foreach ($myAppDirs as $cdir) {
-		 $filepath = $cdir .DIRECTORY_SEPARATOR . $classname . '.php' ; 
-		 if (is_file( $filepath )) require_once $filepath ;
-	 }
+    // le répertoire d'installation de l'application
+    if (is_file($classname . '.php'))
+        require_once $classname . '.php';
+    $myAppDirs = array('Controller', 'Model', 'View', 'Exception');
+    foreach ($myAppDirs as $cdir) {
+        $filepath = $cdir . DIRECTORY_SEPARATOR . $classname . '.php';
+        if (is_file($filepath))
+            require_once $filepath;
+    }
 }
 
 //enregistre le loader

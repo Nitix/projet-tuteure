@@ -1,6 +1,5 @@
 <?php
 
-class PrimaryKeyNotValidException extends Exception
-{
-	//Rien pour l'instant
+class PrimaryKeyNotValidException extends Exception {
+    //Rien pour l'instant
 }

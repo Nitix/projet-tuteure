@@ -1,5 +1,4 @@
 <?php
-	
-DEFINE('DEBUG', true);
 
+DEFINE('DEBUG', true);
 ?>

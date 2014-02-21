@@ -1,3 +1,4 @@
 <?php
-	//header('location:Acceuil');
+
+//header('location:Acceuil');
 ?>

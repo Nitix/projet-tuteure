@@ -1,6 +1,5 @@
 <?php
 
-class ParameterException extends Exception
-{
-
+class ParameterException extends Exception {
+    
 }
