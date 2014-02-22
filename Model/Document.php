@@ -16,35 +16,34 @@
 class Document {
 
     /**
-     * Identifiant du document
-     * @var int
+     * @var int Identifiant du document
      */
     private $id;
 
     /**
-     * Nom du document
+     * @var String Nom du document
      */
     private $nom;
 
     /**
-     * Contenu du document
+     * @var String Contenu du document
      */
     private $contenu;
 
     /**
-     * Date ou le document pourra être affiché
+     * @var String Date ou le document pourra être affiché
      */
     private $autorisation;
 
     /**
-     * Type du document
+     * @var int Type du document
      */
     private $type_id;
 
     /**
-     * Créateur du document
+     * @var int Créateur du document
      */
-    private $utilisateur_id;
+    private $administrateur_id;
 
     /**
      * Met à jour le document actuel
@@ -56,13 +55,13 @@ class Document {
         }
         $pdo = Base::getConnection();
 
-        $query = $pdo->prepare('UPDATE Document SET nom=:nom, contenu=:contenu, autorisation=:autorisation, type_id=:type_id, utilisateur:utilisateur_id where id=:id');
+        $query = $pdo->prepare('UPDATE Document SET nom=:nom, contenu=:contenu, autorisation=:autorisation, type_id=:type_id, administrateur_id=:administrateur_id where id=:id');
 
         $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
         $query->bindParam(':contenu', $this->contenu, PDO::PARAM_STR);
         $query->bindParam(':autorisation', $this->autorisation, PDO::PARAM_STR);
         $query->bindParam(':type_id', $this->type_id, PDO::PARAM_INT);
-        $query->bindParam(':utilisateur_id', $this->utilisateur_id, PDO::PARAM_INT);
+        $query->bindParam(':administrateur_id', $this->administrateur_id, PDO::PARAM_INT);
         $query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
         return $query->execute();
@@ -79,13 +78,13 @@ class Document {
 
         $pdo = Base::getConnection();
 
-        $query = $pdo->prepare('INSERT INTO Document(nom, contenu, autorisation, type_id, utilisateur) VALUES(:nom, :contenu, :autorisation, :type_id, :utilisateur)');
+        $query = $pdo->prepare('INSERT INTO Document(nom, contenu, autorisation, type_id, administrateur_id) VALUES(:nom, :contenu, :autorisation, :type_id, :administrateur_id)');
 
         $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
         $query->bindParam(':contenu', $this->contenu, PDO::PARAM_STR);
         $query->bindParam(':autorisation', $this->autorisation, PDO::PARAM_STR);
         $query->bindParam(':type_id', $this->type_id, PDO::PARAM_INT);
-        $query->bindParam(':utilisateur_id', $this->utilisateur_id, PDO::PARAM_INT);
+        $query->bindParam(':administrateur_id', $this->administrateur_id, PDO::PARAM_INT);
 
         $nb = $query->execute();
 
@@ -112,29 +111,93 @@ class Document {
     }
 
     /**
-     * Met à jour l'attribut
-     * @param string $attr_name nom attribut à mettre à jour
-     * @param $attr_value valeur à définir
-     * @throws ParameterException Attribut non existant
+     * Met à jour l'attribut id
+     * @param int $id valeur à définir
      */
-    public function __set($attr_name, $attr_value) {
-        if (!property_exists(__CLASS__, $attr_name)) {
-            throw new ParameterException(__CLASS__ . " " . $attr_name . "does not exist, cannot set");
-        }
-        $this->$attr_name = $attr_value;
+    public function setID($id) {
+        $this->id = $id;
     }
 
     /**
-     * Retourne l'attribut
-     * @param string $attr_name nom de l'attribut
-     * @return mixed valeur de l'attribut
-     * @throws ParameterException Attribut non existant
+     * Met à jour l'attribut nom
+     * @param String $nom valeur à définir
      */
-    public function __get($attr_name) {
-        if (!property_exists(__CLASS__, $attr_name)) {
-            throw new ParameterException(__CLASS__ . " " . $attr_name . "does not exist, cannot get");
-        }
-        return $this->$attr_name;
+    public function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+    /**
+     * Met à jour l'attribut contenu
+     * @param String $contenu valeur à définir
+     */
+    public function setContenu($contenu) {
+        $this->contenu = $contenu;
+    }
+
+    /**
+     * Met à jour l'attribut autorisation
+     * @param String $autorisation valeur à définir
+     */
+    public function setAutorisation($autorisation) {
+        $this->autorisation = $autorisation;
+    }
+
+    /**
+     * Met à jour l'attribut type_id
+     * @param int $type_id valeur à définir
+     */
+    public function setType_id($type_id) {
+        $this->type_id = $type_id;
+    }
+
+    /**
+     * Met à jour l'attribut administrateur_id
+     * @param int $administrateur_id valeur à définir
+     */
+    public function setAdministrateur_id($administrateur_id) {
+        $this->administrateur_id = $administrateur_id;
+    }
+
+    /**
+     * Retourne l'attribut id
+     */
+    public function getID() {
+        return $this->id;
+    }
+
+    /**
+     * Retourne l'attribut nom
+     */
+    public function getNom() {
+        return $this->nom;
+    }
+
+    /**
+     * Retourne l'attribut contenu
+     */
+    public function getContenu() {
+        return $this->contenu;
+    }
+
+    /**
+     * Retourne l'attribut autorisation
+     */
+    public function getAutorisation() {
+        return $this->autorisation;
+    }
+
+    /**
+     * Retourne l'attribut type_id
+     */
+    public function getType_id() {
+        return $this->type_id;
+    }
+
+    /**
+     * Retourne l'attribut administrateur_id
+     */
+    public function getAdministrateur_id() {
+        return $this->administrateur_id;
     }
 
     /**
@@ -143,7 +206,7 @@ class Document {
      * @return \Document Document récupéré de la base de donnée
      * @throws SQLException Erreur lors de la requete
      */
-    public function findByID($id) {
+    public static function findByID($id) {
         $pdo = Base::getConnection();
 
         $query = $pdo->prepare("Select * From Document where id=:id");
@@ -158,12 +221,12 @@ class Document {
             return null;
         }
         $document = new Document();
-        $document->__set('id', $row['id']);
-        $document->__set('nom', $row['nom']);
-        $document->__set('contenu', $row['contenu']);
-        $document->__set('autorisation', $row['autorisation']);
-        $document->__set('type_id', $row['type_id']);
-        $document->__set('utilisateur_id', $row['utilisateur_id']);
+        $document->setId($row['id']);
+        $document->setNom($row['nom']);
+        $document->setContenu($row['contenu']);
+        $document->setAutorisation($row['autorisation']);
+        $document->setType_id($row['type_id']);
+        $document->setAdministrateur_id($row['administrateur_id']);
         return $document;
     }
 
@@ -172,7 +235,7 @@ class Document {
      * @return \Document[] documents dans la base de données
      * @throws SQLException Erreur lors de la requete
      */
-    public function findALL() {
+    public static function findALL() {
         $pdo = Base::getConnection();
 
         $query = $pdo->prepare("Select * from DOCUMENT");
@@ -183,12 +246,12 @@ class Document {
         $documents = array();
         while ($row = $query->fetch()) {
             $document = new Document();
-            $document->__set('id', $row['id']);
-            $document->__set('nom', $row['nom']);
-            $document->__set('contenu', $row['contenu']);
-            $document->__set('autorisation', $row['autorisation']);
-            $document->__set('type_id', $row['type_id']);
-            $document->__set('utilisateur_id', $row['utilisateur_id']);
+            $document->setId($row['id']);
+            $document->setNom($row['nom']);
+            $document->setContenu($row['contenu']);
+            $document->setAutorisation($row['autorisation']);
+            $document->setType_id($row['type_id']);
+            $document->setAdministrateur_id($row['administrateur_id']);
             $documents[] = $document;
         }
         return $documents;
@@ -199,7 +262,7 @@ class Document {
      * @return \Document[]  documents disponibles
      * @throws SQLException Erreur lors de la requete
      */
-    public function findAvailable() {
+    public static function findAvailable() {
         $pdo = Base::getConnection();
 
         $query = $pdo->prepare('Select * from document where autorisation <= ate(\'nom\')');
@@ -210,15 +273,45 @@ class Document {
         $documents = array();
         while ($row = $query->fetch()) {
             $document = new Document();
-            $document->__set('id', $row['id']);
-            $document->__set('nom', $row['nom']);
-            $document->__set('contenu', $row['contenu']);
-            $document->__set('autorisation', $row['autorisation']);
-            $document->__set('type_id', $row['type_id']);
-            $document->__set('utilisateur_id', $row['utilisateur_id']);
+            $document->setId($row['id']);
+            $document->setNom($row['nom']);
+            $document->setContenu($row['contenu']);
+            $document->setAutorisation($row['autorisation']);
+            $document->setType_id($row['type_id']);
+            $document->setAdministrateur_id($row['administrateur_id']);
             $documents[] = $document;
         }
         return $documents;
+    }
+
+    /**
+     * Recherche un document dans la bdd à partir de son identifiant
+     * @param int $id identifiant du document
+     * @return \Document Document récupéré de la base de donnée
+     * @throws SQLException Erreur lors de la requete
+     */
+    public static function findByType_ID($id) {
+        $pdo = Base::getConnection();
+
+        $query = $pdo->prepare("Select * From Document where type_id=:id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+
+        $row = $query->fetch();
+        if (!$res) {
+            return null;
+        }
+        $document = new Document();
+        $document->setId($row['id']);
+        $document->setNom($row['nom']);
+        $document->setContenu($row['contenu']);
+        $document->setAutorisation($row['autorisation']);
+        $document->setType_id($row['type_id']);
+        $document->setAdministrateur_id($row['administrateur_id']);
+        return $document;
     }
 
 }

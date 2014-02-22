@@ -23,7 +23,6 @@ class Base {
             try {
                 $dsn = 'sqlite:' . Database::$file;
                 $db = new PDO($dsn, null, null, array(PDO::ATTR_ERRMODE => true, PDO::ERRMODE_EXCEPTION => true, PDO::ATTR_PERSISTENT => true));
-                $db->exec("SET CHARACTER SET utf8");
                 return $db;
             } catch (PDOException $e) {
                 echo $e->getMessage();
