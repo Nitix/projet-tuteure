@@ -2,10 +2,6 @@
 
 /**
  * Classe de type active record sur la table Document
- */
-
-/**
- * 
  * Gére la table Document, une ligne correspond à un objet de cette classe
  * 
  * Un objet correspond à un ligne
@@ -21,6 +17,7 @@ class Document {
 
     /**
      * Identifiant du document
+     * @var int
      */
     private $id;
 
@@ -118,6 +115,7 @@ class Document {
      * Met à jour l'attribut
      * @param string $attr_name nom attribut à mettre à jour
      * @param $attr_value valeur à définir
+     * @throws ParameterException Attribut non existant
      */
     public function __set($attr_name, $attr_value) {
         if (!property_exists(__CLASS__, $attr_name)) {
@@ -130,6 +128,7 @@ class Document {
      * Retourne l'attribut
      * @param string $attr_name nom de l'attribut
      * @return mixed valeur de l'attribut
+     * @throws ParameterException Attribut non existant
      */
     public function __get($attr_name) {
         if (!property_exists(__CLASS__, $attr_name)) {
@@ -138,6 +137,88 @@ class Document {
         return $this->$attr_name;
     }
 
+    /**
+     * Recherche un document dans la bdd à partir de son identifiant
+     * @param int $id identifiant du document
+     * @return \Document Document récupéré de la base de donnée
+     * @throws SQLException Erreur lors de la requete
+     */
+    public function findByID($id) {
+        $pdo = Base::getConnection();
+
+        $query = $pdo->prepare("Select * From Document where id=:id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+
+        $row = $query->fetch();
+        if (!$res) {
+            return null;
+        }
+        $document = new Document();
+        $document->__set('id', $row['id']);
+        $document->__set('nom', $row['nom']);
+        $document->__set('contenu', $row['contenu']);
+        $document->__set('autorisation', $row['autorisation']);
+        $document->__set('type_id', $row['type_id']);
+        $document->__set('utilisateur_id', $row['utilisateur_id']);
+        return $document;
+    }
+
+    /**
+     * Retourne tout les documents de la base de données
+     * @return \Document[] documents dans la base de données
+     * @throws SQLException Erreur lors de la requete
+     */
+    public function findALL() {
+        $pdo = Base::getConnection();
+
+        $query = $pdo->prepare("Select * from DOCUMENT");
+        $res = $query->execute();
+        if (!res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+        $documents = array();
+        while ($row = $query->fetch()) {
+            $document = new Document();
+            $document->__set('id', $row['id']);
+            $document->__set('nom', $row['nom']);
+            $document->__set('contenu', $row['contenu']);
+            $document->__set('autorisation', $row['autorisation']);
+            $document->__set('type_id', $row['type_id']);
+            $document->__set('utilisateur_id', $row['utilisateur_id']);
+            $documents[] = $document;
+        }
+        return $documents;
+    }
+
+    /**
+     * Retourne la liste des documents disponible 
+     * @return \Document[]  documents disponibles
+     * @throws SQLException Erreur lors de la requete
+     */
+    public function findAvailable() {
+        $pdo = Base::getConnection();
+
+        $query = $pdo->prepare('Select * from document where autorisation <= ate(\'nom\')');
+        $res = $query->execute();
+        if (!res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+        $documents = array();
+        while ($row = $query->fetch()) {
+            $document = new Document();
+            $document->__set('id', $row['id']);
+            $document->__set('nom', $row['nom']);
+            $document->__set('contenu', $row['contenu']);
+            $document->__set('autorisation', $row['autorisation']);
+            $document->__set('type_id', $row['type_id']);
+            $document->__set('utilisateur_id', $row['utilisateur_id']);
+            $documents[] = $document;
+        }
+        return $documents;
+    }
+
 }
-
-
