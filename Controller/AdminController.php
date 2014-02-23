@@ -11,10 +11,10 @@
  *
  * @author Guillaume
  */
-class AdminController extends Controller{
+class AdminController extends Controller {
 
     static $actions = array();
-    
+
     public function home() {
     }
 

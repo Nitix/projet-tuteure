@@ -13,7 +13,7 @@
  * @package Model
  * 
  */
-class Type{
+class Type {
 
     /**
      * @var int Identifiant du Type
@@ -25,23 +25,22 @@ class Type{
      */
     private $nom;
 
-  
     /**
      * Met à jour le type actuel
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function update() {
-        if (!isset($this->id)) {
-            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot update");
-        }
-        $pdo = Base::getConnection();
+	if (!isset($this->id)) {
+	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot update");
+	}
+	$pdo = Base::getConnection();
 
-        $query = $pdo->prepare('UPDATE Type SET nom=:nom where id=:id');
+	$query = $pdo->prepare('UPDATE Type SET nom=:nom where id=:id');
 
-        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
+	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
+	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
-        return $query->execute();
+	return $query->execute();
     }
 
     /**
@@ -49,19 +48,19 @@ class Type{
      * @throw PrimaryKeyNotValidException Identifiant déjà instancié
      * 	 */
     public function insert() {
-        if (isset($this->id)) {
-            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key defined : cannot insert");
-        }
+	if (isset($this->id)) {
+	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key defined : cannot insert");
+	}
 
-        $pdo = Base::getConnection();
+	$pdo = Base::getConnection();
 
-        $query = $pdo->prepare('INSERT INTO Type(nom) VALUES(:nom)');
+	$query = $pdo->prepare('INSERT INTO Type(nom) VALUES(:nom)');
 
-        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-        $nb = $query->execute();
+	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
+	$nb = $query->execute();
 
-        $this->id = $pdo->lastInsertId();
-        return $nb;
+	$this->id = $pdo->lastInsertId();
+	return $nb;
     }
 
     /**
@@ -69,17 +68,17 @@ class Type{
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function delete() {
-        if (!isset($this->id)) {
-            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot delete");
-        }
+	if (!isset($this->id)) {
+	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot delete");
+	}
 
-        $pdo = Base::getConnection();
+	$pdo = Base::getConnection();
 
-        $query = $pdo->prepare('DELETE FROM Type where id=:id');
+	$query = $pdo->prepare('DELETE FROM Type where id=:id');
 
-        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
+	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
-        return $query->execute();
+	return $query->execute();
     }
 
     /**
@@ -87,7 +86,7 @@ class Type{
      * @param int $id valeur à définir
      */
     public function setID($id) {
-        $this->id = $id;
+	$this->id = $id;
     }
 
     /**
@@ -95,21 +94,21 @@ class Type{
      * @param String $nom valeur à définir
      */
     public function setNom($nom) {
-        $this->nom = $nom;
+	$this->nom = $nom;
     }
 
     /**
      * Retourne l'attribut id
      */
     public function getID() {
-        return $this->id;
+	return $this->id;
     }
 
     /**
      * Retourne l'attribut nom
      */
     public function getNom() {
-        return $this->nom;
+	return $this->nom;
     }
 
     /**
@@ -119,23 +118,23 @@ class Type{
      * @throws SQLException Erreur lors de la requete
      */
     public static function findByID($id) {
-        $pdo = Base::getConnection();
+	$pdo = Base::getConnection();
 
-        $query = $pdo->prepare("Select * From Type where id=:id");
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $res = $query->execute();
-        if (!$res) {
-            throw new SQLException('Requete non execute correctement');
-        }
+	$query = $pdo->prepare("Select * From Type where id=:id");
+	$query->bindParam(':id', $id, PDO::PARAM_INT);
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
 
-        $row = $query->fetch();
-        if (!$res) {
-            return null;
-        }
-        $type = new Type();
-        $type->setId($row['id']);
-        $type->setNom($row['nom']);
-        return $type;
+	$row = $query->fetch();
+	if (!$row) {
+	    return null;
+	}
+	$type = new Type();
+	$type->setId($row['id']);
+	$type->setNom($row['nom']);
+	return $type;
     }
 
     /**
@@ -144,21 +143,45 @@ class Type{
      * @throws SQLException Erreur lors de la requete
      */
     public static function findALL() {
-        $pdo = Base::getConnection();
+	$pdo = Base::getConnection();
 
-        $query = $pdo->prepare("Select * from type");
-        $res = $query->execute();
-        if (!res) {
-            throw new SQLException('Requete non execute correctement');
-        }
-        $types = array();
-        while ($row = $query->fetch()) {
-            $type = new Type();
-            $type->setId($row['id']);
-            $type->setNom($row['nom']);
-            $types[] = $type;
-        }
-        return $types;
+	$query = $pdo->prepare("Select * from type");
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
+	$types = array();
+	while ($row = $query->fetch()) {
+	    $type = new Type();
+	    $type->setId($row['id']);
+	    $type->setNom($row['nom']);
+	    $types[] = $type;
+	}
+	return $types;
+    }
+
+    /**
+     * Retourne tout les documents de la base de données
+     * @return mixed documents triés par type
+     * @throws SQLException Erreur lors de la requete
+     */
+    public static function findDocumentsByType() {
+	$pdo = Base::getConnection();
+
+	$query = $pdo->prepare("Select * from type");
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
+	$docs = array();
+	while ($row = $query->fetch()) {
+	    $type = new Type();
+	    $type->setId($row['id']);
+	    $type->setNom($row['nom']);
+	    $docs[$row['id']]['type'] = $type;
+	    $docs[$row['id']]['documents'] = Document::findByType_IDAndAvailable($row['id']);
+	}
+	return $docs;
     }
 
 }
