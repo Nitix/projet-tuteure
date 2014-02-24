@@ -18,7 +18,6 @@ class DocumentView extends MainView {
 	?>
 	<section>
 	    <?php
-		    var_dump($this->document->getContenu());
 	    echo $this->document->getContenu();
 	    ?>
 	    <textarea></textarea>
