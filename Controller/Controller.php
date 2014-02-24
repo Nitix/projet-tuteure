@@ -8,11 +8,15 @@ abstract class Controller {
 
     public function callAction() {
 	if (isset($_GET['a'])) {
-	    if (array_key_exists($_GET['a'], $this->$actions)) {
-		$this->$actions[$_GET['a']]();
+	    if (array_key_exists($_GET['a'], static::$actions)) {
+		$action = static::$actions[$_GET['a']];
+		$this->$action();
+	    } else {
+		$this->home();
 	    }
+	} else {
+	    $this->home();
 	}
-	$this->home();
     }
 
     abstract function home();

@@ -2,8 +2,8 @@
 
 class CoursController extends Controller {
 
-    static $actions = array(
-	'voirDocument' => 'voirDccumentAction',
+    protected static $actions = array(
+	'voirDocument' => 'voirDocumentAction',
 	'accueil' => 'home'
     );
 
@@ -12,13 +12,29 @@ class CoursController extends Controller {
 	if (is_null($accueil)) {
 	    throw new Exception('Accueil inexistant');
 	}
-	$view = new AccueilView("Accueil", $accueil[0]);
+	$view = new AccueilView($accueil[0]);
 	$view->displayPage();
     }
 
     public function getMenu() {
 	$menu = Type::findDocumentsByType();
 	return $menu;
+    }
+
+    public function voirDocumentAction() {
+	if (isset($_GET['id'])) {
+	    $document = Document::findByID($_GET['id']);
+	    if ($document == null) {
+		$view = new ErrorDocumentView("Document non trouvé");
+		$view->displayPage();
+	    } else {
+		$view = new DocumentView($document);
+		$view->DisplayPage();
+	    }
+	} else {
+	    $view = new ErrorDocumentView("Requete incorrect");
+	    $view->displayPage();
+	}
     }
 
 }

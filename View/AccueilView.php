@@ -8,8 +8,8 @@ class AccueilView extends MainView {
 
     private $message;
 
-    public function __construct($title, Document $message) {
-	parent::__construct($title);
+    public function __construct(Document $message) {
+	parent::__construct($message->getNom());
 	$this->message = $message;
     }
 
