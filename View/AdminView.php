@@ -5,21 +5,17 @@
  *
  * @author Guillaume
  */
-class DocumentView extends MainView {
+class AdminView extends MainView {
 
-    private $document;
 
-    public function __construct(Document $document) {
-	parent::__construct($document->getNom());
-	$this->document = $document;
+    public function __construct() {
+	parent::__construct("Administration");
     }
 
     public function body() {
 	?>
 	<section>
-	    <?php
-	    echo $this->document->getContenu();
-	    ?>
+
 	</section>
 	<?php
     }

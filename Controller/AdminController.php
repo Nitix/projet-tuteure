@@ -16,6 +16,8 @@ class AdminController extends Controller {
     static $actions = array();
 
     public function home() {
+	$view = new AdminView();
+	$view->displayPage();
     }
 
 }
