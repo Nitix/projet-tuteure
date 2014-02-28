@@ -46,7 +46,7 @@ class CoursController extends Controller {
 		$view->displayPage();
 	    } else {
 		$documents = Document::findByType_IDAndAVailable($_GET['id']);
-		$view = new listDocumentsView($type, $documents);
+		$view = new ListDocumentsView($type, $documents);
 		$view->DisplayPage();
 	    }
 	} else {
