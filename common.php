@@ -11,9 +11,11 @@
 //fonctions neccessaires au bon fonctionnement du site
 //crée la session
 session_start();
+define('PREFIX', 'SitePedagogique');
+
 //Crée un jeton si besoin
-if (!isset($_SESSION['jeton'])) {
-    $_SESSION['jeton'] = hash('sha256', uniqid());
+if (!isset($_SESSION[PREFIX .'Jeton'])) {
+    $_SESSION[PREFIX.'jeton'] = hash('sha256', uniqid());
 }
 
 //class loader des fonctions crée
