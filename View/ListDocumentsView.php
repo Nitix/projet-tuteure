@@ -5,7 +5,7 @@
  *
  * @author Guillaume
  */
-class listDocumentsView extends MainView {
+class ListDocumentsView extends MainView {
 
     private $type;
     private $documents;
