@@ -221,12 +221,7 @@ class Document {
 	    return null;
 	}
 	$document = new Document();
-	$document->setId($row['id']);
-	$document->setNom($row['nom']);
-	$document->setContenu($row['contenu']);
-	$document->setAutorisation($row['autorisation']);
-	$document->setType_id($row['type_id']);
-	$document->setAdministrateur_id($row['administrateur_id']);
+	$document->fetch($row);
 	return $document;
     }
 
@@ -246,12 +241,7 @@ class Document {
 	$documents = array();
 	while ($row = $query->fetch()) {
 	    $document = new Document();
-	    $document->setId($row['id']);
-	    $document->setNom($row['nom']);
-	    $document->setContenu($row['contenu']);
-	    $document->setAutorisation($row['autorisation']);
-	    $document->setType_id($row['type_id']);
-	    $document->setAdministrateur_id($row['administrateur_id']);
+	    $document->fetch($row);
 	    $documents[] = $document;
 	}
 	return $documents;
@@ -274,12 +264,7 @@ class Document {
 	$documents = array();
 	while ($row = $query->fetch()) {
 	    $document = new Document();
-	    $document->setId($row['id']);
-	    $document->setNom($row['nom']);
-	    $document->setContenu($row['contenu']);
-	    $document->setAutorisation($row['autorisation']);
-	    $document->setType_id($row['type_id']);
-	    $document->setAdministrateur_id($row['administrateur_id']);
+	    $document->fetch($row);
 	    $documents[] = $document;
 	}
 	return $documents;
@@ -304,18 +289,12 @@ class Document {
 	$documents = array();
 	while ($row = $query->fetch()) {
 	    $document = new Document();
-	    $document->setId($row['id']);
-	    $document->setNom($row['nom']);
-	    $document->setContenu($row['contenu']);
-	    $document->setAutorisation($row['autorisation']);
-	    $document->setType_id($row['type_id']);
-	    $document->setAdministrateur_id($row['administrateur_id']);
+	    $document->fetch($row);
 	    $documents[] = $document;
 	}
 	return $documents;
     }
-    
-    
+
     /**
      * Recherche un document dans la bdd à partir de son type
      * @param int $id identifiant du type document
@@ -334,15 +313,23 @@ class Document {
 	$documents = array();
 	while ($row = $query->fetch()) {
 	    $document = new Document();
-	    $document->setId($row['id']);
-	    $document->setNom($row['nom']);
-	    $document->setContenu($row['contenu']);
-	    $document->setAutorisation($row['autorisation']);
-	    $document->setType_id($row['type_id']);
-	    $document->setAdministrateur_id($row['administrateur_id']);
+	    $document->fetch($row);
 	    $documents[] = $document;
 	}
 	return $documents;
+    }
+
+    /**
+     * Ajoute les attibuts aux documents
+     * @param type $row tableau contenant les informations du documents
+     */
+    private function fetch($row) {
+	$this->id = $row['id'];
+	$this->nom = $row['nom'];
+	$this->contenu = $row['contenu'];
+	$this->autorisation = $row['autorisation'];
+	$this->type_id = $row['type_id'];
+	$this->administrateur_id = $row['administrateur_id'];
     }
 
 }
