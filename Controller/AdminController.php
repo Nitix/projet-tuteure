@@ -14,8 +14,17 @@
 class AdminController extends Controller {
 
     static $actions = array();
+    
+    static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
     public function home() {
+		var_dump($_POST);
+
+		if(!empty($_POST)){
+		    		$document = new Document();
+		$this->modifierInformationsDocument($document);
+		$document->insert();
+		}
 	$view = new AdminView();
 	$view->displayPage();
     }
@@ -41,7 +50,7 @@ class AdminController extends Controller {
 	}
     }
 
-    public function enregistrerModificationDocumentAction() {
+    public function enregistrerDocumentAction() {
 	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
 		$document = Document::findByID($_GET['id']);
@@ -63,7 +72,7 @@ class AdminController extends Controller {
     private function modifierInformationsDocument(Document $document) {
 	$document->setAdministrateur_id($_SESSION[PREFIX . 'id']);
 	$document->setAutorisation($_POST['autorisation']);
-	$document->setContenu(htmlspecialchars($_POST['contenu']));
+	$document->setContenu(strip_tags($_POST['contenu'], static::$allowedTags));
 	$document->setNom(htmlspecialchars($_POST['nom']));
 	$document->setType_id($_POST['type_id']);
     }
@@ -89,7 +98,7 @@ class AdminController extends Controller {
 	}
     }
 
-    public function enregistrerModificationTypeAction() {
+    public function enregistrerTypeAction() {
 	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
 		$type = Type::findByID($_GET['id']);
