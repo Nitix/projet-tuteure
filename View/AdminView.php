@@ -16,7 +16,7 @@ class AdminView extends MainView {
 	?>
 	<section>
 	    <form method="post" action="admin.php?a=enregistrerDocument">
-		<input type="hidden" value="<?php echo $_SESSION['jeton']?>" />
+		<input type="hidden" value="<?php echo $_SESSION[PREFIX.'jeton']?>" />
 		<label for="nom">Nom du document :</label>
 		<input type="text" name="nom" /><br />
 		<label for="nom">Type du document.</label>
@@ -33,7 +33,7 @@ class AdminView extends MainView {
 		</select><br />
 		<label for="autorisation">Date où le document est disponible:</label>
 		<input type="date" name="autorisation" />
-		<textarea name="contenu" id="contenu" rows="10" cols="80">This is my textarea to be replaced with CKEditor.</textarea>
+		<textarea name="contenu" id="contenu" rows="10" cols="80"></textarea>
 		<input type="submit" />
 	    </form>
 
