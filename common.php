@@ -33,7 +33,7 @@ function loadClasses($classname) {
     if (is_file($classname . '.php')) {
 	require_once $classname . '.php';
     }
-    $myAppDirs = array('Controller', 'Model', 'View');
+    $myAppDirs = array('Controller', 'Model', 'View', 'lib');
     foreach ($myAppDirs as $cdir) {
 	$filepath = $cdir . DIRECTORY_SEPARATOR . $classname . '.php';
 	if (is_file($filepath)) {

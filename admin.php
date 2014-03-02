@@ -2,6 +2,10 @@
 
 require_once 'common.php';
 
-//TODO A proteger des non connectés
-$admin = new AdminController();
-$admin->callAction();
+$user = new UserController();
+if($user->isConnected()){
+    $admin = new AdminController();
+    $admin->callAction();
+}else{
+    $user->login();
+}

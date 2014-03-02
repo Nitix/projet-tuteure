@@ -14,18 +14,10 @@
 class AdminController extends Controller {
 
     static $actions = array();
-    
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
     public function home() {
-		var_dump($_POST);
-
-		if(!empty($_POST)){
-		    		$document = new Document();
-		$this->modifierInformationsDocument($document);
-		$document->insert();
-		}
-	$view = new AdminView();
+	$view = new HomeAdminView();
 	$view->displayPage();
     }
 
