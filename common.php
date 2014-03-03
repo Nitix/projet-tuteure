@@ -14,7 +14,7 @@ session_start();
 define('PREFIX', 'SitePedagogique');
 
 //Crée un jeton si besoin
-if (!isset($_SESSION[PREFIX .'Jeton'])) {
+if (!isset($_SESSION[PREFIX .'jeton'])) {
     $_SESSION[PREFIX.'jeton'] = hash('sha256', uniqid());
 }
 
