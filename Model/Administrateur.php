@@ -256,7 +256,7 @@ class Administrateur {
     public static function findByLogin($login) {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Administrateur where loginm=:login");
+	$query = $pdo->prepare("Select * From Administrateur where login=:login");
 	$query->bindParam(':login', $login, PDO::PARAM_STR);
 	$res = $query->execute();
 	if (!$res) {

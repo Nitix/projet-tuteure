@@ -45,9 +45,23 @@ abstract class MainView {
 		Mathématiques
 	    </div>
 	    <div id="header_droit">
-		<div>
-		    Connexion
-		</div>
+		<?php
+		$userController = new UserController();
+		if ($userController->isConnected()):
+		    $user = $userController->getUser();
+		    ?>
+	    	<div>
+		    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom()?><br /><a href="admin.php">Administrer le site</a><br /><a href="user.php?a=logout">Se deconnecter</a>
+	    	</div>
+		    <?php
+		else:
+		    ?>
+	    	<div>
+		    <a href="user.php?a=login">Connexion</a>
+	    	</div>
+		<?php
+		endif;
+		?>
 	    </div>
 	</header>
 	<?php
