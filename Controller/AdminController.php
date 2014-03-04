@@ -62,14 +62,14 @@ class AdminController extends Controller {
 		} else {
 		    $this->modifierInformationsDocument($document);
 		    $document->update();
-		    $view = new OkAdminView();
+		    $view = new OkAdminView("Le document a bien été mis à jour");
 		    $view->displayPage();
 		}
 	    } else {
 		$document = new Document();
 		$this->modifierInformationsDocument($document);
 		$document->insert();
-		$view = new OkAdminView();
+		$view = new OkAdminView("Le document a bien été ajouté");
 		$view->displayPage();
 	    }
 	} else {
@@ -115,16 +115,16 @@ class AdminController extends Controller {
 		    $view = new ErrorAdminView("Le categorie modifié n'existe pas'");
 		    $view->displayPage();
 		} else {
-		    $this->modifierInformationDocumen($categorie);
+		    $this->modifierInformationsCategorie($categorie);
 		    $categorie->update();
-		    $view = new OkAdminView();
+		    $view = new OkAdminView("La catégorie a bien été mise à jour");
 		    $view->displayPage();
 		}
 	    } else {
 		$categorie = new Categorie();
 		$this->modifierInformationsCategorie($categorie);
 		$categorie->insert();
-		$view = new OkAdminView();
+		$view = new OkAdminView("La catégorie a bien été ajoutée");
 		$view->displayPage();
 	    }
 	} else {
@@ -159,7 +159,7 @@ class AdminController extends Controller {
 		    $view->displayPage();
 		} else {
 		    $document->delete();
-		    $view = new OkAdminView();
+		    $view = new OkAdminView("Le document a bien été supprimé");
 		    $view->displayPage();
 		}
 	    } else {
