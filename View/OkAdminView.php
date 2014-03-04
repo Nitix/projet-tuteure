@@ -13,14 +13,17 @@
  */
 class OkAdminView extends AdminView {
 
-    public function __construct() {
-	parent::__construct("Requete effectuée avec succès");
+    private $message;
+
+    public function __construct($message = "La requête e été executé correctement") {
+	parent::__construct("Succès de l'opération");
+	$this->message = $message;
     }
 
     public function body() {
 	?>
 	<section>
-	    La requete à été effectuée avec succès
+	    <?php echo $this->message ?>
 	</section>
 	<?php
 
