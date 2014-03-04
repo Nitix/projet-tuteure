@@ -2,5 +2,9 @@
 
 require_once 'common.php';
 
-$user = new UserController();
-$user->callAction();
+try {
+    $user = new UserController();
+    $user->callAction();
+} catch (Exception $e) {
+    echo 'Erreur sérieuse, réessayer plus tard, si le site ne fonctionne pas, contacter l\'administrateur';
+}

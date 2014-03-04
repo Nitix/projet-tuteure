@@ -9,7 +9,7 @@ class CoursController extends Controller {
     );
 
     public function home() {
-	$accueil = Document::findByType_id(1);
+	$accueil = Document::findByCategorie_id(1);
 	if (is_null($accueil)) {
 	    throw new Exception('Accueil inexistant');
 	}
@@ -18,7 +18,7 @@ class CoursController extends Controller {
     }
 
     public function getMenu() {
-	$menu = Type::findDocumentsByType();
+	$menu = Categorie::findDocumentsByCategorieAndAvailable();
 	return $menu;
     }
 
@@ -40,13 +40,13 @@ class CoursController extends Controller {
 
     public function listDocumentsAction() {
 	if (isset($_GET['id'])) {
-	    $type = Type::findByID($_GET['id']);
-	    if ($type == null) {
+	    $categorie = Categorie::findByID($_GET['id']);
+	    if ($categorie == null) {
 		$view = new ErrorView("Documents non trouvé");
 		$view->displayPage();
 	    } else {
-		$documents = Document::findByType_IDAndAVailable($_GET['id']);
-		$view = new ListDocumentsView($type, $documents);
+		$documents = Document::findByCategorie_IDAndAVailable($_GET['id']);
+		$view = new ListDocumentsView($categorie, $documents);
 		$view->DisplayPage();
 	    }
 	} else {

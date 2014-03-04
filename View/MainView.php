@@ -29,8 +29,16 @@ abstract class MainView {
 	    <body>
 		<?php
 		$this->header();
-		$this->menu();
-		$this->body();
+		?>
+		<div class="wraper">
+		    <div class="wrapper_row">
+			<?php
+			$this->menu();
+			$this->body();
+			?>
+		    </div>
+		</div>
+		<?php
 		$this->footer();
 		?>
 	    </body>
@@ -51,13 +59,13 @@ abstract class MainView {
 		    $user = $userController->getUser();
 		    ?>
 	    	<div>
-		    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom()?><br /><a href="admin.php">Administrer le site</a><br /><a href="user.php?a=logout">Se deconnecter</a>
+	    	    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom() ?><br /><a href="admin.php">Administrer le site</a><br /><a href="user.php?a=logout">Se deconnecter</a>
 	    	</div>
 		    <?php
 		else:
 		    ?>
 	    	<div>
-		    <a href="user.php?a=login">Connexion</a>
+	    	    <a href="user.php?a=login">Connexion</a>
 	    	</div>
 		<?php
 		endif;
@@ -81,12 +89,12 @@ abstract class MainView {
 	    <div class="high_res">
 		<?php
 		foreach ($menus as $menu) :
-		    if ($menu['type']->getID() == 1) :
+		    if ($menu['categorie']->getID() == 1) :
 			?><a href="index.php"><div class="menu_box menu_level_1 acceuil">Acceuil</div></a><?php
 		    else :
 			?>
-			<a href="index.php?a=listDocuments&AMP;id=<?php echo $menu['type']->getID(); ?>">
-			    <div class="menu_box menu_level_1"><?php echo $menu['type']->getNom() ?></div>
+			<a href="index.php?a=listDocuments&AMP;id=<?php echo $menu['categorie']->getID(); ?>">
+			    <div class="menu_box menu_level_1"><?php echo $menu['categorie']->getNom() ?></div>
 			</a>
 			<?php
 			foreach ($menu['documents'] as $doc) :

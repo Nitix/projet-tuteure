@@ -19,7 +19,7 @@
 #
 # Please do not change the "private" password hashing method implemented in
 # here, thereby making your hashes incompatible.  However, if you must, please
-# change the hash type identifier (the "$P$") to something different.
+# change the hash categorie identifier (the "$P$") to something different.
 #
 # Obviously, since this code is in the public domain, the above are not
 # requirements (there can be none), but merely suggestions.

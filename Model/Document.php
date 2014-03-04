@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Classe de type active record sur la table Document
+ * Classe de categorie active record sur la table Document
  * Gére la table Document, une ligne correspond à un objet de cette classe
  * 
  * Un objet correspond à un ligne
  * 
- * Les fonctions statiques créent des objets de ce type
+ * Les fonctions statiques créent des objets de ce categorie
  * 
  * Des exceptions sont levés si les identifiants sont incorrect
  * 
@@ -36,9 +36,9 @@ class Document {
     private $autorisation;
 
     /**
-     * @var int Type du document
+     * @var int Categorie du document
      */
-    private $type_id;
+    private $categorie_id;
 
     /**
      * @var int Créateur du document
@@ -55,12 +55,12 @@ class Document {
 	}
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('UPDATE Document SET nom=:nom, contenu=:contenu, autorisation=:autorisation, type_id=:type_id, administrateur_id=:administrateur_id where id=:id');
+	$query = $pdo->prepare('UPDATE Document SET nom=:nom, contenu=:contenu, autorisation=:autorisation, categorie_id=:categorie_id, administrateur_id=:administrateur_id where id=:id');
 
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$query->bindParam(':contenu', $this->contenu, PDO::PARAM_STR);
 	$query->bindParam(':autorisation', $this->autorisation, PDO::PARAM_STR);
-	$query->bindParam(':type_id', $this->type_id, PDO::PARAM_INT);
+	$query->bindParam(':categorie_id', $this->categorie_id, PDO::PARAM_INT);
 	$query->bindParam(':administrateur_id', $this->administrateur_id, PDO::PARAM_INT);
 	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
@@ -78,12 +78,12 @@ class Document {
 
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('INSERT INTO Document(nom, contenu, autorisation, type_id, administrateur_id) VALUES(:nom, :contenu, :autorisation, :type_id, :administrateur_id)');
+	$query = $pdo->prepare('INSERT INTO Document(nom, contenu, autorisation, categorie_id, administrateur_id) VALUES(:nom, :contenu, :autorisation, :categorie_id, :administrateur_id)');
 
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$query->bindParam(':contenu', $this->contenu, PDO::PARAM_STR);
 	$query->bindParam(':autorisation', $this->autorisation, PDO::PARAM_STR);
-	$query->bindParam(':type_id', $this->type_id, PDO::PARAM_INT);
+	$query->bindParam(':categorie_id', $this->categorie_id, PDO::PARAM_INT);
 	$query->bindParam(':administrateur_id', $this->administrateur_id, PDO::PARAM_INT);
 
 	$nb = $query->execute();
@@ -143,11 +143,11 @@ class Document {
     }
 
     /**
-     * Met à jour l'attribut type_id
-     * @param int $type_id valeur à définir
+     * Met à jour l'attribut categorie_id
+     * @param int $categorie_id valeur à définir
      */
-    public function setType_id($type_id) {
-	$this->type_id = $type_id;
+    public function setCategorie_id($categorie_id) {
+	$this->categorie_id = $categorie_id;
     }
 
     /**
@@ -187,10 +187,10 @@ class Document {
     }
 
     /**
-     * Retourne l'attribut type_id
+     * Retourne l'attribut categorie_id
      */
-    public function getType_id() {
-	return $this->type_id;
+    public function getCategorie_id() {
+	return $this->categorie_id;
     }
 
     /**
@@ -249,14 +249,14 @@ class Document {
 
     /**
      * Retourne la liste des documents disponible 
-     * Trie les documents par leur type
+     * Trie les documents par leur categorie
      * @return \Document[]  documents disponibles
      * @throws SQLException Erreur lors de la requete
      */
     public static function findAvailable() {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * from document where autorisation <= date('now') oder by type_id");
+	$query = $pdo->prepare("Select * from document where autorisation <= date('now') oder by categorie_id");
 	$res = $query->execute();
 	if (!$res) {
 	    throw new SQLException('Requete non execute correctement');
@@ -271,15 +271,15 @@ class Document {
     }
 
     /**
-     * Recherche un document dans la bdd à partir de son type
-     * @param int $id identifiant du type de document
+     * Recherche un document dans la bdd à partir de son categorie
+     * @param int $id identifiant du categorie de document
      * @return \Document Document récupéré de la base de donnée
      * @throws SQLException Erreur lors de la requete
      */
-    public static function findByType_IDAndAVailable($id) {
+    public static function findByCategorie_IDAndAVailable($id) {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Document where type_id=:id and autorisation <= date('now')");
+	$query = $pdo->prepare("Select * From Document where categorie_id=:id and autorisation <= date('now')");
 	$query->bindParam(':id', $id, PDO::PARAM_INT);
 	$res = $query->execute();
 	if (!$res) {
@@ -296,15 +296,15 @@ class Document {
     }
 
     /**
-     * Recherche un document dans la bdd à partir de son type
-     * @param int $id identifiant du type document
+     * Recherche un document dans la bdd à partir de son categorie
+     * @param int $id identifiant du categorie document
      * @return \Document Document récupéré de la base de donnée
      * @throws SQLException Erreur lors de la requete
      */
-    public static function findByType_ID($id) {
+    public static function findByCategorie_ID($id) {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Document where type_id=:id");
+	$query = $pdo->prepare("Select * From Document where categorie_id=:id");
 	$query->bindParam(':id', $id, PDO::PARAM_INT);
 	$res = $query->execute();
 	if (!$res) {
@@ -321,15 +321,27 @@ class Document {
 
     /**
      * Ajoute les attibuts aux documents
-     * @param type $row tableau contenant les informations du documents
+     * @param categorie $row tableau contenant les informations du documents
      */
     private function fetch($row) {
 	$this->id = $row['id'];
 	$this->nom = $row['nom'];
 	$this->contenu = $row['contenu'];
 	$this->autorisation = $row['autorisation'];
-	$this->type_id = $row['type_id'];
+	$this->categorie_id = $row['categorie_id'];
 	$this->administrateur_id = $row['administrateur_id'];
+    }
+    
+    public static function numberOfDocuments(){
+	$pdo = Base::getConnection();
+
+	$query = $pdo->prepare("Select Count(*) From Document");
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
+	$row = $query->fetch();
+	return $row[0];
     }
 
 }

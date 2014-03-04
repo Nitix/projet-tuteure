@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,44 +13,29 @@
 class HomeAdminView extends AdminView {
 
     public function body() {
-	//TODO correct Type
 	?>
 	<section>
-	    <form method="post" action="admin.php?a=enregistrerDocument">
-		<input type="hidden" value="<?php echo $_SESSION[PREFIX.'jeton']?>" />
-		<label for="nom">Nom du document :</label>
-		<input type="text" name="nom" /><br />
-		<label for="nom">Type du document.</label>
+	    <h1>Bienvenue sur le panneau de configuration du site</h1>
+	    <p>Il y a actuellement <?php echo Document::numberOfDocuments() - 1 ?> documents</p>
+	    <p>Ici, vous pouvez modifier un document, un categorie.<br />
+		Il est également possible de modifier l'accueil via l'onglet "Modifier Accueil"</p>
 
-		<select name="type_id">
-		    <?php
-		    $types = Type::findAll();
-		    foreach ($types as $type) :
-			?>
-	    	    <option value="<?php echo $type->getID() ?>"><?php echo $type->getNom() ?></option>
-			<?php
-		    endforeach;
-		    ?>
-		</select><br />
-		<label for="autorisation">Date où le document est disponible:</label>
-		<input type="date" name="autorisation" />
-		<textarea name="contenu" id="contenu" rows="10" cols="80"></textarea>
-		<input type="submit" />
-	    </form>
-
-	    <script>
-		// Replace the <textarea id="editor1"> with a CKEditor
-		// instance, using default configuration.
-		CKEDITOR.replace( 'contenu' );
-	    </script>
+	    <p>Lors de la modification/ajout de documents vous aurez un éditeur de texte.<br />
+		Pour ajouter une équation LaTeX cliquez sur le symbole Σ.
+	    </p>
+	    <p>
+		Le site utilise la bibliothèque MathJax pour transcrire le code LaTeX en code html lisible pour le navigateur internet</br />
+		La bibliothèque ne supporte pas tout les codes LaTeX mais une grande partie est supporté.<br />
+		<a href="http://docs.mathjax.org/en/latest/tex.html#supported-latex-commands">Liste des codes LaTeX supportés</a>
+	    </p>
 	</section>
 	<?php
     }
-   
-    public function javascript() {
-	parent::javascript();
-	?>
-	<script src="data/js/ckeditor/ckeditor.js"></script>
-	<?php
-    }
-   }
+
+    /*
+      <p>Vous pouvez ajouter de nouveaux utilisateurs pour qu'ils puissent créer eux mêmes des document, mais ils auront
+      un accès total au site. <br />
+      Ils pourront également ajouter des nouveaux utilisateurs à leur tour.
+      </p>
+     */
+}

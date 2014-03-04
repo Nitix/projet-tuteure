@@ -13,7 +13,17 @@
  */
 class AdminController extends Controller {
 
-    static $actions = array();
+    static $actions = array(
+	'nouveauDocument' => 'nouveauDocument',
+	'modifierDocument' => 'modifierDocument',
+	'enregistrerDocument' => 'enregistrerDocument',
+	'nouvelleCategorie' => 'nouvelleCategorie',
+	'modifierCategorie' => 'modifierCategorie',
+	'enregistrerCategorie' => 'enregistrerCategorie',
+	'modifierAccueil' => 'modifierAccueil',
+	'listDocuments' => 'listDocuments',
+	'supprimerDocument' => 'supprimerDocument'
+    );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
     public function home() {
@@ -42,46 +52,53 @@ class AdminController extends Controller {
 	}
     }
 
-    public function enregistrerDocumentAction() {
-	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
+    public function enregistrerDocument() {
+	if (isset($_POST['jeton']) && $_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
-		$document = Document::findByID($_GET['id']);
+		$document = Document::findByID($_POST['id']);
 		if ($document == null) {
-		    $view = new ErrorAdminView("Le document modifié n'existe pas'");
+		    $view = new ErrorAdminView("Le document modifié n'existe pas");
 		    $view->displayPage();
 		} else {
-		    $this->modifierInformationDocumen($document);
+		    $this->modifierInformationsDocument($document);
 		    $document->update();
+		    $view = new OkAdminView();
+		    $view->displayPage();
 		}
 	    } else {
 		$document = new Document();
 		$this->modifierInformationsDocument($document);
 		$document->insert();
+		$view = new OkAdminView();
+		$view->displayPage();
 	    }
+	} else {
+	    $view = new ErrorAdminView("Jeton incorrect, tentative de CRSF detecté, abondon de l'ajout");
+	    $view->displayPage();
 	}
     }
 
     private function modifierInformationsDocument(Document $document) {
-	$document->setAdministrateur_id($_SESSION[PREFIX . 'id']);
+	$document->setAdministrateur_id($_SESSION[PREFIX . 'user']);
 	$document->setAutorisation($_POST['autorisation']);
 	$document->setContenu(strip_tags($_POST['contenu'], static::$allowedTags));
 	$document->setNom(htmlspecialchars($_POST['nom']));
-	$document->setType_id($_POST['type_id']);
+	$document->setCategorie_id($_POST['categorie_id']);
     }
 
-    public function nouveauType() {
-	$view = new NouveauTypeAdminView();
+    public function nouvelleCategorie() {
+	$view = new NouvelleCategorieAdminView();
 	$view->displayPage();
     }
 
-    public function modifierType() {
+    public function modifierCategorie() {
 	if (isset($_GET['id'])) {
-	    $type = Type::findByID($_GET['id']);
-	    if ($type == null) {
-		$view = new ErrorAdminView("Type non trouvé");
+	    $categorie = Categorie::findByID($_GET['id']);
+	    if ($categorie == null) {
+		$view = new ErrorAdminView("Categorie non trouvé");
 		$view->displayPage();
 	    } else {
-		$view = new TypeAdminView($type);
+		$view = new CategorieAdminView($categorie);
 		$view->DisplayPage();
 	    }
 	} else {
@@ -90,21 +107,25 @@ class AdminController extends Controller {
 	}
     }
 
-    public function enregistrerTypeAction() {
+    public function enregistrerCategorie() {
 	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
-		$type = Type::findByID($_GET['id']);
-		if ($type == null) {
-		    $view = new ErrorAdminView("Le type modifié n'existe pas'");
+		$categorie = Categorie::findByID($_GET['id']);
+		if ($categorie == null) {
+		    $view = new ErrorAdminView("Le categorie modifié n'existe pas'");
 		    $view->displayPage();
 		} else {
-		    $this->modifierInformationDocumen($type);
-		    $type->update();
+		    $this->modifierInformationDocumen($categorie);
+		    $categorie->update();
+		    $view = new OkAdminView();
+		    $view->displayPage();
 		}
 	    } else {
-		$type = new Type();
-		$this->modifierInformationsType($type);
-		$type->insert();
+		$categorie = new Categorie();
+		$this->modifierInformationsCategorie($categorie);
+		$categorie->insert();
+		$view = new OkAdminView();
+		$view->displayPage();
 	    }
 	} else {
 	    $view = new ErrorAdminView("CSRF detecté");
@@ -112,8 +133,40 @@ class AdminController extends Controller {
 	}
     }
 
-    private function modifierInformationsType(Type $type) {
-	$type->setNom(htmlspecialchars($_POST['nom']));
+    private function modifierInformationsCategorie(Categorie $categorie) {
+	$categorie->setNom(htmlspecialchars($_POST['nom']));
+    }
+
+    public function modifierAccueil() {
+	$document = Document::findByID(1);
+	$view = new ModifierAccueilAdminView($document);
+	$view->displayPage();
+    }
+
+    public function listDocuments() {
+	$documents = Categorie::findDocumentsByCategorie();
+	$view = new ListDocumentsAdminView($documents);
+	$view->displayPage();
+    }
+
+    public function supprimerDocument() {
+	if (isset($_GET['id'])) {
+	    $id = $_GET['id'];
+	    if ($id != 1) {
+		$document = Document::findByID($id);
+		if ($document == null) {
+		    $view = new ErrorAdminView("Document non trouvé");
+		    $view->displayPage();
+		} else {
+		    $document->delete();
+		    $view = new OkAdminView();
+		    $view->displayPage();
+		}
+	    } else {
+		$view = new ErrorAdminView("Imposssible de supprimer l'accueil");
+		$view->displayPage();
+	    }
+	}
     }
 
 }

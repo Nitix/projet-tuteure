@@ -1,32 +1,32 @@
 <?php
 
 /**
- * Classe de type active record sur la table Type
- * Gére la table Type, une ligne correspond à un objet de cette classe
+ * Classe de categorie active record sur la table Categorie
+ * Gére la table Categorie, une ligne correspond à un objet de cette classe
  * 
  * Un objet correspond à un ligne
  * 
- * Les fonctions statiques créent des objets de ce type
+ * Les fonctions statiques créent des objets de ce categorie
  * 
  * Des exceptions sont levés si les identifiants sont incorrect
  * 
  * @package Model
  * 
  */
-class Type {
+class Categorie {
 
     /**
-     * @var int Identifiant du Type
+     * @var int Identifiant du Categorie
      */
     private $id;
 
     /**
-     * @var String Nom du type
+     * @var String Nom du categorie
      */
     private $nom;
 
     /**
-     * Met à jour le type actuel
+     * Met à jour le categorie actuel
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function update() {
@@ -35,7 +35,7 @@ class Type {
 	}
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('UPDATE Type SET nom=:nom where id=:id');
+	$query = $pdo->prepare('UPDATE Categorie SET nom=:nom where id=:id');
 
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -44,7 +44,7 @@ class Type {
     }
 
     /**
-     * Insere le type actuel
+     * Insere le categorie actuel
      * @throw PrimaryKeyNotValidException Identifiant déjà instancié
      * 	 */
     public function insert() {
@@ -54,7 +54,7 @@ class Type {
 
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('INSERT INTO Type(nom) VALUES(:nom)');
+	$query = $pdo->prepare('INSERT INTO Categorie(nom) VALUES(:nom)');
 
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$nb = $query->execute();
@@ -64,7 +64,7 @@ class Type {
     }
 
     /**
-     * Supprime le type actuel de la base de données
+     * Supprime le categorie actuel de la base de données
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function delete() {
@@ -74,7 +74,7 @@ class Type {
 
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('DELETE FROM Type where id=:id');
+	$query = $pdo->prepare('DELETE FROM Categorie where id=:id');
 
 	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
@@ -112,15 +112,15 @@ class Type {
     }
 
     /**
-     * Recherche un type dans la bdd à partir de son identifiant
-     * @param int $id identifiant du type
-     * @return \Type Type récupéré de la base de donnée
+     * Recherche un categorie dans la bdd à partir de son identifiant
+     * @param int $id identifiant du categorie
+     * @return \Categorie Categorie récupéré de la base de donnée
      * @throws SQLException Erreur lors de la requete
      */
     public static function findByID($id) {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Type where id=:id");
+	$query = $pdo->prepare("Select * From Categorie where id=:id");
 	$query->bindParam(':id', $id, PDO::PARAM_INT);
 	$res = $query->execute();
 	if (!$res) {
@@ -131,57 +131,81 @@ class Type {
 	if (!$row) {
 	    return null;
 	}
-	$type = new Type();
-	$type->setId($row['id']);
-	$type->setNom($row['nom']);
-	return $type;
+	$categorie = new Categorie();
+	$categorie->setId($row['id']);
+	$categorie->setNom($row['nom']);
+	return $categorie;
     }
 
     /**
-     * Retourne tout les types de la base de données
-     * @return \Type[] types dans la base de données
+     * Retourne tout les categories de la base de données
+     * @return \Categorie[] categories dans la base de données
      * @throws SQLException Erreur lors de la requete
      */
     public static function findALL() {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * from type");
+	$query = $pdo->prepare("Select * from categorie");
 	$res = $query->execute();
 	if (!$res) {
 	    throw new SQLException('Requete non execute correctement');
 	}
-	$types = array();
+	$categories = array();
 	while ($row = $query->fetch()) {
-	    $type = new Type();
-	    $type->setId($row['id']);
-	    $type->setNom($row['nom']);
-	    $types[] = $type;
+	    $categorie = new Categorie();
+	    $categorie->setId($row['id']);
+	    $categorie->setNom($row['nom']);
+	    $categories[] = $categorie;
 	}
-	return $types;
+	return $categories;
     }
 
     /**
      * Retourne tout les documents de la base de données
-     * @return mixed documents triés par type
+     * @return mixed documents triés par categorie
      * @throws SQLException Erreur lors de la requete
      */
-    public static function findDocumentsByType() {
+    public static function findDocumentsByCategorie() {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * from type");
+	$query = $pdo->prepare("Select * from categorie");
 	$res = $query->execute();
 	if (!$res) {
 	    throw new SQLException('Requete non execute correctement');
 	}
 	$docs = array();
 	while ($row = $query->fetch()) {
-	    $type = new Type();
-	    $type->setId($row['id']);
-	    $type->setNom($row['nom']);
-	    $docs[$row['id']]['type'] = $type;
-	    $docs[$row['id']]['documents'] = Document::findByType_IDAndAvailable($row['id']);
+	    $categorie = new Categorie();
+	    $categorie->setId($row['id']);
+	    $categorie->setNom($row['nom']);
+	    $docs[$row['id']]['categorie'] = $categorie;
+	    $docs[$row['id']]['documents'] = Document::findByCategorie_ID($row['id']);
 	}
 	return $docs;
     }
 
+    
+        /**
+     * Retourne tout les documents de la base de données
+     * @return mixed documents triés par categorie
+     * @throws SQLException Erreur lors de la requete
+     */
+    public static function findDocumentsByCategorieAndAvailable() {
+	$pdo = Base::getConnection();
+
+	$query = $pdo->prepare("Select * from categorie");
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
+	$docs = array();
+	while ($row = $query->fetch()) {
+	    $categorie = new Categorie();
+	    $categorie->setId($row['id']);
+	    $categorie->setNom($row['nom']);
+	    $docs[$row['id']]['categorie'] = $categorie;
+	    $docs[$row['id']]['documents'] = Document::findByCategorie_IDAndAvailable($row['id']);
+	}
+	return $docs;
+    }
 }

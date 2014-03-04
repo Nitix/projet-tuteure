@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Classe de type active record sur la table Administrateur
+ * Classe de categorie active record sur la table Administrateur
  * Gére la table Administrateur, une ligne correspond à un objet de cette classe
  * 
  * Un objet correspond à un ligne
  * 
- * Les fonctions statiques créent des objets de ce type
+ * Les fonctions statiques créent des objets de ce categorie
  * 
  * Des exceptions sont levés si les identifiants sont incorrect
  * 
@@ -273,7 +273,7 @@ class Administrateur {
 
     /**
      * Ajoute les attibuts aux adminstrateurs
-     * @param type $row tableau contenant les informations de l'administrateurs
+     * @param categorie $row tableau contenant les informations de l'administrateurs
      */
     private function fetch($row) {
 	$this->id = $row['id'];
