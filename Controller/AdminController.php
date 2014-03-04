@@ -13,6 +13,7 @@
  */
 class AdminController extends Controller {
 
+	// Liste des actions d'un admin
     static $actions = array(
 	'nouveauDocument' => 'nouveauDocument',
 	'modifierDocument' => 'modifierDocument',
