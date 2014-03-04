@@ -12,4 +12,3 @@ $user->setPrenom("");
 $user->setPassword($passwordhash->HashPassword("mot de passe"));
 
 $user->insert();
-// need restart apache
