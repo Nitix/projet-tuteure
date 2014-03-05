@@ -10,7 +10,7 @@
  *
  * @author Guillaume
  */
-class ListdocumentsAdminView extends AdminView {
+class ListDocumentsAdminView extends AdminView {
 
     private $documents;
 

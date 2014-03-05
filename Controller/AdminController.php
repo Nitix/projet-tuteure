@@ -23,7 +23,8 @@ class AdminController extends Controller {
 	'enregistrerCategorie' => 'enregistrerCategorie',
 	'modifierAccueil' => 'modifierAccueil',
 	'listDocuments' => 'listDocuments',
-	'supprimerDocument' => 'supprimerDocument'
+	'supprimerDocument' => 'supprimerDocument',
+	'listCategories' => 'listCategories'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -147,6 +148,12 @@ class AdminController extends Controller {
     public function listDocuments() {
 	$documents = Categorie::findDocumentsByCategorie();
 	$view = new ListDocumentsAdminView($documents);
+	$view->displayPage();
+    }
+	
+    public function listCategories() {
+	$categorie = Categorie::findAll();
+	$view = new ListCategoriesAdminView($categorie);
 	$view->displayPage();
     }
 
