@@ -24,7 +24,9 @@ class AdminController extends Controller {
 	'modifierAccueil' => 'modifierAccueil',
 	'listDocuments' => 'listDocuments',
 	'supprimerDocument' => 'supprimerDocument',
-	'listCategories' => 'listCategories'
+	'supprimerCategorie' =>'supprimerCategorie',
+	'listCategories' => 'listCategories',
+	'cacherDocument' => 'cacherDocument'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -144,6 +146,19 @@ class AdminController extends Controller {
 	$view = new ModifierAccueilAdminView($document);
 	$view->displayPage();
     }
+    
+	// 1 cacher 2 montrer
+    public function cacherDocument() {
+	if (isset($_GET['id'])) {
+	    $id = $_GET['id'];
+	    if ($id != 1) {
+		$document = Document::findByID($id); 
+		$document->setAutorisation("9999/01/01");
+		$view = new OkAdminView("Le document est maintenant caché.");
+		$view->displayPage();
+	   }
+    	}
+    }		
 
     public function listDocuments() {
 	$documents = Categorie::findDocumentsByCategorie();
@@ -155,6 +170,26 @@ class AdminController extends Controller {
 	$categorie = Categorie::findAll();
 	$view = new ListCategoriesAdminView($categorie);
 	$view->displayPage();
+    }
+    
+    public function supprimerCategorie() {
+	if (isset($_GET['id'])) {
+	    $id = $_GET['id'];
+	    if ($id != 1) {
+		$cat = Categorie::findByID($id);
+		if ($cat == null) {
+		    $view = new ErrorAdminView("Catégorie non trouvée");
+		    $view->displayPage();
+		} else {
+		    $cat->delete();
+		    $view = new OkAdminView("La catégorie a bien été supprimée");
+		    $view->displayPage();
+		}
+	    } else {
+		$view = new ErrorAdminView("Imposssible de supprimer l'accueil");
+		$view->displayPage();
+	    }
+	}
     }
 
     public function supprimerDocument() {
