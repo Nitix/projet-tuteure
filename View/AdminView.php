@@ -29,7 +29,7 @@ abstract class AdminView extends MainView {
 		<a href="admin.php?a=nouvelleCategorie">
 		    <div class="menu_box menu_level_2">Nouvelle catégorie</div>
 		</a>
-		<a href="admin.php?a=listCategorie">
+		<a href="admin.php?a=listCategories">
 		    <div class="menu_box menu_level_2">Toutes les catégories</div>
 		</a>
 		<a href="admin.php?a=modifierAccueil">

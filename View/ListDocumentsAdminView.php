@@ -10,7 +10,7 @@
  *
  * @author Guillaume
  */
-class ListdocumentsAdminView extends AdminView {
+class ListDocumentsAdminView extends AdminView {
 
     private $documents;
 
@@ -25,29 +25,27 @@ class ListdocumentsAdminView extends AdminView {
 	    <table>
 		<thead>
 		    <tr>
-			<th>Nom</th>
-			<th>Catégorie</th>
-			<th>Disponibilité</th>
-			<th>Supprimer ?</th>
+			<th> Nom </th>
+			<th> Catégorie </th>
+			<th> Disponibilité </th>
+			<th> Supprimer </th>
+			<th> Cacher </th>
+			<th> Montrer </th>
 		    </tr>
 		</thead>
 		<tbody>
 		    <?php
 		    foreach ($this->documents as $categorie) :
-			if ($categorie['categorie']->getID() == 1) :
-			    ?>
-			    <tr><td><a href="admin.php?a=modifierAccueil">Acceuil</a></td><td>Accueil</td><td>Tout le temps</td><td>Impossible à supprimer</td></tr>
-			    <?php
-			else :
-			    ?>
-			    <?php
+			if ($categorie['categorie']->getID() != 1) :
 			    foreach ($categorie['documents'] as $doc) :
 				?>
 		    	    <tr>
 		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <?php echo $doc->getNom() ?></a></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
 		    		<td><?php echo $doc->getAutorisation() != 0 ? date('d/m/Y', strtotime($doc->getAutorisation())) : "Tout le temps" ?></td>
-				<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>">Supprimer</a></td>
+					<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>">Supprimer</a></td>
+					<td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID()?>"> Cacher </a> </td>
+					<td><a href="admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID()?>"> Montrer </a> </td>
 		    	    </tr>
 				<?php
 			    endforeach;

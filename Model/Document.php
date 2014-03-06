@@ -344,4 +344,4 @@ class Document {
 	return $row[0];
     }
 
-}
+  }

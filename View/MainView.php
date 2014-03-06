@@ -83,7 +83,7 @@ abstract class MainView {
 
     abstract public function body();
 
-    public function footer() {
+    public function footer() { //??
 	
     }
 
