@@ -26,7 +26,8 @@ class AdminController extends Controller {
 	'supprimerDocument' => 'supprimerDocument',
 	'supprimerCategorie' =>'supprimerCategorie',
 	'listCategories' => 'listCategories',
-	'cacherDocument' => 'cacherDocument'
+	'cacherDocument' => 'cacherDocument',
+	'montrerDocument' => 'montrerDocument'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -48,7 +49,9 @@ class AdminController extends Controller {
 		$view->displayPage();
 	    } else {
 		$view = new DocumentAdminView($document);
+		
 		$view->DisplayPage();
+		
 	    }
 	} else {
 	    $view = new ErrorAdminView("Requete incorrect");
@@ -59,6 +62,7 @@ class AdminController extends Controller {
     public function enregistrerDocument() {
 	if (isset($_POST['jeton']) && $_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
+	
 		$document = Document::findByID($_POST['id']);
 		if ($document == null) {
 		    $view = new ErrorAdminView("Le document modifié n'existe pas");
@@ -153,8 +157,21 @@ class AdminController extends Controller {
 	    $id = $_GET['id'];
 	    if ($id != 1) {
 		$document = Document::findByID($id); 
-		$document->setAutorisation("9999/01/01");
+		$document->setAutorisation('9999-99-99');
+		$document->update();
 		$view = new OkAdminView("Le document est maintenant caché.");
+		$view->displayPage();
+	   }
+    	}
+    }	
+	public function montrerDocument() {
+	if (isset($_GET['id'])) {
+	    $id = $_GET['id'];
+	    if ($id != 1) {
+		$document = Document::findByID($id); 
+		$document->setAutorisation('0001-01-01');
+		$document->update();
+		$view = new OkAdminView("Le document est maintenant visible.");
 		$view->displayPage();
 	   }
     	}

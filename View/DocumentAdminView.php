@@ -24,6 +24,7 @@ class DocumentAdminView extends AdminView {
 	<section>
 	    <form method="post" action="admin.php?a=enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
+		<input type="hidden" name="id" value="<?php echo $this->document->getID() ?>" />
 		<label for="nom">Nom du document :</label>
 		<input type="text" id="nom" name="nom" value="<?php echo $this->document->getNom() ?>"/><br />
 		<label for="categorie_id">Categorie du document.</label>
