@@ -28,7 +28,9 @@ class ListCategoriesAdminView extends AdminView {
 		    	?>
 
 				<tr><td><?php echo $cat->getNom(); ?> </td>
-				<td><a href="admin.php?a=supprimerCategorie&AMP;id=<?php echo $cat->getID()?>">Supprimer</a></td></tr>
+				<td><a href="admin.php?a=supprimerCategorie&AMP;id=<?php echo $cat->getID()?>"><button type="button" class="btn btn-default btn-lg"> Supprimer
+</button>
+</a></td></tr>
 
 				<?php
 			}
