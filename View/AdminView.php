@@ -13,6 +13,10 @@ abstract class AdminView extends MainView {
 
     public function javascript() {
 	parent::javascript();
+	?>
+	<script src="data/js/admin.js"></script>
+	<?php
+
     }
 
     public function menu() {

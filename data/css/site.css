@@ -84,23 +84,11 @@ section
     float: right;
     display: inline-block;
 }
-section > h1
-{
-    clear:both;
-}
 .clear
 {
     clear:both;
 }
 
-.centrer
-{
-    text-align:center;
-}
-.souligne
-{
-    text-decoration:underline;
-}
 footer
 {
     margin-top: 50px;
