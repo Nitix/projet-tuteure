@@ -42,7 +42,7 @@ class ListDocumentsAdminView extends AdminView {
 		    	    <tr>
 		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <?php echo $doc->getNom() ?></a></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
-		    		<td><?php echo $doc->getAutorisation() != 0 ? date('d/m/Y', strtotime($doc->getAutorisation())) : "Tout le temps" ?></td>
+				<td><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
 					<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>">Supprimer</a></td>
 					<td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID()?>"> Cacher </a> </td>
 					<td><a href="admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID()?>"> Montrer </a> </td>
@@ -58,4 +58,12 @@ class ListDocumentsAdminView extends AdminView {
 	<?php
     }
 
+    private function getCorrectDispo($autorisation) {
+	if($autorisation == 0)
+	    return "Tout le temps";
+	if($autorisation == "9999-99-99")
+	    return "Masqué";
+	return date('d/m/Y', strtotime($autorisation));
+    }
+    
 }
