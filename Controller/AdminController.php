@@ -169,7 +169,7 @@ class AdminController extends Controller {
 	    $id = $_GET['id'];
 	    if ($id != 1) {
 		$document = Document::findByID($id); 
-		$document->setAutorisation('0001-01-01');
+		$document->setAutorisation(date('Y-m-d'));
 		$document->update();
 		$view = new OkAdminView("Le document est maintenant visible.");
 		$view->displayPage();
@@ -198,6 +198,10 @@ class AdminController extends Controller {
 		    $view = new ErrorAdminView("Catégorie non trouvée");
 		    $view->displayPage();
 		} else {
+		    $documents = Document::findByCategorie_ID($id);
+		    foreach ($documents as $doc){
+			$doc->delete();
+		    }
 		    $cat->delete();
 		    $view = new OkAdminView("La catégorie a bien été supprimée");
 		    $view->displayPage();

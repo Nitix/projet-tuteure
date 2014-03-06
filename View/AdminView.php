@@ -18,24 +18,26 @@ abstract class AdminView extends MainView {
     public function menu() {
 	?>
 	<nav>
-	    <div class="high_res">
-		<a href="index.php"><div class="menu_box menu_level_1 acceuil">Retour au site</div></a>
-		<a href="admin.php?a=nouveauDocument">
-		    <div class="menu_box menu_level_2">Nouveau Document</div>
-		</a>
-		<a href="admin.php?a=listDocuments">
-		    <div class="menu_box menu_level_2">Tout les documents</div>
-		</a>
-		<a href="admin.php?a=nouvelleCategorie">
-		    <div class="menu_box menu_level_2">Nouvelle catégorie</div>
-		</a>
-		<a href="admin.php?a=listCategories">
-		    <div class="menu_box menu_level_2">Toutes les catégories</div>
-		</a>
-		<a href="admin.php?a=modifierAccueil">
-		    <div class="menu_box menu_level_2">Modifier l'accueil</div>
-		</a>		
-	    </div>
+	    <ul class="nav nav-pills nav-stacked">
+		<li class="menu_box"><a href="index.php">
+			Retour au site
+		    </a></li>
+		<li class="menu_box"><a href="admin.php?a=nouveauDocument">
+			Nouveau Document
+		    </a></li>
+		<li class="menu_box"><a href="admin.php?a=listDocuments">
+			Tout les documents
+		    </a></li>
+		<li class="menu_box"><a href="admin.php?a=nouvelleCategorie">
+			Nouvelle catégorie
+		    </a></li>
+		<li class="menu_box"><a href="admin.php?a=listCategories">
+			Toutes les catégories
+		    </a>
+		<li class="menu_box"><a href="admin.php?a=modifierAccueil">
+			Modifier l'accueil
+		    </a></li>	
+	    </ul>
 	</nav>   
 	<?php
     }
