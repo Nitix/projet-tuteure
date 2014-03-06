@@ -53,15 +53,15 @@ class ListDocumentsAdminView extends AdminView {
 				foreach ($categorie['documents'] as $doc) :
 				    ?>
 		    		<tr>
-		    		    <td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <button type="button" class="btn btn-default btn-lg"> 
+		    		    <td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <button type="button" class="btn btn-default"> 
 						    <?php echo $doc->getNom() ?></button> </a></td>
 		    		    <td><?php echo $categorie['categorie']->getNom() ?></td>
 		    		    <td><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
-		    		    <td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID() ?>"><button type="button" class="btn btn-default btn-lg"> Supprimer
+		    		    <td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID() ?>"><button type="button" class="btn btn-default"> Supprimer
 		    			    </button></a></td>
-		    		    <td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID() ?>"> <button type="button" class="btn btn-default btn-lg"> Cacher
+		    		    <td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID() ?>"> <button type="button" class="btn btn-default"> Cacher
 		    			    </button></a></td>
-		    		    <td><a class="switch" href="#" value="<?php echo $doc->getID() ?>"><button type="button" class="btn btn-default btn-lg"> Montrer
+		    		    <td><a class="switch" href="#" value="<?php echo $doc->getID() ?>"><button type="button" class="btn btn-default"> Montrer
 		    			    </button></a></td>
 		    		</tr>
 				    <?php
