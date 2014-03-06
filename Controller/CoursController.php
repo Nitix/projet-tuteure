@@ -13,7 +13,7 @@ class CoursController extends Controller {
 	if (is_null($accueil)) {
 	    throw new Exception('Accueil inexistant');
 	}
-	$view = new AccueilView($accueil[0]);
+	$view = new DocumentView($accueil[0]);
 	$view->displayPage();
     }
 

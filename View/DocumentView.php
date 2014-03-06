@@ -10,7 +10,7 @@ class DocumentView extends MainView {
     private $document;
 
     public function __construct(Document $document) {
-	parent::__construct($document->getNom());
+	parent::__construct($document->getNom(), $document->getID(), true, $document->getCategorie_id());
 	$this->document = $document;
     }
 

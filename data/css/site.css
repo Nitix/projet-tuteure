@@ -20,7 +20,6 @@ header
 section
 {
     margin-right: 8px;
-    overflow:hidden;
     background: #fffe99;
     padding:25px;
 }
@@ -37,17 +36,6 @@ section
     }
 }
 @media (max-width: 799px){
-    .mobile{
-	margin-top: 25px;
-	margin-bottom: 25px;
-	margin-left:auto;
-	margin-right:auto;
-	width: 80%;
-    }
-    .mobile>select
-    {
-	width:100%;
-    }
     #titre
     {
 	text-align:center;	
@@ -75,9 +63,6 @@ section
 	display: table-row;
 	height: 100%;
     }
-    .mobile{
-	display:none;
-    }
     #titre
     {
 	display:inline-block;
@@ -96,45 +81,23 @@ section
 	display:inline-block;
 	margin-top: 25px;
 	margin-left: 8px;
-	width: 200px;
+	width: 210px;
 	vertical-align:top;
 	height: 100%;
+	margin-right:-10px;
     }
     section
     {
 	margin-left:0px;
 	display: inline-block;
-	width: calc(100% - 350px);
+	width: calc(100% - 240px);
 	vertical-align:top;
 	height: calc(100% + 25px);
+	position: relative;
     }
     .menu_box
     {
-	height:38px;
-	overflow:hidden;
-	border: solid 1px;
-	text-align:center;
-	vertical-align:bottom;
-	line-height:38px;
-	margin-right:-15px;
-	border-radius: 10px;
-	background-color: #a0a3ea;
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
-	box-sizing: border-box;
-    }
-    .menu_level_2
-    {
-	margin-left:15px;
-    }
-    .menu_level_3
-    {
-	margin-left:30px;
-    }
-    .selected
-    {
-	margin-left:22px;
-	background-color: #fb3c3c;
+	background-color: #FFFFFF;
     }
 }
 

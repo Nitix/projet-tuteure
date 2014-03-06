@@ -7,9 +7,15 @@
 abstract class MainView {
 
     private $title;
+    private $id;
+    private $is_document;
+    private $cat_id;
 
-    protected function __construct($title = "Site web pédagogique") {
+    protected function __construct($title = "Site web pédagogique", $id = 0, $is_document = true, $cat_id = 0) {
 	$this->title = $title;
+	$this->id = $id;
+	$this->is_document = $is_document;
+	$this->cat_id = $cat_id;
     }
 
     function displayPage() {
@@ -86,40 +92,70 @@ abstract class MainView {
 	$menus = $controller->getMenu();
 	?>
 	<nav>
-	    <div class="high_res">
+	    <ul class="nav nav-pills nav-stacked">
 		<?php
 		foreach ($menus as $menu) :
 		    if ($menu['categorie']->getID() == 1) :
-			?><a href="index.php"><div class="menu_box menu_level_1 acceuil">Acceuil</div></a><?php
-		    else :
+			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="index.php">Acceuil</a></li><?php else :
 			?>
-			<a href="index.php?a=listDocuments&AMP;id=<?php echo $menu['categorie']->getID(); ?>">
-			    <div class="menu_box menu_level_1"><?php echo $menu['categorie']->getNom() ?></div>
-			</a>
+			<li class="dropdown  <?php echo $this->isActive($menu['categorie']->getID(), false) ? "active" : "menu_box"  ?>">
+			    <a class="dropdown-toggle"
+			       data-toggle="dropdown" data-target="#"
+			       href="index.php?a=listDocuments&AMP;id=<?php echo $menu['categorie']->getID(); ?>">
+				   <?php echo $menu['categorie']->getNom() ?>
+				<span class="badge pull-right"><?php echo count($menu['documents']) ?></span>
+				<span class="caret"></span>
+
+			    </a>
+			    <ul class="dropdown-menu">
+				<?php
+				foreach ($menu['documents'] as $doc) :
+				    ?>
+		    		<li <?php echo $this->isActive($doc->getID(), false) ? 'class="active"' : '' ?> >
+		    		    <a href="index.php?a=voirDocument&AMP;id=<?php echo $doc->getID(); ?>">
+					    <?php echo $doc->getNom() ?>
+		    		    </a>
+		    		</li>
+				    <?php
+				endforeach;
+				?>
+			    </ul>
 			<?php
-			foreach ($menu['documents'] as $doc) :
-			    ?>
-		    	<a href="index.php?a=voirDocument&AMP;id=<?php echo $doc->getID(); ?>">
-		    	    <div class="menu_box menu_level_2"><?php echo $doc->getNom() ?></div>
-		    	</a>
-			    <?php
-			endforeach;
-		    endif;
-		endforeach;
-		?>
-	    </div>
+			endif;
+		    endforeach;
+		    ?>
+	    </ul>
 	</nav>
 	<?php
+    }
+    
+    private function isActive($id, $is_document){
+	if($is_document){
+	    if($this->is_document){
+		return $this->id == $id;
+	    }
+	    return false;
+	}
+	//C'est une catégorie
+	if ($this->is_document) {
+	    return $this->cat_id == $id;
+	}
+	return $this->id == $id;
     }
 
     public function css() {
 	?>
+	<link rel="stylesheet" href="data/css/bootstrap.css" />
+	<link rel="stylesheet" href="data/css/bootstrap-theme.css" />
 	<link rel="stylesheet" href="data/css/site.css" />
 	<?php
     }
 
     public function javascript() {
-	
+	?>
+	<script src="data/js/jquery-1.11.0.min.js"></script>
+	<script src="data/js/bootstrap.js"></script>
+	<?php
     }
 
 }
