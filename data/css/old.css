@@ -1,6 +1,6 @@
 body
 {
-    background-color: #F5F5DC;
+    background-color: #f1f1f1;
     padding:0px;
     margin: 0px;
 }
@@ -15,25 +15,47 @@ header
 {
     font-size: 5em;
     font-family: "French Script MT";
-    text-shadow: 8px 8px 12px #aaa;
 }
 
 section
 {
+    margin-right: 8px;
     background: #fffe99;
     padding:25px;
-    max-width: auto;
 }
 
-.wraper
-{
-    display: table;
-    width: 100%;
-    height: 200px;
-
+@media (min-width: 500px){
+    section
+    {
+	border-style: solid;
+	border-width: 0px 47px 5px 0px;
+	-moz-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-webkit-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-o-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	border-image: url(../img/anneau.png) 0 47 5 0 fill repeat round;
+    }
 }
+@media (max-width: 799px){
+    #titre
+    {
+	text-align:center;	
+    }
+    #header_droit
+    {
+	text-align:center;
+    }
+    section 
+    {
+	margin-left:8px;
+    }
+}
+@media (min-width : 800px){
+        .wraper
+    {
+	display: table;
+	width: 100%;
+	height: 200px;
 
-<<<<<<< HEAD
     }
     
     .wrapper_row
@@ -70,56 +92,13 @@ section
 	display: inline-block;
 	width: calc(100% - 240px);
 	vertical-align:top;
-	height: calc(100% + 25px);
+	min-height: calc(100% + 25px);
 	position: relative;
     }
     .menu_box
     {
-	background-color: #FFFDDF;
+	background-color: #FFFFFF;
     }
-=======
-.wrapper_row
-{
-    display: table-row;
-    height: 100%;
-}
-#titre
-{
-    display:inline-block;
-    float:left;
-    margin: 25px 2%;
-}
-#header_droit
-{
-    display: inline-block;
-    float:right;
-    margin: 25px 2%;
-    vertical-align:bottom;
-}
-nav
-{
-    display:inline-block;
-    margin-top: 25px;
-    margin-left: 8px;
-    width: 210px;
-    vertical-align:top;
-    height: 100%;
-    margin-right:-10px;
-}
-section
-{
-    margin-right: 8px;
-    margin-left:0px;
-    display: inline-block;
-    width: calc(100% - 240px);
-    vertical-align:top;
-    min-height: calc(100% + 25px);
-    position: relative;
-}
-.menu_box
-{
-    background-color: #FFFFFF;
->>>>>>> fa37788037c43244cd36756a6186dbac030d5cef
 }
 
 .chapitre
@@ -164,11 +143,4 @@ header:after
     content: " "; 
     display: table;
     clear: both;
-}
-
-td {
-    padding: 5px;
-}
-th {
-    padding: 5px;
 }

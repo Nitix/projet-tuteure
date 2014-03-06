@@ -43,6 +43,7 @@ class ListDocumentsAdminView extends AdminView {
 		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <button type="button" class="btn btn-default btn-lg"> 
 <?php echo $doc->getNom() ?></button> </a></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
+<<<<<<< HEAD
 		    		<td><?php echo $doc->getAutorisation() != 0 ? date('d/m/Y', strtotime($doc->getAutorisation())) : "Tout le temps" ?></td>
 					<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>"><button type="button" class="btn btn-default btn-lg"> Supprimer
 </button></a></td>
@@ -50,6 +51,12 @@ class ListDocumentsAdminView extends AdminView {
 </button> </a> </td>
 					<td><a href="admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID()?>"> <button type="button" class="btn btn-default btn-lg"> Montrer
 </button> </a> </td>
+=======
+				<td><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
+					<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>">Supprimer</a></td>
+					<td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID()?>"> Cacher </a> </td>
+					<td><a href="admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID()?>"> Montrer </a> </td>
+>>>>>>> fa37788037c43244cd36756a6186dbac030d5cef
 		    	    </tr>
 				<?php
 			    endforeach;
@@ -62,4 +69,12 @@ class ListDocumentsAdminView extends AdminView {
 	<?php
     }
 
+    private function getCorrectDispo($autorisation) {
+	if($autorisation == 0)
+	    return "Tout le temps";
+	if($autorisation == "9999-99-99")
+	    return "Masqué";
+	return date('d/m/Y', strtotime($autorisation));
+    }
+    
 }
