@@ -84,11 +84,6 @@ th {
 
 @media screen and (max-width: 49em) {
 
-    .MathJax
-    {
-	max-width: 100%;
-    }
-    
     #titre{
 	font-size: 2em;
     }
@@ -100,31 +95,7 @@ th {
 	padding: 10px;
 
     }
-
-    .cnt h1{
-	font-size: 13px;
-	font-weight:700;
-    }
-    .cnt h2{
-	font-size: 11px;
-	font-weight:700;
-    } 
-
-    blockquote{
-
-        font-size: 11px;
-
-    }
-    li.active > a:focus {
-	border: 2px solid black;
-	border-radius: 30px;
-	margin-bottom: 5px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	display: block;
-	text-decoration: none;
-	color : black;
-    }
+    
     li > a{
 	margin-bottom: 2px;
     }
