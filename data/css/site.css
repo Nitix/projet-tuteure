@@ -19,18 +19,6 @@ header
     font-family: "French Script MT";
     text-shadow: 8px 8px 12px #aaa;
 }
-.wraper
-{
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-
-.wrapper_row
-{
-    display: table-row;
-    height: 100%;
-}
 #titre
 {
     display:inline-block;
@@ -44,31 +32,11 @@ header
     margin: 25px 2%;
     vertical-align:bottom;
 }
-nav
-{
-    display: inline-block;
-    padding-top: 25px;
-    padding-left: 8px;
-    padding-bottom: 25px;
-    width: 200px;
-    height: 100%;
-}
+
 section
 {
-    display: inline-block;
     background: #fffe99;
     padding:25px;
-    margin-left: -8px;
-    width: calc(100% - 250px);
-    min-height: calc(100% + 50px);
-    vertical-align:top;
-    position: relative;
-    border-style: solid;
-    border-width: 0px 47px 5px 0px;
-    -moz-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-    -webkit-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-    -o-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-    border-image: url(../img/anneau.png) 0 47 5 0 fill repeat round;
 }
 .menu_box
 {
@@ -114,100 +82,96 @@ th {
     padding: 5px;
 }
 
+@media screen and (max-width: 49em) {
 
-
-
-
-
-@media screen and (max-width: 35em) {
-
-#titre{
-    font-size: 2em;
-}
-
-section{
-    float: right;
-    font-size: 1em; 
-    width: 100%;
-    padding: 10px;
+    .MathJax
+    {
+	max-width: 100%;
+    }
     
-}
+    #titre{
+	font-size: 2em;
+    }
 
-.cnt h1{
-font-size: 13px;
-font-weight:700;
-}
-.cnt h2{
-font-size: 11px;
-font-weight:700;
-} 
+    section{
+	float: right;
+	font-size: 1em; 
+	width: 100%;
+	padding: 10px;
 
-blockquote{
+    }
+
+    .cnt h1{
+	font-size: 13px;
+	font-weight:700;
+    }
+    .cnt h2{
+	font-size: 11px;
+	font-weight:700;
+    } 
+
+    blockquote{
 
         font-size: 11px;
 
-}
-li.active > a:focus {
-    border: 2px solid black;
-    border-radius: 30px;
-    margin-bottom: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    display: block;
-    text-decoration: none;
-    color : black;
-}
-li > a{
-    margin-bottom: 2px;
-}
+    }
+    li.active > a:focus {
+	border: 2px solid black;
+	border-radius: 30px;
+	margin-bottom: 5px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	display: block;
+	text-decoration: none;
+	color : black;
+    }
+    li > a{
+	margin-bottom: 2px;
+    }
 
-
-}
-
-
-@media screen and (min-width: 36em) and (max-width: 49em) {
-
-
-#titre{
-    font-size: 2em;
+    nav{
+	margin-bottom: 25px;
+    }
 }
 
-section{
-    float: right;
-    font-size: 1em; 
-    width: 100%;
-    padding: 10px;
-    
-}
+@media screen and (min-width : 50em){
 
-.cnt h1{
-font-size: 13px;
-font-weight:700;
-}
-.cnt h2{
-font-size: 11px;
-font-weight:700;
-} 
+    .wraper
+    {
+	display: table;
+	width: 100%;
+	height: 100%;
+    }
 
-blockquote{
+    .wrapper_row
+    {
+	display: table-row;
+	height: 100%;
+    }
 
-        font-size: 11px;
+    section{
+	display: inline-block;
 
-}
-li.active > a:focus {
-    border: 2px solid black;
-    border-radius: 30px;
-    margin-bottom: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    display: block;
-    text-decoration: none;
-    color : black;
-}
-li > a{
-    margin-bottom: 2px;
-}
-}
+	margin-left: -8px;
+	width: calc(100% - 250px);
+	min-height: calc(100% + 50px);
+	vertical-align:top;
+	position: relative;
+	border-style: solid;
+	border-width: 0px 47px 5px 0px;
+	-moz-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-webkit-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-o-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	border-image: url(../img/anneau.png) 0 47 5 0 fill repeat round;
+    }
 
+    nav
+    {
+	display: inline-block;
+	padding-top: 25px;
+	padding-left: 8px;
+	padding-bottom: 25px;
+	width: 200px;
+	height: 100%;
+    }
 }
-
