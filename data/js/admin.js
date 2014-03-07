@@ -12,7 +12,7 @@ $(document).ready(function() {
     };
 
     bootstrap_alert.success = function(message) {
-	$('#placeholder').html('<div class="alert alert-success alert-dismissable" id="success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Succès !</strong> ' + message + ' </div>');
+	$('#placeholder').html('<div class="alert alert-success alert-dismissable" id="success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> ' + message + ' </div>');
     };
 
     $('#document').on('submit', function() {
@@ -63,7 +63,7 @@ $(document).ready(function() {
 			dispo.animate({
 			    opacity: 1
 			}, 500);
-			button = doc.find(".switch > button");
+			button = doc.find(".switch");
 			button.html(json.action);
 			button.animate({
 			    opacity: 0

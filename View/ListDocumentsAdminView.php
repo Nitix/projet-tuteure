@@ -64,7 +64,6 @@ class ListDocumentsAdminView extends AdminView {
 	<?php
     }
 
-    /* admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID() ?> */
 
     private function getCorrectDispo($autorisation) {
 	if ($autorisation == 0)
