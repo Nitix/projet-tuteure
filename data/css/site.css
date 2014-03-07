@@ -35,7 +35,6 @@ section
 
 }
 
-<<<<<<< HEAD
     }
     
     .wrapper_row
@@ -79,7 +78,7 @@ section
     {
 	background-color: #FFFDDF;
     }
-=======
+
 .wrapper_row
 {
     display: table-row;
@@ -121,7 +120,6 @@ section
 .menu_box
 {
     background-color: #FFFFFF;
->>>>>>> fa37788037c43244cd36756a6186dbac030d5cef
 }
 
 .chapitre
@@ -162,7 +160,6 @@ td {
 th {
     padding: 5px;
 }
-
 
 
 

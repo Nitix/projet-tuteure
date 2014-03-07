@@ -38,7 +38,11 @@ class ListCategoriesAdminView extends AdminView {
 		    ?>
 		</tbody>
 	    </table>
-	    <p> </br></br>Attention, supprimier une catégorie revient a supprimer l'intégralité des documents associés a celle-ci.</p>
+	    	<div class="alert alert-warning alert-dismissable" id="warning" style="display: center">
+		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		    <strong>Attention </strong> , supprimier une catégorie revient a supprimer l'intégralité des documents associés a celle-ci.
+		</div> 
+
 	</section> <?php
     }
 

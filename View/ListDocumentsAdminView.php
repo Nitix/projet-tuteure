@@ -22,46 +22,8 @@ class ListDocumentsAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-<<<<<<< HEAD
-	    <table>
-		<thead>
-		    <tr>
-			<th> Nom </th>
-			<th> Catégorie </th>
-			<th> Disponibilité </th>
-			<th> Supprimer </th>
-			<th> Cacher </th>
-			<th> Montrer </th>
-		    </tr>
-		</thead>
-		<tbody>
-		    <?php
-		    foreach ($this->documents as $categorie) :
-			if ($categorie['categorie']->getID() != 1) :
-			    foreach ($categorie['documents'] as $doc) :
-				?>
-		    	    <tr>
-		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>"> <button type="button" class="btn btn-default btn-lg"> 
-<?php echo $doc->getNom() ?></button> </a></td>
-		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
 
-		    		<td><?php echo $doc->getAutorisation() != 0 ? date('d/m/Y', strtotime($doc->getAutorisation())) : "Tout le temps" ?></td>
-					<td><a href="admin.php?a=supprimerDocument&AMP;id=<?php echo $doc->getID()?>"><button type="button" class="btn btn-default btn-lg"> Supprimer
-</button></a></td>
-					<td><a href="admin.php?a=cacherDocument&AMP;id=<?php echo $doc->getID()?>"> <button type="button" class="btn btn-default btn-lg"> Cacher
-</button> </a> </td>
-					<td><a href="admin.php?a=montrerDocument&AMP;id=<?php echo $doc->getID()?>"> <button type="button" class="btn btn-default btn-lg"> Montrer
-</button> </a> </td>
-		    	    </tr>
-				<?php
-			    endforeach;
-			endif;
-		    endforeach;
-		    ?>
-		</tbody>
-	    </table>
-=======
-	    <div id="placeholder">
+	 	 <div id="placeholder">
 		<div class="alert alert-danger alert-dismissable" id="alert" style="display: none">
 		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		    <strong>Impossible !</strong> Une erreur est survenu pendant l'opération
@@ -74,6 +36,7 @@ class ListDocumentsAdminView extends AdminView {
 		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		    <strong>Attention !</strong> Etes vous sûr de vouloir supprimer ce document ? <a href="#" class="alert-link">OUI</a>
 		</div>    
+		
 		<table>
 		    <thead>
 			<tr>
@@ -110,7 +73,7 @@ class ListDocumentsAdminView extends AdminView {
 			?>
 		    </tbody>
 		</table>
->>>>>>> b04b1c95b2a38ec061a6cc57b9e1081ee668d29a
+
 	</section>
 	<?php
     }
@@ -124,9 +87,5 @@ class ListDocumentsAdminView extends AdminView {
 	    return "Masqué";
 	return date('d/m/Y', strtotime($autorisation));
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> b04b1c95b2a38ec061a6cc57b9e1081ee668d29a
 }
