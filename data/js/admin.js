@@ -4,15 +4,15 @@ $(document).ready(function() {
     };
 
     bootstrap_alert.warning = function(message) {
-	$('#placeholder').html('<div class="alert alert-warning alert-dismissable" id="warning" style="display: none"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Attention !</strong> ' + message + ' </div>');
+	$('#placeholder').html('<div class="alert alert-warning alert-dismissable" id="warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Attention !</strong> ' + message + ' </div>');
     };
 
     bootstrap_alert.danger = function(message) {
-	$('#placeholder').html('<div class="alert alert-danger alert-dismissable" id="alert" style="display: none"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Impossible !</strong> ' + message + ' </div>');
+	$('#placeholder').html('<div class="alert alert-danger alert-dismissable" id="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Erreur !</strong> ' + message + ' </div>');
     };
-    
-    bootstrap_alert.success = function(message){
-	$('#placeholder').html('<div class="alert alert-success alert-dismissable" id="success" style="display: none"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Succès !</strong> '+ message +' </div>');
+
+    bootstrap_alert.success = function(message) {
+	$('#placeholder').html('<div class="alert alert-success alert-dismissable" id="success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Succès !</strong> ' + message + ' </div>');
     };
 
     $('#document').on('submit', function() {
@@ -41,21 +41,38 @@ $(document).ready(function() {
     });
 
     $('.switch').on('click', function() {
-	var id = $(this).attr("value");
+	var id = $(this).data("id");
 
-	if (pseudo == '' || mail == '') {
-	    alert('Les champs doivent êtres remplis');
+	if (id == 1) {
+	    bootstrap_alert.danger("Impossible de cacher l'accueil");
 	} else {
 	    $.ajax({
-		url: $(this).attr('action'),
-		type: $(this).attr('method'),
-		data: $(this).serialize(),
+		url: "ajaxAdmin.php?a=switchDocument",
+		type: "post",
+		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
 		success: function(json) {
 		    if (json.reponse == 'ok') {
-			alert('Tout est bon');
+			bootstrap_alert.success(json.message);
+			var doc = getLigne(id);
+			dispo = doc.children(".dispo");
+			dispo.html(json.dispo);
+			dispo.animate({
+			    opacity: 0
+			}, 0);
+			dispo.animate({
+			    opacity: 1
+			}, 500);
+			button = doc.find(".switch > button");
+			button.html(json.action);
+			button.animate({
+			    opacity: 0
+			}, 0);
+			button.animate({
+			    opacity: 1
+			}, 500);
 		    } else {
-			alert('Erreur : ' + json.reponse);
+			bootstrap_alert.danger(json.message);
 		    }
 		}
 	    });
@@ -63,5 +80,8 @@ $(document).ready(function() {
 	return false;
     });
 
+    function getLigne(id) {
+	return $(".doc-" + id);
+    }
 });
 

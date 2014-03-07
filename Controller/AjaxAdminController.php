@@ -11,36 +11,59 @@
  *
  * @author Guillaume
  */
-class AjaxAdminController {
+class AjaxAdminController extends Controller {
+
+    static $actions = array(
+	"switchDocument" => "switchDocument"
+    );
 
     public function switchDocument() {
-	
-    }
-
-    public function cacherDocument() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
+	$data = json_decode(file_get_contents('php://input'), true);
+	if (isset($data['id'])) {
+	    $id = $data['id'];
 	    if ($id != 1) {
 		$document = Document::findByID($id);
-		$document->setAutorisation('9999-99-99');
+		if ($document->getAutorisation() == '9999-99-99') {
+		    $document->setAutorisation(date('Y-m-d'));
+		    $message = "Le document est maintenant visible";
+		    $dispo = date('d/m/Y');
+		    $action = "Masquer";
+		} else {
+		    $document->setAutorisation('9999-99-99');
+		    $message = "Le document est maintenant masqué";
+		    $dispo = "Masqué";
+		    $action = "Montrer";
+		}
 		$document->update();
-		$view = new OkAdminView("Le document est maintenant caché.");
-		$view->displayPage();
+		$reponse = array(
+		    "reponse" => "ok",
+		    "message" => $message,
+		    "dispo" => $dispo,
+		    "action" => $action
+		);
+		echo json_encode($reponse);
+	    } else {
+		$reponse = array(
+		    "reponse" => "Error",
+		    "message" => "Impossible de masque l'accueil"
+		);
+		echo json_encode($reponse);
 	    }
+	} else {
+	    $reponse = array(
+		"reponse" => "Error",
+		"message" => "Identifiant manquant"
+	    );
+	    echo json_encode($reponse);
 	}
     }
 
-    public function montrerDocument() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
-	    if ($id != 1) {
-		$document = Document::findByID($id);
-		$document->setAutorisation(date('Y-m-d'));
-		$document->update();
-		$view = new OkAdminView("Le document est maintenant visible.");
-		$view->displayPage();
-	    }
-	}
+    public function home() {
+	$reponse = array(
+	    "reponse" => "Error",
+	    "message" => "Erreur"
+	);
+	echo json_encode($reponse);
     }
 
 }
