@@ -82,20 +82,16 @@ th {
     padding: 5px;
 }
 
-@media screen and (max-width: 49em) {
+@media screen and (max-width: 767px) {
 
     #titre{
 	font-size: 2em;
     }
 
     section{
-	float: right;
-	font-size: 1em; 
 	width: 100%;
-	padding: 10px;
-
     }
-    
+
     li > a{
 	margin-bottom: 2px;
     }
@@ -103,9 +99,15 @@ th {
     nav{
 	margin-bottom: 25px;
     }
+
+    .nav > li > .dropdown-menu {
+	position: static;
+	float: none;
+	width: auto;
+    }
 }
 
-@media screen and (min-width : 50em){
+@media screen and (min-width: 992px){
 
     .wraper
     {
@@ -119,23 +121,14 @@ th {
 	display: table-row;
 	height: 100%;
     }
-
     section{
 	display: inline-block;
-
 	margin-left: -8px;
-	width: calc(100% - 250px);
+	width: calc(100% - 210px);
 	min-height: calc(100% + 50px);
 	vertical-align:top;
 	position: relative;
-	border-style: solid;
-	border-width: 0px 47px 5px 0px;
-	-moz-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-	-webkit-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-	-o-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
-	border-image: url(../img/anneau.png) 0 47 5 0 fill repeat round;
     }
-
     nav
     {
 	display: inline-block;
@@ -144,5 +137,25 @@ th {
 	padding-bottom: 25px;
 	width: 200px;
 	height: 100%;
+    }
+}
+
+@media screen and (min-width : 768px){
+
+    section{
+	border-style: solid;
+	border-width: 0px 47px 5px 0px;
+	-moz-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-webkit-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	-o-border-image: url(../img/anneau.png) 0 47 5 0 repeat round;
+	border-image: url(../img/anneau.png) 0 47 5 0 fill repeat round;
+    }
+
+
+}
+
+@media screen and (max-width: 992px){
+    nav{
+	margin-bottom: 25px;
     }
 }

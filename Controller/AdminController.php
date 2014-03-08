@@ -59,7 +59,6 @@ class AdminController extends Controller {
     public function enregistrerDocument() {
 	if (isset($_POST['jeton']) && $_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
 	    if (isset($_POST['id'])) {
-	
 		$document = Document::findByID($_POST['id']);
 		if ($document == null) {
 		    $view = new ErrorAdminView("Le document modifié n'existe pas");
@@ -85,7 +84,8 @@ class AdminController extends Controller {
 
     private function modifierInformationsDocument(Document $document) {
 	$document->setAdministrateur_id($_SESSION[PREFIX . 'user']);
-	$document->setAutorisation($_POST['autorisation']);
+	$date = DateTime::CreateFromFormat('d/m/Y', $_POST['autorisation']);
+	$document->setAutorisation(date( 'Y-m-d', $date->getTimestamp() ));
 	$document->setContenu(strip_tags($_POST['contenu'], static::$allowedTags));
 	$document->setNom(htmlspecialchars($_POST['nom']));
 	$document->setCategorie_id($_POST['categorie_id']);

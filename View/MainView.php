@@ -24,8 +24,9 @@ abstract class MainView {
 	<html lang="fr">
 	    <head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="HandheldFriendly" content="true">
+		<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<![endif]-->		<meta name="HandheldFriendly" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 		<title><?php echo $this->title ?></title>
 		<?php
@@ -111,7 +112,7 @@ abstract class MainView {
 				<?php
 				foreach ($menu['documents'] as $doc) :
 				    ?>
-		    		<li <?php echo $this->isActive($doc->getID(), false) ? 'class="active"' : '' ?> >
+		    		<li <?php echo $this->isActive($doc->getID(), true) ? 'class="active"' : '' ?> >
 		    		    <a href="index.php?a=voirDocument&AMP;id=<?php echo $doc->getID(); ?>">
 					    <?php echo $doc->getNom() ?>
 		    		    </a>

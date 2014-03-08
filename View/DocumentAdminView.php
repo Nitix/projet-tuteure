@@ -25,32 +25,44 @@ class DocumentAdminView extends AdminView {
 	    <form method="post" action="admin.php?a=enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<input type="hidden" name="id" value="<?php echo $this->document->getID() ?>" />
-		<label for="nom">Nom du document :</label>
-		<input type="text" id="nom" name="nom" value="<?php echo $this->document->getNom() ?>"/><br />
-		<label for="categorie_id">Categorie du document.</label>
+		<div class="form-group">
+		    <label for="nom">Nom du document :</label>
+		    <input type="text" id="nom" name="nom" class="form-control" value="<?php echo $this->document->getNom() ?>"/>
+		</div>
+		<div class="form-group">
+		    <label for="categorie_id">Categorie du document.</label>
+		    <select name="categorie_id" class="form-control" id="categorie_id">
+			<?php
+			$categories = Categorie::findAll();
+			foreach ($categories as $categorie) :
+			    if ($categorie->getID() != 1) :
+				?>
+				<option <?php echo $categorie->getID() == $this->document->getID() ? "selected" : "" ?> value="<?php echo $categorie->getID() ?>"><?php echo $categorie->getNom() ?></option>
+				<?php
+			    endif;
 
-		<select name="categorie_id" id="categorie_id">
-		    <?php
-		    $categories = Categorie::findAll();
-		    foreach ($categories as $categorie) :
-			if ($categorie->getID() != 1) :
-			    ?>
-			    <option <?php echo $categorie->getID() == $this->document->getID() ? "selected" : "" ?> value="<?php echo $categorie->getID() ?>"><?php echo $categorie->getNom() ?></option>
-			    <?php
-			endif;
-
-		    endforeach;
-		    ?>
-		</select><br />
-		<label for="autorisation">Date où le document est disponible:</label>
-		<input type="date" id="autorisation" name="autorisation" value="<?php echo $this->document->getAutorisation() ?>" /><br />
-		<input type="checkbox" name="always" <?php echo $this->document->getAutorisation() == 0 ? "checked" : "" ?> value="1" />Disponible tout le temps
-		<textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu()?></textarea>
-		<input type="submit" />
+			endforeach;
+			?>
+		    </select>
+		</div>
+		<div class="form-group">
+		    <label for="autorisation">Date où le document est disponible:</label>
+		    <input type="text" class="form-control" id="autorisation" data-date-weekStart="1" data-date-viewmode="2" data-date-format="dd/mm/yyyy"  name="autorisation" value="<?php echo date('d/m/Y', strtotime($this->document->getAutorisation())) ?>" />
+		</div>
+		<div class="checkbox">
+		    <label>
+			<input type="checkbox" name="always" <?php echo $this->document->getAutorisation() == 0 ? "checked" : "" ?> value="1" />Disponible tout le temps
+		    </label>
+		</div>
+		<textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu() ?></textarea><br />
+		<button type="submit" class="btn btn-default">Enregistrer</button>
 	    </form>
 
 	    <script>
 		CKEDITOR.replace('contenu');
+		$('#autorisation').datepicker({
+		    language: "fr"
+		});
 	    </script>
 	</section>
 	<?php
@@ -68,6 +80,15 @@ class DocumentAdminView extends AdminView {
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
 	<script src="data/js/ckeditor/ckeditor.js"></script>
+	<script src="data/js/bootstrap-datepicker.js"></script>
+	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
+	<?php
+    }
+
+    public function css() {
+	parent::css();
+	?>
+	<link rel="stylesheet" href="data/css/datepicker3.css" />
 	<?php
     }
 
