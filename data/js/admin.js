@@ -80,6 +80,45 @@ $(document).ready(function() {
 	return false;
     });
 
+
+    $('.delete').on('click', function() {
+	var id = $(this).data("id");
+
+	if (id == 1) {
+	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
+	} else {
+	    $('#delete-id').data('id', id);
+	    $('#delete-confirm').modal('show');
+	}
+	return false;
+    });
+
+    $('#delete-id').on('click', function() {
+	$('#delete-confirm').modal('hide');
+	var id = $(this).data("id");
+	
+	if (id == 1) {
+	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
+	} else {
+	    $.ajax({
+		url: "ajaxAdmin.php?a=supprimerDocument",
+		type: "delete",
+		data: '{ "id" : "' + id + '" }',
+		dataType: 'json',
+		success: function(json) {
+		    if (json.reponse == 'ok') {
+			bootstrap_alert.success(json.message);
+			var doc = getLigne(id);
+			doc.fadeOut(800);
+		    } else {
+			bootstrap_alert.danger(json.message);
+		    }
+		}
+	    });
+	}
+	return false;
+    });
+
     function getLigne(id) {
 	return $(".doc-" + id);
     }

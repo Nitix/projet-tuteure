@@ -14,7 +14,8 @@
 class AjaxAdminController extends Controller {
 
     static $actions = array(
-	"switchDocument" => "switchDocument"
+	"switchDocument" => "switchDocument",
+	"supprimerDocument" => "supprimerDocument"
     );
 
     public function switchDocument() {
@@ -23,39 +24,55 @@ class AjaxAdminController extends Controller {
 	    $id = $data['id'];
 	    if ($id != 1) {
 		$document = Document::findByID($id);
-		if ($document->getAutorisation() == '9999-99-99') {
-		    $document->setAutorisation(date('Y-m-d'));
-		    $message = "Le document est maintenant visible";
-		    $dispo = date('d/m/Y');
-		    $action = "Masquer";
+		if ($document != null) {
+		    switch ($document->getAutorisation()) {
+			case 0:
+			    $reponse = array(
+				"reponse" => "Error",
+				"message" => "Impossible de masquer un fichier permanent"
+			    );
+			    break;
+			case '9999-99-99':
+			    $document->setAutorisation(date('Y-m-d'));
+			    $reponse = array(
+				"reponse" => "ok",
+				"message" => "Le document est maintenant visible",
+				"dispo" => date('d/m/Y'),
+				"action" => "Masquer"
+			    );
+			    $document->update();
+			    break;
+
+			default:
+			    $document->setAutorisation(date('Y-m-d'));
+			    $reponse = array(
+				"reponse" => "ok",
+				"message" => "Le document est maintenant masqué",
+				"dispo" => "Masqué",
+				"action" => "Montrer"
+			    );
+			    $document->update();
+			    break;
+		    }
 		} else {
-		    $document->setAutorisation('9999-99-99');
-		    $message = "Le document est maintenant masqué";
-		    $dispo = "Masqué";
-		    $action = "Montrer";
+		    $reponse = array(
+			"reponse" => "Error",
+			"message" => "Document introuvable"
+		    );
 		}
-		$document->update();
-		$reponse = array(
-		    "reponse" => "ok",
-		    "message" => $message,
-		    "dispo" => $dispo,
-		    "action" => $action
-		);
-		echo json_encode($reponse);
 	    } else {
 		$reponse = array(
 		    "reponse" => "Error",
 		    "message" => "Impossible de masque l'accueil"
 		);
-		echo json_encode($reponse);
 	    }
 	} else {
 	    $reponse = array(
 		"reponse" => "Error",
 		"message" => "Identifiant manquant"
 	    );
-	    echo json_encode($reponse);
 	}
+	echo json_encode($reponse);
     }
 
     public function home() {
@@ -63,6 +80,34 @@ class AjaxAdminController extends Controller {
 	    "reponse" => "Error",
 	    "message" => "Erreur"
 	);
+	echo json_encode($reponse);
+    }
+
+    public function supprimerDocument() {
+	$data = json_decode(file_get_contents('php://input'), true);
+	if (isset($data['id'])) {
+	    $id = $data['id'];
+	    if ($id != 1) {
+		$document = Document::findByID($id);
+		if ($document == null) {
+		    $reponse = array(
+			"reponse" => "Error",
+			"message" => "Identifiant manquant"
+		    );
+		} else {
+		    $document->delete();
+		    $reponse = array(
+			"reponse" => "ok",
+			"message" => "Le document a été supprimé"
+		    );
+		}
+	    } else {
+		$reponse = array(
+		    "reponse" => "Error",
+		    "message" => "Identifiant manquant"
+		);
+	    }
+	}
 	echo json_encode($reponse);
     }
 

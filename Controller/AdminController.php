@@ -23,11 +23,8 @@ class AdminController extends Controller {
 	'enregistrerCategorie' => 'enregistrerCategorie',
 	'modifierAccueil' => 'modifierAccueil',
 	'listDocuments' => 'listDocuments',
-	'supprimerDocument' => 'supprimerDocument',
 	'supprimerCategorie' =>'supprimerCategorie',
 	'listCategories' => 'listCategories',
-	'cacherDocument' => 'cacherDocument',
-	'montrerDocument' => 'montrerDocument'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -150,32 +147,6 @@ class AdminController extends Controller {
 	$view = new ModifierAccueilAdminView($document);
 	$view->displayPage();
     }
-    
-	// 1 cacher 2 montrer
-    public function cacherDocument() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
-	    if ($id != 1) {
-		$document = Document::findByID($id); 
-		$document->setAutorisation('9999-99-99');
-		$document->update();
-		$view = new OkAdminView("Le document est maintenant caché.");
-		$view->displayPage();
-	   }
-    	}
-    }	
-	public function montrerDocument() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
-	    if ($id != 1) {
-		$document = Document::findByID($id); 
-		$document->setAutorisation(date('Y-m-d'));
-		$document->update();
-		$view = new OkAdminView("Le document est maintenant visible.");
-		$view->displayPage();
-	   }
-    	}
-    }		
 
     public function listDocuments() {
 	$documents = Categorie::findDocumentsByCategorie();
@@ -204,26 +175,6 @@ class AdminController extends Controller {
 		    }
 		    $cat->delete();
 		    $view = new OkAdminView("La catégorie a bien été supprimée");
-		    $view->displayPage();
-		}
-	    } else {
-		$view = new ErrorAdminView("Imposssible de supprimer l'accueil");
-		$view->displayPage();
-	    }
-	}
-    }
-
-    public function supprimerDocument() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
-	    if ($id != 1) {
-		$document = Document::findByID($id);
-		if ($document == null) {
-		    $view = new ErrorAdminView("Document non trouvé");
-		    $view->displayPage();
-		} else {
-		    $document->delete();
-		    $view = new OkAdminView("Le document a bien été supprimé");
 		    $view->displayPage();
 		}
 	    } else {

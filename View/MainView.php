@@ -24,6 +24,7 @@ abstract class MainView {
 	<html lang="fr">
 	    <head>
 		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="HandheldFriendly" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 		<title><?php echo $this->title ?></title>
@@ -84,7 +85,6 @@ abstract class MainView {
     abstract public function body();
 
     public function footer() { //??
-	
     }
 
     public function menu() {
@@ -98,7 +98,7 @@ abstract class MainView {
 		    if ($menu['categorie']->getID() == 1) :
 			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="index.php">Accueil </a></li><?php else :
 			?>
-			<li class="dropdown  <?php echo $this->isActive($menu['categorie']->getID(), false) ? "active" : "menu_box"  ?>">
+			<li class="dropdown  <?php echo $this->isActive($menu['categorie']->getID(), false) ? "active" : "menu_box" ?>">
 			    <a class="dropdown-toggle"
 			       data-toggle="dropdown" data-target="#"
 			       href="index.php?a=listDocuments&AMP;id=<?php echo $menu['categorie']->getID(); ?>">
@@ -128,10 +128,10 @@ abstract class MainView {
 	</nav>
 	<?php
     }
-    
-    private function isActive($id, $is_document){
-	if($is_document){
-	    if($this->is_document){
+
+    private function isActive($id, $is_document) {
+	if ($is_document) {
+	    if ($this->is_document) {
 		return $this->id == $id;
 	    }
 	    return false;

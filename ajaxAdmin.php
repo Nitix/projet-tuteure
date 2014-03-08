@@ -1,7 +1,7 @@
 <?php
 
 require_once 'common.php';
-
+header('Content-type: application/json');
 try {
     $user = new UserController();
     if ($user->isConnected()) {
