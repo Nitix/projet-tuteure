@@ -47,7 +47,7 @@ class DocumentAdminView extends AdminView {
 		</div>
 		<div class="form-group">
 		    <label for="autorisation">Date où le document est disponible:</label>
-		    <input type="text" class="form-control" id="autorisation" data-date-weekStart="1" data-date-viewmode="2" data-date-format="dd/mm/yyyy"  name="autorisation" value="<?php echo date('d/m/Y', strtotime($this->document->getAutorisation())) ?>" />
+		    <input type="text" class="form-control" id="autorisation" name="autorisation" value="<?php echo date('d/m/Y', strtotime($this->document->getAutorisation())) ?>" />
 		</div>
 		<div class="checkbox">
 		    <label>
@@ -57,14 +57,10 @@ class DocumentAdminView extends AdminView {
 		<textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu() ?></textarea><br />
 		<button type="submit" class="btn btn-default">Enregistrer</button>
 	    </form>
-
-	    <script>
-		CKEDITOR.replace('contenu');
-		$('#autorisation').datepicker({
-		    language: "fr"
-		});
-	    </script>
 	</section>
+	<script>
+	    $('#contenu').ckeditor();
+	</script>
 	<?php
     }
 
@@ -80,6 +76,7 @@ class DocumentAdminView extends AdminView {
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
 	<script src="data/js/ckeditor/ckeditor.js"></script>
+	<script src="data/js/ckeditor/adapters/jquery.js"></script>
 	<script src="data/js/bootstrap-datepicker.js"></script>
 	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
 	<?php

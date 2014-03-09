@@ -41,6 +41,23 @@ class ListDocumentsAdminView extends AdminView {
 		    </div>
 		</div>
 	    </div>
+	    <div class="modal fade" id="show-confirm-dialog" role="dialog" aria-labelledby="Confirmation suppression" aria-hidden="true">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4 class="modal-title">Etes vous-sûr ?</h4>
+			</div>
+			<div class="modal-body">
+			    <p>Tout les documents masqués seront visibles</p>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" id="show-confirm-button" class="btn btn-warning">Oui</button>
+			</div>
+		    </div>
+		</div>
+	    </div>
 	    <table class="table table-hover table-responsive">
 		<thead>
 		    <tr>
@@ -57,21 +74,22 @@ class ListDocumentsAdminView extends AdminView {
 		    foreach ($this->documents as $categorie) :
 			if ($categorie['categorie']->getID() != 1) :
 			    foreach ($categorie['documents'] as $doc) :
+				$switch = $this->canSwitch($doc->getAutorisation());
 				?>
-		    	    <tr class="doc-<?php echo $doc->getID() ?>">
+		    	    <tr data-id="<?php echo $doc->getID() ?>">
 		    		<td><?php echo $doc->getNom() ?></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
-		    		<td class="dispo"><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
+		    		<td class="dispo <?php echo $switch ? "maskable" : "" ?>"><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
 		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>">
 		    			Modifier</a></td>
 		    		<td>
-					<?php if ($this->canSwitch($doc->getAutorisation())) : ?>
-					    <a class="switch" href="#" data-id="<?php echo $doc->getID() ?>"><?php echo $this->getStatus($doc->getAutorisation()) ?></a>
+					<?php if ($switch) : ?>
+					    <a class="switch" href="#"><?php echo $this->getStatus($doc->getAutorisation()) ?></a>
 					<?php else : ?>
 					    Impossible à masquer
 					<?php endif; ?>
 		    		</td>
-		    		<td><a class="delete" href="#" data-id="<?php echo $doc->getID() ?>">Supprimer
+		    		<td><a class="delete" href="#">Supprimer
 		    		    </a></td>
 		    	    </tr>
 				<?php
@@ -81,6 +99,9 @@ class ListDocumentsAdminView extends AdminView {
 		    ?>
 		</tbody>
 	    </table>
+	    <button id="hideAll" class="btn btn-default">Masquer tout les documents </button>
+	    <button id="showAll" class="btn btn-default">Montrer tout les documents </button>
+
 	</section>
 	<?php
     }
@@ -101,6 +122,21 @@ class ListDocumentsAdminView extends AdminView {
 
     private function canSwitch($autorisation) {
 	return $autorisation != 0;
+    }
+
+    public function javascript() {
+	parent::javascript();
+	?>
+	<script src="data/js/bootstrap-datepicker.js"></script>
+	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
+	<?php
+    }
+
+    public function css() {
+	parent::css();
+	?>
+	<link rel="stylesheet" href="data/css/datepicker3.css" />
+	<?php
     }
 
 }

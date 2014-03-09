@@ -57,14 +57,10 @@ class NouveauDocumentAdminView extends AdminView {
 		<textarea name="contenu" id="contenu" rows="10" cols="80"></textarea><br />
 		<button type="submit" class="btn btn-default">Enregistrer</button>
 	    </form>
-
-	    <script>
-		CKEDITOR.replace('contenu');
-		$('#autorisation').datepicker({
-		    language: "fr"
-		});
-	    </script>
 	</section>
+	<script>
+	    $('#contenu').ckeditor();
+	</script>
 	<?php
     }
 
@@ -80,6 +76,7 @@ class NouveauDocumentAdminView extends AdminView {
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
 	<script src="data/js/ckeditor/ckeditor.js"></script>
+	<script src="data/js/ckeditor/adapters/jquery.js"></script>
 	<script src="data/js/bootstrap-datepicker.js"></script>
 	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
 
