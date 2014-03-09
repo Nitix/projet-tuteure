@@ -23,7 +23,7 @@ class UserController extends Controller {
 	$this->login();
     }
 
-    public function isConnected() {
+    public static function isConnected() {
 	if(isset($_SESSION[PREFIX . "user"]))
 		return true;
 	if (isset($_COOKIE['login'])) {

@@ -46,11 +46,6 @@ section
     background-color: #FFFFFF;
 }
 
-.chapitre
-{
-    float:left;
-    display:inline-block;
-}
 .outils
 {
     float: right;
@@ -107,6 +102,11 @@ th {
 	position: static;
 	float: none;
 	width: auto;
+    }
+    
+    .outils
+    {
+	display: none;
     }
 }
 

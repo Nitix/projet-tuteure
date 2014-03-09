@@ -5,7 +5,8 @@ class CoursController extends Controller {
     protected static $actions = array(
 	'voirDocument' => 'voirDocumentAction',
 	'listDocuments' => 'listDocumentsAction',
-	'accueil' => 'home'
+	'accueil' => 'home',
+	'imprimerDocument' => 'imprimerDocument'
     );
 
     public function home() {
@@ -51,6 +52,22 @@ class CoursController extends Controller {
 	    }
 	} else {
 	    $view = new ErrorView("Requete incorrect");
+	    $view->displayPage();
+	}
+    }
+    
+    public function imprimerDocument() {
+	if (isset($_GET['id'])) {
+	    $document = Document::findByID($_GET['id']);
+	    if ($document == null) {
+		$view = new ErrorDocumentView("Document non trouvé");
+		$view->displayPage();
+	    } else {
+		$view = new PrintDocumentView($document);
+		$view->DisplayPage();
+	    }
+	} else {
+	    $view = new ErrorDocumentView("Requete incorrect");
 	    $view->displayPage();
 	}
     }

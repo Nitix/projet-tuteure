@@ -45,7 +45,7 @@ $(document).ready(function() {
     });
 
     $('.switch').on('click', function() {
-	var doc = $(this).parent();
+	var doc = $(this).parent().parent();
 	var id = doc.data("id");
 
 	if (id === 1) {

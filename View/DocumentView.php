@@ -18,22 +18,36 @@ class DocumentView extends MainView {
 	?>
 	<section>
 	    <?php
+	    if ($this->document->getID() != 1) :
+		?>
+	        <span class="outils"><a target="_blank" href="index.php?a=imprimerDocument&id=<?php echo $this->document->getID() ?>">
+	    	    <button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer</button></a>
+			<?php
+			if (UserController::isConnected()) {
+			    echo '<a href="admin.php?a=modifierDocument&id=' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
+			}
+			?>
+	        </span>
+		<?php
+	    endif;
 	    echo $this->document->getContenu();
 	    ?>
 	</section>
 	<?php
     }
-    public function javascript(){
+
+    public function javascript() {
 	parent::javascript();
 	?>
 	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
+	    MathJax.Hub.Config({
 	    extensions: ["tex2jax.js"],
 	    jax: ["input/TeX","output/HTML-CSS"],
 	    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-	  });
+	    });
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
 	<?php
     }
+
 }
