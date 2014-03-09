@@ -44,7 +44,7 @@ class AjaxAdminController extends Controller {
 			    break;
 
 			default:
-			    $document->setAutorisation(date('Y-m-d'));
+			    $document->setAutorisation('9999-99-99');
 			    $reponse = array(
 				"reponse" => "ok",
 				"message" => "Le document est maintenant masqué",
