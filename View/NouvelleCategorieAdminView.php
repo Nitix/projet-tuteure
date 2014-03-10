@@ -21,9 +21,11 @@ class NouvelleCategorieAdminView extends AdminView {
 	<section>
 	    <form method="post" action="admin.php?a=enregistrerCategorie">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
-		<label for="nom">Nom de la catégorie :</label>
-		<input type="text" id="nom" name="nom" /><br />
-		<input type="submit" />
+		<div class="form-group">
+		    <label for="nom">Nom de la catégorie</label>
+		    <input type="text" id="nom" name="nom"  class="form-control" placeholder="Nom de la catégorie"/>
+		</div>
+		<button type="submit" class="btn btn-default">Enregistrer</button>
 	    </form>
 	</section>
 	<?php

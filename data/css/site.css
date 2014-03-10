@@ -19,22 +19,10 @@ header
 #titre
 {
     font-size: 5em;
-    font-family: "French Script MT";
+    font-family: "Montez";
     text-shadow: 8px 8px 12px #aaa;
 }
-#titre
-{
-    display:inline-block;
-    float:left;
-    margin: 25px 2%;
-}
-#header_droit
-{
-    display: inline-block;
-    float:right;
-    margin: 25px 2%;
-    vertical-align:bottom;
-}
+
 
 section
 {
@@ -87,8 +75,13 @@ th {
 
 @media screen and (max-width: 767px) {
 
-    #titre{
-	font-size: 2em;
+    #titre
+    {
+	text-align: center;
+    }
+    #header_droit
+    {
+	text-align: center;
     }
 
     #container{
@@ -115,6 +108,21 @@ th {
 	display: table;
 	width: 100%;
 	height: 300px;
+    }
+
+
+    #titre
+    {
+	display:inline-block;
+	float:left;
+	margin: 25px 2%;
+    }
+    #header_droit
+    {
+	display: inline-block;
+	float:right;
+	margin: 25px 2%;
+	vertical-align:bottom;
     }
 
     .wrapper_row
@@ -151,7 +159,7 @@ th {
     }
 
     section{
-	min-height: 350px;
+	min-height: 380px;
 
     }
 }

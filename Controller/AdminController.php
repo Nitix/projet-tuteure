@@ -25,7 +25,9 @@ class AdminController extends Controller {
 	'listDocuments' => 'listDocuments',
 	'listCategories' => 'listCategories',
 	'nouveauAdmin' => 'nouveauAdmin',
-	'enregistrerAdmin' => 'enregistrerAdmin'
+	'modifierAdmin' => 'modifierAdmin',
+	'enregistrerAdmin' => 'enregistrerAdmin',
+	'enregistrerNouveauAdmin' => 'enregistrerNouveauAdmin'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -167,25 +169,59 @@ class AdminController extends Controller {
 
     public function enregistrerAdmin() {
 	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
-	    if (isset($_POST['id'])) {
-		$admin = Administrateur::findByID($_GET['id']);
-		if ($admin == null) {
-		    $view = new ErrorAdminView("L'administrateur n'existe pas");
-		    $view->displayPage();
+	    if (!empty($_POST['login']) && !empty($_POST['nom']) && !empty($_POST['prenom'])) {
+		$usercont = new UserController();
+		$admin = $usercont->getUser();
+		if (!Administrateur::exist($_POST['login']) || $admin->getLogin() == $_POST['login']) {
+		    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			if ($admin == null) {
+			    $view = new ErrorAdminView("Connexion perdue");
+			    $view->displayPage();
+			} else {
+			    $password = $admin->getPassword();
+			    if (!empty($_POST['confirm'])) {
+				if ($_POST['confirm'] == $_POST['password']) {
+				    $password = $_POST['confirm'];
+				} else {
+				    $this->modifierAdmin("Mot de passe différent");
+				    return;
+				}
+			    }
+			    $passwordhash = new PasswordHash(10, false);
+			    $password = $passwordhash->HashPassword($password);
+			    $this->modifierInformationsAdministrateur($admin, $password);
+			    $admin->update();
+			    $view = new OkAdminView("Vos informationsont été mis à jour");
+			    $view->displayPage();
+			}
+		    } else {
+			$this->modifierAdmin("Email incorrect");
+		    }
 		} else {
-		    $this->modifierInformationsAdministrateur($admin);
-		    $admin->update();
-		    $view = new OkAdminView("La catégorie a bien été mise à jour");
-		    $view->displayPage();
+		    $this->modifierAdmin("Le nouveau login existe déjà");
 		}
 	    } else {
+		$this->modifierAdmin("Informations manquantes");
+	    }
+	} else {
+	    $view = new ErrorAdminView("CSRF detecté");
+	    $view->displayPage();
+	}
+    }
+
+    public function enregistrerNouveauAdmin() {
+	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
+	    if (!empty($_POST['login']) && !empty($_POST['nom']) && !empty($_POST['prenom'])) {
 		if (!Administrateur::exist($_POST['login'])) {
 		    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 			$admin = new Administrateur();
 			$password = $this->randomPassword();
+			$passwordhash = new PasswordHash(10, false);
+			$password = $passwordhash->HashPassword($password);
 			$this->modifierInformationsAdministrateur($admin, $password);
 			$admin->insert();
-			mail($_POST['email'], 'Identifiant de connexion', "Vous êtes inscrit en tant qu'administrateur au site pédagogique\n\nIdentifiant : " . $_POST['login'] . "\n\nMot de passe : " . $password, 'From: Site Pédagogique <no-reply@iecn.u-nancy.fr>' . '\r\n');
+			mail($_POST['email'], 'Identifiant de connexion', "Vous êtes inscrit en tant qu'administrateur au site pédagogique\n\nIdentifiant : " . $_POST['login'] . "\nMot de passe : " . $password .
+				'\n\nPour des mesures de sécurités, veuillez changer ce mot de passe.<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', 'From: Site Pédagogique <no-reply@iecn.u-nancy.fr>' . '\r\n');
 			$view = new OkAdminView("L'administrateur a bien été ajoutée, il recevra par email son mot de passe");
 			$view->displayPage();
 		    } else {
@@ -194,6 +230,8 @@ class AdminController extends Controller {
 		} else {
 		    $this->nouveauAdmin("Le login existe déjà");
 		}
+	    } else {
+		$this->nouveauAdmin("Informations manquantes");
 	    }
 	} else {
 	    $view = new ErrorAdminView("CSRF detecté");
@@ -201,15 +239,20 @@ class AdminController extends Controller {
 	}
     }
 
-    private function modifierInformationsAdministrateur(Administrateur $admin, $password){
+    private function modifierInformationsAdministrateur(Administrateur $admin, $password) {
 	$admin->setEmail($_POST['email']);
 	$admin->setLogin($_POST['login']);
-	$passwordhash = new PasswordHash(10, false);
-	$admin->setPassword($passwordhash->HashPassword($password));
+	$admin->setPassword($password);
 	$admin->setNom($_POST['nom']);
 	$admin->setPrenom($_POST['prenom']);
     }
 
+    public function modifierAdmin($error = null) {
+	$usercontroller = new UserController();
+	$user = $usercontroller->getUser();
+	$view = new ModifierAdministrateurAdmin($user, $error);
+	$view->displayPage();
+    }
 
     private function randomPassword() {
 	$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -221,4 +264,5 @@ class AdminController extends Controller {
 	}
 	return implode($pass); //turn the array into a string
     }
+
 }

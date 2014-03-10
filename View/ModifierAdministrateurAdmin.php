@@ -6,16 +6,18 @@
  */
 
 /**
- * Description of NouveauAdministrateurAdminView
+ * Description of ModifierAdministrateurAdmin
  *
  * @author Guillaume
  */
-class NouveauAdministrateurAdminView extends AdminView {
+class ModifierAdministrateurAdmin extends AdminView {
 
     private $error;
+    private $admin;
 
-    public function __construct($error = null) {
-	parent::__construct("Nouveau administrateur");
+    public function __construct(Administrateur $admin, $error = null) {
+	parent::__construct("Modification administrateur");
+	$this->admin = $admin;
 	$this->error = $error;
     }
 
@@ -32,7 +34,7 @@ class NouveauAdministrateurAdminView extends AdminView {
 		<?php
 	    endif;
 	    ?>
-	    <form action="admin.php?a=enregistrerNouveauAdmin" method="post" class="form-horizontal" role="form">
+	    <form action="admin.php?a=enregistrerAdmin" method="post" class="form-horizontal" role="form">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="alert alert-info alert-dismissable" id="success">
 		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -40,24 +42,24 @@ class NouveauAdministrateurAdminView extends AdminView {
 		</div>
 
 		<div class="form-group">
-		    <label for="newlogin" class="col-sm-2 col-lg-1 control-label">Identifiant 
+		    <label for="changelogin" class="col-sm-2 col-lg-1 control-label">Identifiant 
 			<span class="glyphicon glyphicon-ok ok" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove" style="display: none"></span>
 		    </label>
 		    <div class="col-sm-10  col-lg-11 ">
-			<input type="text" id="newlogin" name="login"  class="form-control" placeholder="Login"/>
+			<input type="text" id="changelogin" name="login"  class="form-control" value="<?php echo $this->admin->getLogin() ?>"/>
 		    </div>
 		</div>
 		<div class="form-group">
 		    <label for="nom" class="col-sm-2 col-lg-1 control-label">Nom</label>
 		    <div class="col-sm-10 col-lg-11">
-			<input type="text" name="nom" id="nom" class="form-control" placeholder="Nom"/>
+			<input type="text" name="nom" id="nom" class="form-control" value="<?php echo $this->admin->getNom() ?>"/>
 		    </div>
 		</div>
 		<div class="form-group">
 		    <label for="prenom" class="col-sm-2 col-lg-1 control-label">Prénom</label>
 		    <div class="col-sm-10 col-lg-11">
-			<input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom"/>
+			<input type="text" name="prenom" id="prenom" class="form-control" value="<?php echo $this->admin->getPrenom() ?>"/>
 		    </div>
 		</div>		
 		<div class="form-group">
@@ -66,7 +68,23 @@ class NouveauAdministrateurAdminView extends AdminView {
 			<span class="glyphicon glyphicon-remove remove-email" style="display: none"></span>
 		    </label>
 		    <div class="col-sm-10 col-lg-11">
-			<input type="text" name="email" id="email" class="form-control" placeholder="Email"/>
+			<input type="text" name="email" id="email" class="form-control" value="<?php echo $this->admin->getEmail() ?>"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="password" class="col-sm-2 col-lg-1 control-label">Nouveau mot de passe
+		    </label>
+		    <div class="col-sm-10 col-lg-11">
+			<input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="confirm" class="col-sm-2 col-lg-1 control-label">Confirmation
+			<span class="glyphicon glyphicon-ok ok-password" style="display: none"></span>
+			<span class="glyphicon glyphicon-remove remove-password" style="display: none"></span>
+		    </label>
+		    <div class="col-sm-10 col-lg-11">
+			<input type="password" name="confirm" id="confirm" class="form-control" placeholder="Mot de passe"/>
 		    </div>
 		</div>
 		<div class="form-group">
@@ -79,4 +97,5 @@ class NouveauAdministrateurAdminView extends AdminView {
 	<?php
     }
 
+//put your code here
 }

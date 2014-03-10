@@ -153,7 +153,7 @@ abstract class MainView {
 	<link rel="stylesheet" href="data/css/bootstrap.css" />
 	<link rel="stylesheet" href="data/css/bootstrap-theme.css" />
 	<link rel="stylesheet" href="data/css/site.css" />
-	<link rel="stylesheet" href="ttp://fonts.googleapis.com/css?family=French+Script+MT" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montez" />
 	<?php
     }
 

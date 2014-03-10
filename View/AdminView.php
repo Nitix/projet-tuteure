@@ -43,6 +43,9 @@ abstract class AdminView extends MainView {
 		<li class="menu_box"><a href="admin.php?a=nouveauAdmin">
 			Ajouter un adminstrateur
 		    </a></li>	
+		<li class="menu_box"><a href="admin.php?a=modifierAdmin">
+			Gérer ses identifiants
+		    </a></li>	
 	    </ul>
 	</nav>   
 	<?php

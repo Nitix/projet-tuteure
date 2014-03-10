@@ -19,7 +19,9 @@ class AjaxAdminController extends Controller {
 	"masquerTous" => "masquerTous",
 	"montrerTous" => "montrerTous",
 	"changeDateDocument" => "changeDateDocument",
-	"supprimerCategorie" => "supprimerCategorie"
+	"supprimerCategorie" => "supprimerCategorie",
+	"checkLogin" => "checkLogin",
+	"checkNewLogin" => "checkNewLogin"
     );
 
     public function switchDocument() {
@@ -223,6 +225,68 @@ class AjaxAdminController extends Controller {
 		$reponse = array(
 		    "reponse" => "Error",
 		    "message" => "Impossible de supprimer la catégorie Accueil"
+		);
+	    }
+	} else {
+	    $reponse = array(
+		"reponse" => "Error",
+		"message" => "Identifiant manquant"
+	    );
+	}
+	echo json_encode($reponse);
+    }
+
+    public function checkLogin() {
+	$data = json_decode(file_get_contents('php://input'), true);
+	if (isset($data['login'])) {
+	    $login = $data['login'];
+	    if (!empty($login)) {
+		if (Administrateur::exist($login)) {
+		    $reponse = array(
+			"reponse" => "Error",
+			"message" => "Login déjà existant"
+		    );
+		} else {
+		    $reponse = array(
+			"reponse" => "ok",
+		    );
+		}
+	    } else {
+		$reponse = array(
+		    "reponse" => "Error",
+		    "message" => "Login vide"
+		);
+	    }
+	} else {
+	    $reponse = array(
+		"reponse" => "Error",
+		"message" => "Identifiant manquant"
+	    );
+	}
+	echo json_encode($reponse);
+    }
+
+    public function checkNewLogin() {
+	$data = json_decode(file_get_contents('php://input'), true);
+	if (isset($data['login'])) {
+	    $login = $data['login'];
+	    if (!empty($login)) {
+		$usercontr = new UserController();
+		$admin = $usercontr->getUser();
+		if (Administrateur::exist($login) && $admin->getLogin() != $login) {
+		    $reponse = array(
+			"reponse" => "Error",
+			"message" => "Login déjà existant"
+		    );
+		} else {
+		    $reponse = array(
+			"reponse" => "ok",
+		    );
+		}
+	    } else {
+		$reponse = array(
+		    "reponse" => "Error",
+		    "message" => "Login vide"
 		);
 	    }
 	} else {

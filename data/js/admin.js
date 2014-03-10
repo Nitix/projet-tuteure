@@ -19,30 +19,6 @@ $(document).ready(function() {
 	$('#placeholder').html('<div class="alert alert-info alert-dismissable" id="success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> ' + message + ' </div>');
     };
 
-    $('#document').on('submit', function() {
-
-	var id = $('#id').val();
-	var mail = $('#mail').val();
-
-	if (pseudo === '' || mail === '') {
-	    alert('Les champs doivent êtres remplis');
-	} else {
-	    $.ajax({
-		url: $(this).attr('action'),
-		type: $(this).attr('method'),
-		data: $(this).serialize(),
-		dataType: 'json',
-		success: function(json) {
-		    if (json.reponse === 'ok') {
-			alert('Tout est bon');
-		    } else {
-			alert('Erreur : ' + json.reponse);
-		    }
-		}
-	    });
-	}
-    });
-
     $('.switch').on('click', function() {
 	var doc = $(this).parent().parent();
 	var id = doc.data("id");
@@ -202,8 +178,80 @@ $(document).ready(function() {
 			bootstrap_alert.danger(json.message);
 			break;
 		}
+
 	    }
 	});
+    });
+
+
+
+    $('#newlogin').on('input', function() {
+	var login = $(this).val();
+	$.ajax({
+	    url: "ajaxAdmin.php?a=checkLogin",
+	    method: "post",
+	    data: '{ "login" : "' + login + '" }',
+	    dataType: 'json',
+	    success: function(json) {
+		if (json.reponse === 'ok') {
+		    $(".ok").show();
+		    $(".remove").hide();
+		} else {
+		    $(".ok").hide();
+		    $(".remove").show();
+		}
+	    }
+	});
+    });
+
+    $('#changelogin').on('input', function() {
+	var login = $(this).val();
+	$.ajax({
+	    url: "ajaxAdmin.php?a=checkNewLogin",
+	    method: "post",
+	    data: '{ "login" : "' + login + '" }',
+	    dataType: 'json',
+	    success: function(json) {
+		if (json.reponse === 'ok') {
+		    $(".ok").show();
+		    $(".remove").hide();
+		} else {
+		    $(".ok").hide();
+		    $(".remove").show();
+		}
+	    }
+	});
+    });
+
+    $('#email').on('input', function() {
+	var email = $(this).val();
+	if (validateEmail(email)) {
+	    $(".ok-email").show();
+	    $(".remove-email").hide();
+	} else {
+	    $(".ok-email").hide();
+	    $(".remove-email").show();
+	}
+
+    });
+
+    function validateEmail(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
+    }
+    ;
+
+    $('#confirm').on('input', function() {
+	var pass1 = $(this).val();
+	var pass2 = $('#password').val();
+	if (pass1 === pass2) {
+	    $(".ok-password").show();
+	    $(".remove-password").hide();
+	} else {
+	    $(".ok-password").hide();
+	    $(".remove-password").show();
+	}
+
     });
 
     $('.maskable').datepicker({
@@ -211,7 +259,7 @@ $(document).ready(function() {
 	autoclose: true
     }).on('changeDate', function(e) {
 	var date = e.format();
-	dispo = $(e.target);
+	dispo = $(this);
 	doc = dispo.parent();
 	var id = doc.data("id");
 	if (id === 1) {
