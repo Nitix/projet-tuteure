@@ -25,7 +25,7 @@ class DocumentView extends MainView {
 			<?php
 			$user = new UserController();
 			if ($user->isConnected()) {
-			    echo '<a href="admin.php?a=modifierDocument&id=' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
+			    echo '<a href="index.php?c=Admin&amp;a=modifierDocument&id=' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
 			}
 			?>
 	        </span>

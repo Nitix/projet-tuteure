@@ -22,7 +22,7 @@ class ModifierAccueilAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-	    <form method="post" action="admin.php?a=enregistrerDocument">
+	    <form method="post" action="index.php?c=Admin&amp;a=enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<input type="hidden" name="categorie_id" value="1" />
 		<input type="hidden" name="autorisation" value="0" />

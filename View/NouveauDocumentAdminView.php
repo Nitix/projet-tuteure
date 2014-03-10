@@ -19,7 +19,7 @@ class NouveauDocumentAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-	    <form method="post" action="admin.php?a=enregistrerDocument">
+	    <form method="post" action="index.php?c=Admin&amp;a=enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="form-group">
 		    <label for="nom">Nom du document :</label>

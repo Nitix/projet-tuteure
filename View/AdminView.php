@@ -25,25 +25,25 @@ abstract class AdminView extends MainView {
 		<li class="menu_box"><a href="index.php">
 			Retour au site
 		    </a></li>
-		<li class="menu_box"><a href="admin.php?a=nouveauDocument">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouveauDocument">
 			Nouveau Document
 		    </a></li>
-		<li class="menu_box"><a href="admin.php?a=listDocuments">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=listDocuments">
 			Tout les documents
 		    </a></li>
-		<li class="menu_box"><a href="admin.php?a=nouvelleCategorie">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouvelleCategorie">
 			Nouvelle catégorie
 		    </a></li>
-		<li class="menu_box"><a href="admin.php?a=listCategories">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=listCategories">
 			Toutes les catégories
 		    </a>
-		<li class="menu_box"><a href="admin.php?a=modifierAccueil">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=modifierAccueil">
 			Modifier l'accueil
 		    </a></li>	
-		<li class="menu_box"><a href="admin.php?a=nouveauAdmin">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouveauAdmin">
 			Ajouter un adminstrateur
 		    </a></li>	
-		<li class="menu_box"><a href="admin.php?a=modifierAdmin">
+		<li class="menu_box"><a href="index.php?c=Admin&amp;a=modifierAdmin">
 			Gérer ses identifiants
 		    </a></li>	
 	    </ul>

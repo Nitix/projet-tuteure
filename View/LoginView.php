@@ -27,7 +27,7 @@ class LoginView extends MainView {
 		<?php
 	    endif;
 	    ?>
-	    <form action="user.php?a=checkPassword" method="post" class="form-horizontal" role="form">
+	    <form action="index.php?c=User&amp;a=checkPassword" method="post" class="form-horizontal" role="form">
 		<div class="form-group">
 		    <label for="login" class="col-sm-2 col-lg-1 control-label">Identifiant</label>
 		    <div class="col-sm-10  col-lg-11 ">

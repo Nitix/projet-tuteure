@@ -97,7 +97,7 @@ class ListDocumentsAdminView extends AdminView {
 		    		<td><?php echo $doc->getNom() ?></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
 		    		<td class="dispo <?php echo $switch ? "maskable" : "" ?>"><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
-		    		<td><a href="admin.php?a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>">
+		    		<td><a href="index.php?c=Admin&amp;a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>">
 		    			Modifier</a></td>
 		    		<td>
 					<?php if ($switch) : ?>

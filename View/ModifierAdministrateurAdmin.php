@@ -34,7 +34,7 @@ class ModifierAdministrateurAdmin extends AdminView {
 		<?php
 	    endif;
 	    ?>
-	    <form action="admin.php?a=enregistrerAdmin" method="post" class="form-horizontal" role="form">
+	    <form action="index.php?c=Admin&amp;a=enregistrerAdmin" method="post" class="form-horizontal" role="form">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="alert alert-info alert-dismissable" id="success">
 		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
