@@ -60,7 +60,7 @@ class Administrateur {
 	}
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie email:=email where id=:id');
+	$query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie email=:email where id=:id');
 
 	$query->bindParam(':login', $this->login, PDO::PARAM_STR);
 	$query->bindParam(':password', $this->password, PDO::PARAM_STR);
