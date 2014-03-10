@@ -150,8 +150,8 @@ abstract class MainView {
 
     public function css() {
 	?>
-	<link rel="stylesheet" href="data/css/bootstrap.css" />
-	<link rel="stylesheet" href="data/css/bootstrap-theme.css" />
+	<link rel="stylesheet" href="data/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="data/css/bootstrap-theme.min.css" />
 	<link rel="stylesheet" href="data/css/site.css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montez" />
 	<?php
