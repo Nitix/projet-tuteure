@@ -18,7 +18,8 @@ class AjaxAdminController extends Controller {
 	"supprimerDocument" => "supprimerDocument",
 	"masquerTous" => "masquerTous",
 	"montrerTous" => "montrerTous",
-	"changeDateDocument" => "changeDateDocument"
+	"changeDateDocument" => "changeDateDocument",
+	"supprimerCategorie" => "supprimerCategorie"
     );
 
     public function switchDocument() {
@@ -95,7 +96,7 @@ class AjaxAdminController extends Controller {
 		if ($document == null) {
 		    $reponse = array(
 			"reponse" => "Error",
-			"message" => "Identifiant manquant"
+			"message" => "Document inexistant"
 		    );
 		} else {
 		    $document->delete();
@@ -170,7 +171,7 @@ class AjaxAdminController extends Controller {
 		if ($document == null) {
 		    $reponse = array(
 			"reponse" => "Error",
-			"message" => "Identifiant manquant"
+			"message" => "Document inexistant"
 		    );
 		} else {
 		    $date = DateTime::CreateFromFormat('d/m/Y', $data['date']);
@@ -184,9 +185,51 @@ class AjaxAdminController extends Controller {
 	    } else {
 		$reponse = array(
 		    "reponse" => "Error",
-		    "message" => "Identifiant manquant"
+		    "message" => "Impossible de supprimer l'accueil"
 		);
 	    }
+	} else {
+	    $reponse = array(
+		"reponse" => "Error",
+		"message" => "Identifiant manquant"
+	    );
+	}
+	echo json_encode($reponse);
+    }
+
+    public function supprimerCategorie() {
+	$data = json_decode(file_get_contents('php://input'), true);
+	if (isset($data['id'])) {
+	    $id = $data['id'];
+	    if ($id != 1) {
+		$categorie = Categorie::findByID($id);
+		if ($categorie == null) {
+		    $reponse = array(
+			"reponse" => "Error",
+			"message" => "Catégorie inexistante"
+		    );
+		} else {
+		    $documents = Document::findByCategorie_ID($id);
+		    foreach ($documents as $doc) {
+			$doc->delete();
+		    }
+		    $categorie->delete();
+		    $reponse = array(
+			"reponse" => "ok",
+			"message" => "La catégorie a été supprimé"
+		    );
+		}
+	    } else {
+		$reponse = array(
+		    "reponse" => "Error",
+		    "message" => "Impossible de supprimer la catégorie Accueil"
+		);
+	    }
+	} else {
+	    $reponse = array(
+		"reponse" => "Error",
+		"message" => "Identifiant manquant"
+	    );
 	}
 	echo json_encode($reponse);
     }

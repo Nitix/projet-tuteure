@@ -24,7 +24,7 @@ class ListDocumentsAdminView extends AdminView {
 	<section>
 	    <div id="placeholder">
 	    </div>    
-	    <div class="modal fade" id="delete-confirm" role="dialog" aria-labelledby="Confirmation suppression" aria-hidden="true">
+	    <div class="modal fade" id="delete-confirm" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 		    <div class="modal-content">
 			<div class="modal-header">
@@ -41,7 +41,24 @@ class ListDocumentsAdminView extends AdminView {
 		    </div>
 		</div>
 	    </div>
-	    <div class="modal fade" id="show-confirm-dialog" role="dialog" aria-labelledby="Confirmation suppression" aria-hidden="true">
+	    <div class="modal fade" id="hide-confirm-dialog" role="dialog"  aria-hidden="true">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+			<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4 class="modal-title">Etes vous-sûr ?</h4>
+			</div>
+			<div class="modal-body">
+			    <p>Tout les documents masqués seront masqués</p>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" id="hide-confirm-button" class="btn btn-warning">Oui</button>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	    <div class="modal fade" id="show-confirm-dialog" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 		    <div class="modal-content">
 			<div class="modal-header">
@@ -89,8 +106,7 @@ class ListDocumentsAdminView extends AdminView {
 					    Impossible à masquer
 					<?php endif; ?>
 		    		</td>
-		    		<td><a class="delete" href="#">Supprimer
-		    		    </a></td>
+		    		<td><a class="delete" href="#">Supprimer</a></td>
 		    	    </tr>
 				<?php
 			    endforeach;

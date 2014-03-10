@@ -46,6 +46,11 @@ class Administrateur {
     private $cookie;
 
     /**
+     * @var email de l'administrateur
+     */
+    private $email;
+
+    /**
      * Met à jour l' adminstrateur actuel
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
@@ -55,13 +60,14 @@ class Administrateur {
 	}
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie where id=:id');
+	$query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie email:=email where id=:id');
 
 	$query->bindParam(':login', $this->login, PDO::PARAM_STR);
 	$query->bindParam(':password', $this->password, PDO::PARAM_STR);
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
 	$query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
+	$query->bindParam(':email', $this->email, PDO::PARAM_STR);
 	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
 	return $query->execute();
@@ -78,13 +84,14 @@ class Administrateur {
 
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare('INSERT INTO Administrateur(login, password, nom, prenom, cookie) VALUES(:login, :password, :nom, :prenom, :cookie)');
+	$query = $pdo->prepare('INSERT INTO Administrateur(login, password, nom, prenom, cookie, email) VALUES(:login, :password, :nom, :prenom, :cookie, :email)');
 
 	$query->bindParam(':login', $this->login, PDO::PARAM_STR);
 	$query->bindParam(':password', $this->password, PDO::PARAM_STR);
 	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
 	$query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
 	$query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
+	$query->bindParam(':email', $this->email, PDO::PARAM_STR);
 
 	$nb = $query->execute();
 
@@ -159,6 +166,14 @@ class Administrateur {
     }
 
     /**
+     * Met à jour l'attribut email
+     * @param int $email valeur à définir
+     */
+    public function setEmail($email) {
+	$this->email = $email;
+    }
+
+    /**
      * Retourne l'attribut id
      */
     public function getID() {
@@ -198,6 +213,13 @@ class Administrateur {
      */
     public function getCookie() {
 	return $this->cookie;
+    }
+
+    /**
+     * Retourne l'attribut email
+     */
+    public function getEmail() {
+	return $this->email;
     }
 
     /**
@@ -282,6 +304,20 @@ class Administrateur {
 	$this->nom = $row['nom'];
 	$this->prenom = $row['prenom'];
 	$this->cookie = $row['cookie'];
+	$this->email = $row['email'];
+    }
+
+    public static function exist($login) {
+	$pdo = Base::getConnection();
+
+	$query = $pdo->prepare("Select login From Administrateur where login=:login");
+	$query->bindParam(':login', $login, PDO::PARAM_STR);
+	$res = $query->execute();
+	if (!$res) {
+	    throw new SQLException('Requete non execute correctement');
+	}
+	$row = $query->fetch();
+	return $row;
     }
 
 }

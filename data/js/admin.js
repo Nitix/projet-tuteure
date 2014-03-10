@@ -41,7 +41,6 @@ $(document).ready(function() {
 		}
 	    });
 	}
-	return false;
     });
 
     $('.switch').on('click', function() {
@@ -81,7 +80,6 @@ $(document).ready(function() {
 		}
 	    });
 	}
-	return false;
     });
 
 
@@ -94,7 +92,6 @@ $(document).ready(function() {
 	    $('#delete-id').data('id', id);
 	    $('#delete-confirm').modal('show');
 	}
-	return false;
     });
 
     $('#delete-id').on('click', function() {
@@ -120,12 +117,45 @@ $(document).ready(function() {
 		}
 	    });
 	}
-	return false;
+    });
+
+    $('.delete-cat').on('click', function() {
+	var cat = $(this).parent().parent();
+	var id = cat.data("id");
+	if (id === 1) {
+	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
+	} else {
+	    $('#delete-cat-id').data('id', id);
+	    $('#delete-confirm').modal('show');
+	}
+    });
+
+    $('#delete-cat-id').on('click', function() {
+	$('#delete-confirm').modal('hide');
+	var id = $(this).data("id");
+	var cat = $("tbody").find("[data-id='" + id + "']");
+	if (id === 1) {
+	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
+	} else {
+	    $.ajax({
+		url: "ajaxAdmin.php?a=supprimerCategorie",
+		type: "delete",
+		data: '{ "id" : "' + id + '" }',
+		dataType: 'json',
+		success: function(json) {
+		    if (json.reponse === 'ok') {
+			bootstrap_alert.success(json.message);
+			cat.fadeOut(800);
+		    } else {
+			bootstrap_alert.danger(json.message);
+		    }
+		}
+	    });
+	}
     });
 
     $('#hideAll').on('click', function() {
 	$('#hide-confirm-dialog').modal('show');
-	return false;
     });
 
     $('#hide-confirm-button').on('click', function() {
@@ -148,12 +178,10 @@ $(document).ready(function() {
 		}
 	    }
 	});
-	return false;
     });
 
     $('#showAll').on('click', function() {
 	$('#show-confirm-dialog').modal('show');
-	return false;
     });
 
     $('#show-confirm-button').on('click', function() {
@@ -176,7 +204,6 @@ $(document).ready(function() {
 		}
 	    }
 	});
-	return false;
     });
 
     $('.maskable').datepicker({
@@ -219,7 +246,6 @@ $(document).ready(function() {
 		}
 	    });
 	}
-	return false;
     });
 
     $('#autorisation').datepicker({

@@ -16,7 +16,6 @@ abstract class AdminView extends MainView {
 	?>
 	<script src="data/js/admin.js"></script>
 	<?php
-
     }
 
     public function menu() {
@@ -40,6 +39,9 @@ abstract class AdminView extends MainView {
 		    </a>
 		<li class="menu_box"><a href="admin.php?a=modifierAccueil">
 			Modifier l'accueil
+		    </a></li>	
+		<li class="menu_box"><a href="admin.php?a=nouveauAdmin">
+			Ajouter un adminstrateur
 		    </a></li>	
 	    </ul>
 	</nav>   

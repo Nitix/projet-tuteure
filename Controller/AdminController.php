@@ -13,7 +13,7 @@
  */
 class AdminController extends Controller {
 
-	// Liste des actions d'un admin
+    // Liste des actions d'un admin
     static $actions = array(
 	'nouveauDocument' => 'nouveauDocument',
 	'modifierDocument' => 'modifierDocument',
@@ -23,8 +23,9 @@ class AdminController extends Controller {
 	'enregistrerCategorie' => 'enregistrerCategorie',
 	'modifierAccueil' => 'modifierAccueil',
 	'listDocuments' => 'listDocuments',
-	'supprimerCategorie' =>'supprimerCategorie',
 	'listCategories' => 'listCategories',
+	'nouveauAdmin' => 'nouveauAdmin',
+	'enregistrerAdmin' => 'enregistrerAdmin'
     );
     static $allowedTags = "<div><p><h1><h2><h3><h4><h5><h6><ul><ol><li><dl><dt><dd><address><hr><pre><blockquote><center><ins><del><a><span><bdo><br><em><strong><dfn><code><samp><kbd><bar><cite><abbr><acronym><q><sub><sup><tt><i><b><big><small><u><s><strike><basefont><font><object><param><img><table><caption><colgroup><col><thead><tfoot><tbody><tr><th><td><embed>";
 
@@ -46,9 +47,8 @@ class AdminController extends Controller {
 		$view->displayPage();
 	    } else {
 		$view = new DocumentAdminView($document);
-		
+
 		$view->DisplayPage();
-		
 	    }
 	} else {
 	    $view = new ErrorAdminView("Requete incorrect");
@@ -85,7 +85,7 @@ class AdminController extends Controller {
     private function modifierInformationsDocument(Document $document) {
 	$document->setAdministrateur_id($_SESSION[PREFIX . 'user']);
 	$date = DateTime::CreateFromFormat('d/m/Y', $_POST['autorisation']);
-	$document->setAutorisation(date( 'Y-m-d', $date->getTimestamp() ));
+	$document->setAutorisation(date('Y-m-d', $date->getTimestamp()));
 	$document->setContenu(strip_tags($_POST['contenu'], static::$allowedTags));
 	$document->setNom(htmlspecialchars($_POST['nom']));
 	$document->setCategorie_id($_POST['categorie_id']);
@@ -153,35 +153,72 @@ class AdminController extends Controller {
 	$view = new ListDocumentsAdminView($documents);
 	$view->displayPage();
     }
-	
+
     public function listCategories() {
 	$categorie = Categorie::findAll();
 	$view = new ListCategoriesAdminView($categorie);
 	$view->displayPage();
     }
-    
-    public function supprimerCategorie() {
-	if (isset($_GET['id'])) {
-	    $id = $_GET['id'];
-	    if ($id != 1) {
-		$cat = Categorie::findByID($id);
-		if ($cat == null) {
-		    $view = new ErrorAdminView("Catégorie non trouvée");
+
+    public function nouveauAdmin($error = null) {
+	$view = new NouveauAdministrateurAdminView($error);
+	$view->displayPage();
+    }
+
+    public function enregistrerAdmin() {
+	if ($_SESSION[PREFIX . 'jeton'] == $_POST['jeton']) {
+	    if (isset($_POST['id'])) {
+		$admin = Administrateur::findByID($_GET['id']);
+		if ($admin == null) {
+		    $view = new ErrorAdminView("L'administrateur n'existe pas");
 		    $view->displayPage();
 		} else {
-		    $documents = Document::findByCategorie_ID($id);
-		    foreach ($documents as $doc){
-			$doc->delete();
-		    }
-		    $cat->delete();
-		    $view = new OkAdminView("La catégorie a bien été supprimée");
+		    $this->modifierInformationsAdministrateur($admin);
+		    $admin->update();
+		    $view = new OkAdminView("La catégorie a bien été mise à jour");
 		    $view->displayPage();
 		}
 	    } else {
-		$view = new ErrorAdminView("Imposssible de supprimer l'accueil");
-		$view->displayPage();
+		if (!Administrateur::exist($_POST['login'])) {
+		    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			$admin = new Administrateur();
+			$password = $this->randomPassword();
+			$this->modifierInformationsAdministrateur($admin, $password);
+			$admin->insert();
+			mail($_POST['email'], 'Identifiant de connexion', "Vous êtes inscrit en tant qu'administrateur au site pédagogique\n\nIdentifiant : " . $_POST['login'] . "\n\nMot de passe : " . $password, 'From: Site Pédagogique <no-reply@iecn.u-nancy.fr>' . '\r\n');
+			$view = new OkAdminView("L'administrateur a bien été ajoutée, il recevra par email son mot de passe");
+			$view->displayPage();
+		    } else {
+			$this->nouveauAdmin("Email incorrect");
+		    }
+		} else {
+		    $this->nouveauAdmin("Le login existe déjà");
+		}
 	    }
+	} else {
+	    $view = new ErrorAdminView("CSRF detecté");
+	    $view->displayPage();
 	}
     }
 
+    private function modifierInformationsAdministrateur(Administrateur $admin, $password){
+	$admin->setEmail($_POST['email']);
+	$admin->setLogin($_POST['login']);
+	$passwordhash = new PasswordHash(10, false);
+	$admin->setPassword($passwordhash->HashPassword($password));
+	$admin->setNom($_POST['nom']);
+	$admin->setPrenom($_POST['prenom']);
+    }
+
+
+    private function randomPassword() {
+	$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	$pass = array(); //remember to declare $pass as an array
+	$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+	for ($i = 0; $i < 10; $i++) {
+	    $n = rand(0, $alphaLength);
+	    $pass[] = $alphabet[$n];
+	}
+	return implode($pass); //turn the array into a string
+    }
 }

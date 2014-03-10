@@ -42,15 +42,14 @@ abstract class MainView {
 	    <body>
 		<?php
 		$this->header();
+		$this->menu();
 		?>
-		<div class="wraper">
-		    <div class="wrapper_row">
-			<?php
-			$this->menu();
-			$this->body();
-			?>
-		    </div>
+		<div id="container">
+		    <?php
+		    $this->body();
+		    ?>
 		</div>
+
 		<?php
 		$this->footer();
 		?>
