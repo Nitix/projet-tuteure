@@ -23,7 +23,8 @@ class DocumentView extends MainView {
 	        <span class="outils"><a target="_blank" href="index.php?a=imprimerDocument&id=<?php echo $this->document->getID() ?>">
 	    	    <button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer</button></a>
 			<?php
-			if (UserController::isConnected()) {
+			$user = new UserController();
+			if ($user->isConnected()) {
 			    echo '<a href="admin.php?a=modifierDocument&id=' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
 			}
 			?>
