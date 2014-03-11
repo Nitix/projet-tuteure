@@ -48,7 +48,7 @@ class PrintDocumentView extends MainView {
     }
 
     public function footer() {
-	echo "Cours sur http://iecl.univ-lorraine.fr/SitePedagogique/ <br />";
+	echo "Cours sur http://iecl.univ-lorraine.fr/<?php echo BASE?> <br />";
 	echo "Site issue d'un projet tuteuré";
     }
     

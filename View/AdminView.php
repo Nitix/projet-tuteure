@@ -14,7 +14,7 @@ abstract class AdminView extends MainView {
     public function javascript() {
 	parent::javascript();
 	?>
-	<script src="data/js/admin.js"></script>
+	<script src="/<?php echo BASE?>data/js/admin.js"></script>
 	<?php
     }
 
@@ -22,28 +22,28 @@ abstract class AdminView extends MainView {
 	?>
 	<nav>
 	    <ul class="nav nav-pills nav-stacked">
-		<li class="menu_box"><a href="index.php">
+		<li class="menu_box"><a href="/<?php echo BASE?>Accueil">
 			Retour au site
 		    </a></li>
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouveauDocument">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/nouveauDocument">
 			Nouveau Document
 		    </a></li>
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=listDocuments">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/listDocuments">
 			Tout les documents
 		    </a></li>
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouvelleCategorie">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/nouvelleCategorie">
 			Nouvelle catégorie
 		    </a></li>
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=listCategories">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/listCategories">
 			Toutes les catégories
 		    </a>
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=modifierAccueil">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/modifierAccueil">
 			Modifier l'accueil
 		    </a></li>	
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=nouveauAdmin">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/nouveauAdmin">
 			Ajouter un adminstrateur
 		    </a></li>	
-		<li class="menu_box"><a href="index.php?c=Admin&amp;a=modifierAdmin">
+		<li class="menu_box"><a href="/<?php echo BASE?>Admin/modifierAdmin">
 			Gérer ses identifiants
 		    </a></li>	
 	    </ul>

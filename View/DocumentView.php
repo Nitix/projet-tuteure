@@ -20,12 +20,12 @@ class DocumentView extends MainView {
 	    <?php
 	    if ($this->document->getID() != 1) :
 		?>
-	        <span class="outils"><a target="_blank" href="index.php?a=imprimerDocument&id=<?php echo $this->document->getID() ?>">
+	        <span class="outils"><a target="_blank" href="/<?php echo BASE?>Cours/printDocumment/<?php echo $this->document->getID() ?>">
 	    	    <button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-print"></span> Imprimer</button></a>
 			<?php
 			$user = new UserController();
 			if ($user->isConnected()) {
-			    echo '<a href="index.php?c=Admin&amp;a=modifierDocument&id=' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
+			    echo '<a href="/<?php echo BASE?>Admin/modifierDocument/' . $this->document->getID() . '"><button type="button" class="btn btn-default btn-default"><span class="glyphicon glyphicon-pencil"></span> Editer</button></a>';
 			}
 			?>
 	        </span>

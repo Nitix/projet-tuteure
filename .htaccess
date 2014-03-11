@@ -1,0 +1,11 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteBase /projet-tuteure/
+RewriteRule ^Accueil$ cours.php [L,NC]
+RewriteRule ^User/([a-z]+)$ cours.php?c=User&a=$1 [L,NC]
+RewriteRule ^User$ cours.php?c=User [L,NC]
+RewriteRule ^Admin/([a-z]+)/([0-9]+)$ cours.php?c=Admin&a=$1&id=$2 [L,NC]
+RewriteRule ^Admin/([a-z]+)? cours.php?c=Admin&a=$1 [L,NC]
+RewriteRule ^Admin? cours.php?c=Admin [L,NC]
+RewriteRule ^Cours/([a-z]+)? cours.php?&a=$1 [L,NC]

@@ -19,7 +19,7 @@ class NouvelleCategorieAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-	    <form method="post" action="index.php?c=Admin&amp;a=enregistrerCategorie">
+	    <form method="post" action="/<?php echo BASE?>Admin/enregistrerCategorie">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="form-group">
 		    <label for="nom">Nom de la catégorie</label>

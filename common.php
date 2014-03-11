@@ -12,6 +12,7 @@
 //crée la session
 session_start();
 define('PREFIX', 'SitePedagogique');
+define('BASE', 'projet-tuteure/');
 
 //Crée un jeton si besoin
 if (!isset($_SESSION[PREFIX .'jeton'])) {

@@ -25,7 +25,7 @@ class ListDocumentsView extends MainView {
 	    <?php else : ?> 
 	        <ul>
 		    <?php foreach ($this->documents as $document) : ?>
-		    <li><a href = "index.php?a=voirDocument&amp;id=<?php echo $document->getId() ?>"><?php echo $document->getNom() ?></a></li>
+		    <li><a href = "/<?php echo BASE?>Cours/voirDocument/<?php echo $document->getId() ?>"><?php echo $document->getNom() ?></a></li>
 		    <?php endforeach; ?>
 	        </ul>
 	    <?php endif; ?>

@@ -19,7 +19,7 @@ class NouveauDocumentAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-	    <form method="post" action="index.php?c=Admin&amp;a=enregistrerDocument">
+	    <form method="post" action="/<?php echo BASE?>Admin/enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="form-group">
 		    <label for="nom">Nom du document :</label>
@@ -75,10 +75,10 @@ class NouveauDocumentAdminView extends AdminView {
 	    });
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
-	<script src="data/js/ckeditor/ckeditor.js"></script>
-	<script src="data/js/ckeditor/adapters/jquery.js"></script>
-	<script src="data/js/bootstrap-datepicker.js"></script>
-	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
+	<script src="/<?php echo BASE?>data/js/ckeditor/ckeditor.js"></script>
+	<script src="/<?php echo BASE?>data/js/ckeditor/adapters/jquery.js"></script>
+	<script src="/<?php echo BASE?>data/js/bootstrap-datepicker.js"></script>
+	<script src="/<?php echo BASE?>data/js/locales/bootstrap-datepicker.fr.js"></script>
 
 	<?php
     }
@@ -86,7 +86,7 @@ class NouveauDocumentAdminView extends AdminView {
     public function css() {
 	parent::css();
 	?>
-	<link rel="stylesheet" href="data/css/datepicker3.css" />
+	<link rel="stylesheet" href="/<?php echo BASE?>data/css/datepicker3.css" />
 	<?php
     }
 

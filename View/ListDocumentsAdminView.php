@@ -97,7 +97,7 @@ class ListDocumentsAdminView extends AdminView {
 		    		<td><?php echo $doc->getNom() ?></td>
 		    		<td><?php echo $categorie['categorie']->getNom() ?></td>
 		    		<td class="dispo <?php echo $switch ? "maskable" : "" ?>"><?php echo$this->getCorrectDispo($doc->getAutorisation()) ?></td>
-		    		<td><a href="index.php?c=Admin&amp;a=modifierDocument&AMP;id=<?php echo $doc->getID(); ?>">
+		    		<td><a href="/<?php echo BASE?>Admin/modifierDocument/<?php echo $doc->getID(); ?>">
 		    			Modifier</a></td>
 		    		<td>
 					<?php if ($switch) : ?>
@@ -143,15 +143,15 @@ class ListDocumentsAdminView extends AdminView {
     public function javascript() {
 	parent::javascript();
 	?>
-	<script src="data/js/bootstrap-datepicker.js"></script>
-	<script src="data/js/locales/bootstrap-datepicker.fr.js"></script>
+	<script src="/<?php echo BASE?>data/js/bootstrap-datepicker.js"></script>
+	<script src="/<?php echo BASE?>data/js/locales/bootstrap-datepicker.fr.js"></script>
 	<?php
     }
 
     public function css() {
 	parent::css();
 	?>
-	<link rel="stylesheet" href="data/css/datepicker3.css" />
+	<link rel="stylesheet" href="/<?php echo BASE?>data/css/datepicker3.css" />
 	<?php
     }
 

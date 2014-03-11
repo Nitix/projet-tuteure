@@ -22,7 +22,7 @@ class ModifierAccueilAdminView extends AdminView {
     public function body() {
 	?>
 	<section>
-	    <form method="post" action="index.php?c=Admin&amp;a=enregistrerDocument">
+	    <form method="post" action="/<?php echo BASE?>Admin/enregistrerDocument">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<input type="hidden" name="categorie_id" value="1" />
 		<input type="hidden" name="autorisation" value="0" />
@@ -54,7 +54,7 @@ class ModifierAccueilAdminView extends AdminView {
 	    });
 	</script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
-	<script src="data/js/ckeditor/ckeditor.js"></script>
+	<script src="/<?php echo BASE?>data/js/ckeditor/ckeditor.js"></script>
 	<?php
     }
 

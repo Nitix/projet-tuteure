@@ -71,13 +71,13 @@ abstract class MainView {
 		    $user = $userController->getUser();
 		    ?>
 	    	<div>
-	    	    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom() ?><br /><a href="index.php?c=Admin">Administrer le site</a><br /><a href="index.php?c=User&amp;a=logout">Se deconnecter</a>
+	    	    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom() ?><br /><a href="/<?php echo BASE?>Admin">Administrer le site</a><br /><a href="/<?php echo BASE?>User/logout">Se deconnecter</a>
 	    	</div>
 		    <?php
 		else:
 		    ?>
 	    	<div>
-	    	    <a href="index.php?c=User&amp;a=login">Connexion</a>
+	    	    <a href="/<?php echo BASE?>User/login">Connexion</a>
 	    	</div>
 		<?php
 		endif;
@@ -101,12 +101,12 @@ abstract class MainView {
 		<?php
 		foreach ($menus as $menu) :
 		    if ($menu['categorie']->getID() == 1) :
-			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="index.php">Accueil </a></li><?php else :
+			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="Accueil">Accueil </a></li><?php else :
 			?>
 			<li class="dropdown  <?php echo $this->isActive($menu['categorie']->getID(), false) ? "active" : "menu_box" ?>">
 			    <a class="dropdown-toggle"
 			       data-toggle="dropdown" data-target="#"
-			       href="index.php?a=listDocuments&AMP;id=<?php echo $menu['categorie']->getID(); ?>">
+			       href="/<?php echo BASE?>Cours/listDocuments/<?php echo $menu['categorie']->getID(); ?>">
 				   <?php echo $menu['categorie']->getNom() ?>
 				<span class="badge pull-right"><?php echo count($menu['documents']) ?></span>
 				<span class="caret"></span>
@@ -117,7 +117,7 @@ abstract class MainView {
 				foreach ($menu['documents'] as $doc) :
 				    ?>
 		    		<li <?php echo $this->isActive($doc->getID(), true) ? 'class="active"' : '' ?> >
-		    		    <a href="index.php?a=voirDocument&AMP;id=<?php echo $doc->getID(); ?>">
+		    		    <a href="/<?php echo BASE?>Cours/voirDocument/<?php echo $doc->getID(); ?>">
 					    <?php echo $doc->getNom() ?>
 		    		    </a>
 		    		</li>
@@ -150,17 +150,17 @@ abstract class MainView {
 
     public function css() {
 	?>
-	<link rel="stylesheet" href="data/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="data/css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" href="data/css/site.css" />
+	<link rel="stylesheet" href="/<?php echo BASE?>data/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/<?php echo BASE?>data/css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="/<?php echo BASE?>data/css/site.css" />
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montez" />
 	<?php
     }
 
     public function javascript() {
 	?>
-	<script src="data/js/jquery-1.11.0.min.js"></script>
-	<script src="data/js/bootstrap.js"></script>
+	<script src="/<?php echo BASE?>data/js/jquery-1.11.0.min.js"></script>
+	<script src="/<?php echo BASE?>data/js/bootstrap.js"></script>
 	<?php
     }
 
