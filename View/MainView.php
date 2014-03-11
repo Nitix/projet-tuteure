@@ -101,7 +101,7 @@ abstract class MainView {
 		<?php
 		foreach ($menus as $menu) :
 		    if ($menu['categorie']->getID() == 1) :
-			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="Accueil">Accueil </a></li><?php else :
+			?><li class="<?php echo$this->isActive(1, false) ? "active" : "menu_box" ?>"><a href="/<?php echo BASE?>Accueil">Accueil </a></li><?php else :
 			?>
 			<li class="dropdown  <?php echo $this->isActive($menu['categorie']->getID(), false) ? "active" : "menu_box" ?>">
 			    <a class="dropdown-toggle"
