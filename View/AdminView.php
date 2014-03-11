@@ -15,6 +15,7 @@ abstract class AdminView extends MainView {
 	parent::javascript();
 	?>
 	<script src="/<?php echo BASE?>data/js/admin.js"></script>
+	<script>var BASE = '<?php echo BASE?>'</script>
 	<?php
     }
 
