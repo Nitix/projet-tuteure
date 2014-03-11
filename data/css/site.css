@@ -101,6 +101,9 @@ th {
         float: none;
         width: auto;
     }
+    .dropdown-backdrop {
+        position: static;
+    }
 }
 @media screen and (min-width: 992px){
     .wraper
