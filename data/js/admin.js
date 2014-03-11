@@ -27,7 +27,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de cacher l'accueil");
 	} else {
 	    $.ajax({
-		url: "ajaxAdmin.php?a=switchDocument",
+		url: "/SitePedagogique/ajaxAdmin.php?a=switchDocument",
 		type: "post",
 		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
@@ -79,7 +79,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
 	} else {
 	    $.ajax({
-		url: "ajaxAdmin.php?a=supprimerDocument",
+		url: "/SitePedagogique/ajaxAdmin.php?a=supprimerDocument",
 		type: "delete",
 		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
@@ -114,7 +114,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
 	} else {
 	    $.ajax({
-		url: "ajaxAdmin.php?a=supprimerCategorie",
+		url: "/SitePedagogique/ajaxAdmin.php?a=supprimerCategorie",
 		type: "delete",
 		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
@@ -137,7 +137,7 @@ $(document).ready(function() {
     $('#hide-confirm-button').on('click', function() {
 	$('#hide-confirm-dialog').modal('hide');
 	$.ajax({
-	    url: "ajaxAdmin.php?a=masquerTous",
+	    url: "/SitePedagogique/ajaxAdmin.php?a=masquerTous",
 	    dataType: 'json',
 	    success: function(json) {
 		switch (json.reponse) {
@@ -163,7 +163,7 @@ $(document).ready(function() {
     $('#show-confirm-button').on('click', function() {
 	$('#show-confirm-dialog').modal('hide');
 	$.ajax({
-	    url: "ajaxAdmin.php?a=montrerTous",
+	    url: "/SitePedagogique/ajaxAdmin.php?a=montrerTous",
 	    dataType: 'json',
 	    success: function(json) {
 		switch (json.reponse) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
     $('#newlogin').on('input', function() {
 	var login = $(this).val();
 	$.ajax({
-	    url: "ajaxAdmin.php?a=checkLogin",
+	    url: "/SitePedagogique/ajaxAdmin.php?a=checkLogin",
 	    method: "post",
 	    data: '{ "login" : "' + login + '" }',
 	    dataType: 'json',
@@ -207,7 +207,7 @@ $(document).ready(function() {
     $('#changelogin').on('input', function() {
 	var login = $(this).val();
 	$.ajax({
-	    url: "ajaxAdmin.php?a=checkNewLogin",
+	    url: "/SitePedagogique/ajaxAdmin.php?a=checkNewLogin",
 	    method: "post",
 	    data: '{ "login" : "' + login + '" }',
 	    dataType: 'json',
@@ -266,7 +266,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de cacher l'accueil");
 	} else {
 	    $.ajax({
-		url: "ajaxAdmin.php?a=changeDateDocument",
+		url: "/SitePedagogique/ajaxAdmin.php?a=changeDateDocument",
 		type: "post",
 		data: '{ "id" : "' + id + '", "date" : "' + date + '" }',
 		dataType: 'json',

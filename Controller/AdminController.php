@@ -217,12 +217,21 @@ class AdminController extends Controller {
 			$admin = new Administrateur();
 			$password = $this->randomPassword();
 			$passwordhash = new PasswordHash(10, false);
-			$password = $passwordhash->HashPassword($password);
-			$this->modifierInformationsAdministrateur($admin, $password);
+			$hash = $passwordhash->HashPassword($password);
+			$this->modifierInformationsAdministrateur($admin, $hash);
 			$admin->insert();
-			mail($_POST['email'], 'Identifiant de connexion', "Vous êtes inscrit en tant qu'administrateur au site pédagogique\n\nIdentifiant : " . $_POST['login'] . "\nMot de passe : " . $password .
-				'\n\nPour des mesures de sécurités, veuillez changer ce mot de passe.<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', 'From: Site Pédagogique <no-reply@iecn.u-nancy.fr>' . '\r\n');
-			$view = new OkAdminView("L'administrateur a bien été ajoutée, il recevra par email son mot de passe");
+			$expediteur = '=?UTF-8?B?'.base64_encode("Site Pédagogique") .'?=';
+			$headers = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=UTF8' . "\r\n";
+			$headers .= 'From: '.$expediteur.' <no-reply@iecn.u-nancy.fr>' . '\r\n';
+			if (mail($_POST['email'], 'Identifiants de connexion', "Vous êtes inscrit en tant qu'administrateur au site pédagogique<br /><br />"
+					. "Identifiant : " . $_POST['login'] . "<br />Mot de passe : " . $password .
+					'<br /><br />Pour des mesures de sécurités, veuillez changer ce mot de passe.<br />'
+					. '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
+			    $view = new OkAdminView("L'administrateur a bien été ajoutée, il recevra par email son mot de passe");
+			} else {
+			    $view = new OkAdminView("L'administrateur a bien été ajoutée, erreur lors de l'envoi du mail, voici son mote de passe : " . $password);
+			}
 			$view->displayPage();
 		    } else {
 			$this->nouveauAdmin("Email incorrect");
