@@ -249,11 +249,11 @@ class AdminController extends Controller {
     }
 
     private function modifierInformationsAdministrateur(Administrateur $admin, $password) {
-	$admin->setEmail($_POST['email']);
-	$admin->setLogin($_POST['login']);
+	$admin->setEmail(htmlspecialchars($_POST['email']));
+	$admin->setLogin(htmlspecialchars($_POST['login']));
 	$admin->setPassword($password);
-	$admin->setNom($_POST['nom']);
-	$admin->setPrenom($_POST['prenom']);
+	$admin->setNom(htmlspecialchars($_POST['nom']));
+	$admin->setPrenom(htmlspecialchars($_POST['prenom']));
     }
 
     public function modifierAdmin($error = null) {

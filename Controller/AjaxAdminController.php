@@ -113,6 +113,11 @@ class AjaxAdminController extends Controller {
 		    "message" => "Identifiant manquant"
 		);
 	    }
+	}else{
+		$reponse = array(
+			"reponse" => "Error",
+			"message" => "Identifiant manquant"
+		);
 	}
 	echo json_encode($reponse);
     }

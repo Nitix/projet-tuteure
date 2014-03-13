@@ -80,7 +80,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
 	} else {
 	    $.ajax({
-		url: BASE + "ajaxAdmin.php?a=supprimerDocument",
+		url: "/" + BASE + "ajaxAdmin.php?a=supprimerDocument",
 		type: "delete",
 		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
@@ -115,7 +115,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de supprimer l'accueil");
 	} else {
 	    $.ajax({
-		url: BASE + "ajaxAdmin.php?a=supprimerCategorie",
+		url: "/" + BASE + "ajaxAdmin.php?a=supprimerCategorie",
 		type: "delete",
 		data: '{ "id" : "' + id + '" }',
 		dataType: 'json',
@@ -138,7 +138,7 @@ $(document).ready(function() {
     $('#hide-confirm-button').on('click', function() {
 	$('#hide-confirm-dialog').modal('hide');
 	$.ajax({
-	    url: BASE + "ajaxAdmin.php?a=masquerTous",
+	    url: "/" + BASE + "ajaxAdmin.php?a=masquerTous",
 	    dataType: 'json',
 	    success: function(json) {
 		switch (json.reponse) {
@@ -164,7 +164,7 @@ $(document).ready(function() {
     $('#show-confirm-button').on('click', function() {
 	$('#show-confirm-dialog').modal('hide');
 	$.ajax({
-	    url: BASE + "ajaxAdmin.php?a=montrerTous",
+	    url: "/" + BASE + "ajaxAdmin.php?a=montrerTous",
 	    dataType: 'json',
 	    success: function(json) {
 		switch (json.reponse) {
@@ -189,7 +189,7 @@ $(document).ready(function() {
     $('#newlogin').on('input', function() {
 	var login = $(this).val();
 	$.ajax({
-	    url: BASE + "ajaxAdmin.php?a=checkLogin",
+	    url: "/" + BASE + "ajaxAdmin.php?a=checkLogin",
 	    method: "post",
 	    data: '{ "login" : "' + login + '" }',
 	    dataType: 'json',
@@ -208,7 +208,7 @@ $(document).ready(function() {
     $('#changelogin').on('input', function() {
 	var login = $(this).val();
 	$.ajax({
-	    url: BASE + "ajaxAdmin.php?a=checkNewLogin",
+	    url: "/" + BASE + "ajaxAdmin.php?a=checkNewLogin",
 	    method: "post",
 	    data: '{ "login" : "' + login + '" }',
 	    dataType: 'json',
@@ -267,7 +267,7 @@ $(document).ready(function() {
 	    bootstrap_alert.danger("Impossible de cacher l'accueil");
 	} else {
 	    $.ajax({
-		url: BASE + "ajaxAdmin.php?a=changeDateDocument",
+		url: "/" + BASE + "ajaxAdmin.php?a=changeDateDocument",
 		type: "post",
 		data: '{ "id" : "' + id + '", "date" : "' + date + '" }',
 		dataType: 'json',
