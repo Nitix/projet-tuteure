@@ -31,7 +31,7 @@ class LoginView extends MainView {
 		<div class="form-group">
 		    <label for="login" class="col-sm-2 col-lg-1 control-label">Identifiant</label>
 		    <div class="col-sm-10  col-lg-11 ">
-			<input type="text" id="login" name="login"  class="form-control" placeholder="Identifiant"/><br />
+			<input type="text" id="login" name="login" autofocus="true" class="form-control" placeholder="Identifiant"/><br />
 		    </div>
 		</div>
 		
