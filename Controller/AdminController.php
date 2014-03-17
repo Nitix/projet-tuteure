@@ -182,13 +182,13 @@ class AdminController extends Controller {
 			    if (!empty($_POST['confirm'])) {
 				if ($_POST['confirm'] == $_POST['password']) {
 				    $password = $_POST['confirm'];
+					$passwordhash = new PasswordHash(10, false);
+					$password = $passwordhash->HashPassword($password);
 				} else {
 				    $this->modifierAdmin("Mot de passe différent");
 				    return;
 				}
 			    }
-			    $passwordhash = new PasswordHash(10, false);
-			    $password = $passwordhash->HashPassword($password);
 			    $this->modifierInformationsAdministrateur($admin, $password);
 			    $admin->update();
 			    $view = new OkAdminView("Vos informationsont été mis à jour");
