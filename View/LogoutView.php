@@ -19,7 +19,7 @@ class LogoutView extends MainView {
 
     public function body() {
 	?>
-	<section>Vous êtes maintenant déconnecté(e)</section>
+	<section class="paddingSection">Vous êtes maintenant déconnecté(e)</section>
 	<?php
 
     }

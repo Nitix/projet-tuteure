@@ -6,7 +6,7 @@ class CoursController extends Controller {
 	'voirDocument' => 'voirDocumentAction',
 	'listDocuments' => 'listDocumentsAction',
 	'accueil' => 'home',
-	'imprimerDocument' => 'imprimerDocument'
+	'viewer' => 'viewer'
     );
 
     public function home() {
@@ -55,15 +55,15 @@ class CoursController extends Controller {
 	    $view->displayPage();
 	}
     }
-    
-    public function imprimerDocument() {
+
+    public function viewer() {
 	if (isset($_GET['id'])) {
 	    $document = Document::findByID($_GET['id']);
 	    if ($document == null) {
 		$view = new ErrorDocumentView("Document non trouvé");
 		$view->displayPage();
 	    } else {
-		$view = new PrintDocumentView($document);
+		$view = new ViewerView($document);
 		$view->DisplayPage();
 	    }
 	} else {

@@ -21,7 +21,7 @@ class ListDocumentsAdminView extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <div id="placeholder">
 	    </div>    
 	    <div class="modal fade" id="delete-confirm" role="dialog" aria-hidden="true">

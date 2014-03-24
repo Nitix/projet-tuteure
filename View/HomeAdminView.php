@@ -14,7 +14,7 @@ class HomeAdminView extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <h1>Bienvenue sur le panneau de configuration du site</h1>
 	    <p>Il y a actuellement <?php echo Document::numberOfDocuments() - 1 ?> documents</p>
 	    <p>Ici, vous pouvez modifier un document, un categorie.<br />

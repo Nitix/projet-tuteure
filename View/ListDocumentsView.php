@@ -18,7 +18,7 @@ class ListDocumentsView extends MainView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <h1><?php echo $this->categorie->getNom() ?></h1>
 	    <?php if (empty($this->documents)) : ?>
 	        <p>Aucun cours disponible pour cette catégorie</p>

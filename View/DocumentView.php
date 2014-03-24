@@ -16,13 +16,15 @@ class DocumentView extends MainView {
 
     public function body() {
         ?>
-        <section>
+
             <?php
             if($this->document->getID() != 1){
                 ?>
-                <iframe src="http://docs.google.com/viewer?url=<?php echo urlencode("iecl.univ-lorraine.fr/SitePedagogique/".$this->document->getContenu());?>&embedded=true" width="100%" height="100%" style="border: none;"></iframe>';
+                <section>
+                <iframe src="/<?php echo BASE ?>Cours/viewer/<?php echo $this->document->getID()?>" width="100%" height="100%" style="border: none;"></iframe>
             <?php
             }else{
+                echo '<section class="paddingSection">';
                 echo $this->document->getContenu();
             }
             ?>
@@ -33,14 +35,6 @@ class DocumentView extends MainView {
     public function javascript() {
         parent::javascript();
         ?>
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-            extensions: ["tex2jax.js"],
-            jax: ["input/TeX","output/HTML-CSS"],
-            tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-            });
-        </script>
-        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
     <?php
     }
 

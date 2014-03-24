@@ -23,7 +23,7 @@ class ModifierAdministrateurAdmin extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <?php
 	    if ($this->error != null) :
 		?>

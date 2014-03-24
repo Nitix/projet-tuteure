@@ -22,7 +22,7 @@ class OkAdminView extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <?php echo $this->message ?>
 	</section>
 	<?php

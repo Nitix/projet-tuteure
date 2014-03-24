@@ -14,7 +14,7 @@ class ListCategoriesAdminView extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <div class="modal fade" id="delete-confirm" role="dialog" aria-labelledby="Confirmation suppression" aria-hidden="true">
 		<div class="modal-dialog">
 		    <div class="modal-content">

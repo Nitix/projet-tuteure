@@ -27,7 +27,6 @@ header
 section
 {
     background: #fffe99;
-    padding:25px;
 }
 .menu_box
 {
@@ -42,6 +41,11 @@ section
 .clear
 {
     clear:both;
+}
+
+.paddingSection
+{
+    padding: 25px;
 }
 
 footer

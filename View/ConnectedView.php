@@ -19,7 +19,7 @@ class ConnectedView extends MainView {
 
     public function body() {
 	?>
-	<section>Vous êtes maintenant connecté(e)</section>
+	<section class="paddingSection">Vous êtes maintenant connecté(e)</section>
 	<?php
 
     }

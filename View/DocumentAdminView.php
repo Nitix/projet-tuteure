@@ -21,7 +21,7 @@ class DocumentAdminView extends AdminView {
 
     public function body() {
         ?>
-        <section>
+        <section class="paddingSection">
             <form method="post" enctype="multipart/form-data" action="/<?php echo BASE?>Admin/enregistrerDocument">
                 <input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
                 <input type="hidden" name="id" value="<?php echo $this->document->getID() ?>" />

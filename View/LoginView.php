@@ -16,7 +16,7 @@ class LoginView extends MainView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <?php
 	    if ($this->error != null) :
 		?>

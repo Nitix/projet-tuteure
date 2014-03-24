@@ -20,7 +20,7 @@ class ErrorAdminView extends AdminView {
 
     public function body() {
 	?>
-	<section>
+	<section class="paddingSection">
 	    <div class="alert alert-danger" id="alert">
 		<strong>Erreur !</strong> <?php echo $this->error ?>
 	    </div>
