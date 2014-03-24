@@ -100,7 +100,7 @@ class AdminController extends Controller {
         if($document->getID() == 1){
             $document->setContenu(strip_tags($_POST['contenu'], static::$allowedTags));
         }else{
-            if(isset($_FILES["cours"])){
+            if(isset($_FILES["cours"]) && $_FILES["cours"]["error"] == 0){
                 $contenu = $document->getContenu();
                 if(!empty($contenu))
                     unlink($document->getContenu());
