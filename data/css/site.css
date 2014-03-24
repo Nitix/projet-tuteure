@@ -8,7 +8,7 @@ body
 header
 {
     margin : 0px;
-    min-height:125px;
+    height: 19%;
     background-color: #f6f4bd;
     margin-bottom: 20px;
     width: 100%;
@@ -84,7 +84,7 @@ th {
         text-align: center;
     }
 
-    #container{
+    #containerTest{
         width: 100%;
     }
 
@@ -106,14 +106,6 @@ th {
     }
 }
 @media screen and (min-width: 992px){
-    .wraper
-    {
-        display: table;
-        width: 100%;
-        height: 300px;
-    }
-
-
     #titre
     {
         display:inline-block;
@@ -127,12 +119,6 @@ th {
         margin: 25px 2%;
         vertical-align:bottom;
     }
-
-    .wrapper_row
-    {
-        display: table-row;
-        height: 100%;
-    }
     nav
     {
         display: inline-block;
@@ -140,13 +126,13 @@ th {
         padding-left: 8px;
         padding-bottom: 25px;
         width: 200px;
-        height: 100%;
         z-index: -10;
     }
-    #container
+    #containerTest
     {
         display: inline-block;
         width: 100%;
+        height: 79%;
         padding-left: 200px;
         vertical-align:top;
         position: absolute;
@@ -160,11 +146,11 @@ th {
     {
         display: inline;
     }
+	section
+	{
+		height: 100%;
+	}
 
-    section{
-        min-height: 380px;
-
-    }
 }
 
 @media screen and (min-width : 768px){
@@ -186,4 +172,12 @@ th {
     nav{
         margin-bottom: 25px;
     }
+	#containerTest
+	{
+	    height: 100%;
+	}
+	
+	section{
+		height: 100%;
+	}
 }

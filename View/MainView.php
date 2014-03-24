@@ -42,7 +42,7 @@ abstract class MainView {
 		$this->header();
 		$this->menu();
 		?>
-		<div id="container">
+		<div id="containerTest">
 		    <?php
 		    $this->body();
 		    ?>

@@ -101,6 +101,7 @@ class AjaxAdminController extends Controller {
 			"message" => "Document inexistant"
 		    );
 		} else {
+            unlink($document->getContenu());
 		    $document->delete();
 		    $reponse = array(
 			"reponse" => "ok",
