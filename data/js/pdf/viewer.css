@@ -26,8 +26,7 @@ html {
 
 body {
   height: 100%;
-  background-color: #404040;
-  background-image: url(images/texture.png);
+  background: #fffe99;
 }
 
 body,
