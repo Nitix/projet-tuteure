@@ -32,6 +32,7 @@ class ModifierAccueilAdminView extends AdminView {
 
 		<h1>Modification de l'accueil</h1>
 		<br />
+
 		<textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu() ?></textarea>
 		<input type="submit" />
 	    </form>
@@ -46,14 +47,6 @@ class ModifierAccueilAdminView extends AdminView {
     public function javascript() {
 	parent::javascript();
 	?>
-	<script type="text/x-mathjax-config">
-	    MathJax.Hub.Config({
-	    extensions: ["tex2jax.js"],
-	    jax: ["input/TeX","output/HTML-CSS"],
-	    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-	    });
-	</script>
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?locale=fr"></script>
 	<script src="/<?php echo BASE?>data/js/ckeditor/ckeditor.js"></script>
 	<?php
     }

@@ -20,14 +20,9 @@ class HomeAdminView extends AdminView {
 	    <p>Ici, vous pouvez modifier un document, un categorie.<br />
 		Il est également possible de modifier l'accueil via l'onglet "Modifier Accueil"</p>
 
-	    <p>Lors de la modification/ajout de documents vous aurez un éditeur de texte.<br />
-		Pour ajouter une équation LaTeX cliquez sur le symbole Σ.
-	    </p>
-	    <p>
-		Le site utilise la bibliothèque MathJax pour transcrire le code LaTeX en code html lisible pour le navigateur internet</br />
-		La bibliothèque ne supporte pas tout les codes LaTeX mais une grande partie est supporté.<br />
-		<a href="http://docs.mathjax.org/en/latest/tex.html#supported-latex-commands">Liste des codes LaTeX supportés</a>
-	    </p>
+        <p>
+            Pour ajouter un document, veuillez saisir son nom, sa catégorie, sa date, et le document PDF.
+        </p>
 	</section>
 	<?php
     }
