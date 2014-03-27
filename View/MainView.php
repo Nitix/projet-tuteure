@@ -158,7 +158,7 @@ abstract class MainView {
     public function javascript() {
 	?>
 	<script src="/<?php echo BASE?>data/js/jquery-1.11.0.min.js"></script>
-	<script src="/<?php echo BASE?>data/js/bootstrap.js"></script>
+	<script src="/<?php echo BASE?>data/js/bootstrap.min.js"></script>
 	<?php
     }
 
