@@ -249,9 +249,9 @@ class AdminController extends Controller {
                             . "Identifiant : " . $_POST['login'] . "<br />Mot de passe : " . $password .
                             '<br /><br />Pour des mesures de sécurités, veuillez changer ce mot de passe.<br />'
                             . '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
-                            $view = new OkAdminView("L'administrateur a bien été ajoutée, il recevra par email son mot de passe");
+                            $view = new OkAdminView("L'administrateur a bien été ajouté, il recevra par email son mot de passe");
                         } else {
-                            $view = new OkAdminView("L'administrateur a bien été ajoutée, erreur lors de l'envoi du mail, voici son mote de passe : " . $password);
+                            $view = new OkAdminView("L'administrateur a bien été ajouté, erreur lors de l'envoi du mail, voici son mote de passe : " . $password);
                         }
                         $view->displayPage();
                     } else {

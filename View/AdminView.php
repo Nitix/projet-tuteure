@@ -27,10 +27,10 @@ abstract class AdminView extends MainView {
 			Retour au site
 		    </a></li>
 		<li class="menu_box"><a href="/<?php echo BASE?>Admin/nouveauDocument">
-			Nouveau Document
+			Nouveau document
 		    </a></li>
 		<li class="menu_box"><a href="/<?php echo BASE?>Admin/listDocuments">
-			Tout les documents
+			Tous les documents
 		    </a></li>
 		<li class="menu_box"><a href="/<?php echo BASE?>Admin/nouvelleCategorie">
 			Nouvelle catégorie

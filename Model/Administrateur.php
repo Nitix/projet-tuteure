@@ -255,7 +255,7 @@ class Administrateur {
     public static function findALL() {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * from DOCUMENT");
+	$query = $pdo->prepare("Select * from Administrateur");
 	$res = $query->execute();
 	if (!$res) {
 	    throw new SQLException('Requete non execute correctement');
