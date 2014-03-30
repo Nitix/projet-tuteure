@@ -91,7 +91,7 @@ class AdminController extends Controller {
 
     private function modifierInformationsDocument(Document $document) {
         $document->setAdministrateur_id($_SESSION[PREFIX . 'user']);
-        if( $_POST['autorisation'] != 0){
+        if( $_POST['autorisation'] != 0 && !isset($_POST['always'])){
             $date = DateTime::CreateFromFormat('d/m/Y', $_POST['autorisation']);
             $document->setAutorisation(date('Y-m-d', $date->getTimestamp()));
         }else{
@@ -123,7 +123,7 @@ class AdminController extends Controller {
         if (isset($_GET['id'])) {
             $categorie = Categorie::findByID($_GET['id']);
             if ($categorie == null) {
-                $view = new ErrorAdminView("Categorie non trouvé");
+                $view = new ErrorAdminView("Catégorie non trouvé");
                 $view->displayPage();
             } else {
                 $view = new CategorieAdminView($categorie);
