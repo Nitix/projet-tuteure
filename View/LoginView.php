@@ -27,23 +27,23 @@ class LoginView extends MainView {
 		<?php
 	    endif;
 	    ?>
-	    <form action="/<?php echo BASE?>User/checkPassword" method="post" class="form-horizontal" role="form">
+	    <form action="/<?php echo BASE?>User/checkPassword" method="post" role="form">
 		<div class="form-group">
-		    <label for="login" class="col-sm-2 col-lg-1 control-label">Identifiant</label>
-		    <div class="col-sm-10  col-lg-11 ">
-			<input type="text" id="login" name="login" autofocus="true" class="form-control" placeholder="Identifiant"/><br />
+		    <label for="login" class="control-label">Identifiant</label>
+		    <div>
+			<input type="text" id="login" name="login" autofocus="true" class="form-control" placeholder="Identifiant"/>
 		    </div>
 		</div>
 		
 		<div class="form-group">
-		    <label for="password" class="col-sm-2 col-lg-1 control-label">Mot de passe</label>
-		    <div class="col-sm-10 col-lg-11">
+		    <label for="password" class="control-label">Mot de passe</label>
+		    <div>
 			<input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"/>
 		    </div>
 		</div>
 		
 		<div class="form-group">
-		    <div class="col-sm-offset-3 col-lg-offset-1 col-sm-10 col-lg-11">
+		    <div>
 			<button type="submit" class="btn btn-default">Se connecter</button>
 		    </div>
 		</div>

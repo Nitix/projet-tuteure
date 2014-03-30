@@ -79,15 +79,6 @@ th {
 
 @media screen and (max-width: 767px) {
 
-    #titre
-    {
-        text-align: center;
-    }
-    #header_droit
-    {
-        text-align: center;
-    }
-
     #containerTest{
         width: 100%;
     }
@@ -138,6 +129,7 @@ th {
         display: inline-block;
         width: 100%;
         height: 79%;
+        height: calc(100% - 180px);
         padding-left: 200px;
         vertical-align:top;
         position: absolute;
@@ -154,7 +146,12 @@ th {
 	section
 	{
 		height: 100%;
-	}
+    }
+
+    .paddingSection
+    {
+        overflow-y: auto;
+    }
 
 }
 
@@ -185,4 +182,14 @@ th {
 	section{
 		height: 100%;
 	}
+
+
+    #titre
+    {
+        text-align: center;
+    }
+    #header_droit
+    {
+        text-align: center;
+    }
 }

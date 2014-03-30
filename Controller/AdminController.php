@@ -106,7 +106,7 @@ class AdminController extends Controller {
                     unlink($document->getContenu());
                 $ran = rand () ;
                 move_uploaded_file($_FILES["cours"]["tmp_name"],
-                    "pdf/" .  $ran . $_FILES["cours"]["name"]."");
+                    "pdf/" .  $ran . $_FILES["cours"]["name"]);
                 $document->setContenu("pdf/" .  $ran . $_FILES["cours"]["name"]);
             }
         }

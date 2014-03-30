@@ -34,7 +34,7 @@ class ModifierAdministrateurAdmin extends AdminView {
 		<?php
 	    endif;
 	    ?>
-	    <form action="/<?php echo BASE?>Admin/enregistrerAdmin" method="post" class="form-horizontal" role="form">
+	    <form action="/<?php echo BASE?>Admin/enregistrerAdmin" method="post" role="form">
 		<input type="hidden" name="jeton" value="<?php echo $_SESSION[PREFIX . 'jeton'] ?>" />
 		<div class="alert alert-info alert-dismissable" id="success">
 		    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -42,53 +42,53 @@ class ModifierAdministrateurAdmin extends AdminView {
 		</div>
 
 		<div class="form-group">
-		    <label for="changelogin" class="col-sm-2 col-lg-1 control-label">Identifiant 
+		    <label for="changelogin" class="control-label">Identifiant 
 			<span class="glyphicon glyphicon-ok ok" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove" style="display: none"></span>
 		    </label>
-		    <div class="col-sm-10  col-lg-11 ">
+		    <div>
 			<input type="text" id="changelogin" name="login"  class="form-control" value="<?php echo $this->admin->getLogin() ?>"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		    <label for="nom" class="col-sm-2 col-lg-1 control-label">Nom</label>
-		    <div class="col-sm-10 col-lg-11">
+		    <label for="nom" class="control-label">Nom</label>
+		    <div >
 			<input type="text" name="nom" id="nom" class="form-control" value="<?php echo $this->admin->getNom() ?>"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		    <label for="prenom" class="col-sm-2 col-lg-1 control-label">Prénom</label>
-		    <div class="col-sm-10 col-lg-11">
+		    <label for="prenom" class="control-label">Prénom</label>
+		    <div >
 			<input type="text" name="prenom" id="prenom" class="form-control" value="<?php echo $this->admin->getPrenom() ?>"/>
 		    </div>
 		</div>		
 		<div class="form-group">
-		    <label for="email" class="col-sm-2 col-lg-1 control-label">Email
+		    <label for="email" class="control-label">Email
 			<span class="glyphicon glyphicon-ok ok-email" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove-email" style="display: none"></span>
 		    </label>
-		    <div class="col-sm-10 col-lg-11">
+		    <div >
 			<input type="text" name="email" id="email" class="form-control" value="<?php echo $this->admin->getEmail() ?>"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		    <label for="password" class="col-sm-2 col-lg-1 control-label">Nouveau mot de passe
+		    <label for="password" class="control-label">Nouveau mot de passe
 		    </label>
-		    <div class="col-sm-10 col-lg-11">
+		    <div >
 			<input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		    <label for="confirm" class="col-sm-2 col-lg-1 control-label">Confirmation
+		    <label for="confirm" class="control-label">Confirmation
 			<span class="glyphicon glyphicon-ok ok-password" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove-password" style="display: none"></span>
 		    </label>
-		    <div class="col-sm-10 col-lg-11">
+		    <div >
 			<input type="password" name="confirm" id="confirm" class="form-control" placeholder="Mot de passe"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		    <div class="col-sm-offset-3 col-lg-offset-1 col-sm-10 col-lg-11">
+		    <div>
 			<button type="submit" class="btn btn-default">Enregistrer l'administrateur</button>
 		    </div>
 		</div>
