@@ -49,7 +49,7 @@ class ListDocumentsAdminView extends AdminView {
 			    <h4 class="modal-title">Etes vous-sûr ?</h4>
 			</div>
 			<div class="modal-body">
-			    <p>Tout les documents masqués seront masqués</p>
+			    <p>Tout les documents visibles seront masqués</p>
 			</div>
 			<div class="modal-footer">
 			    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
