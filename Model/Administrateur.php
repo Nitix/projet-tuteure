@@ -310,7 +310,7 @@ class Administrateur {
     public static function exist($login) {
 	$pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select login From Administrateur where login=:login");
+	$query = $pdo->prepare("Select login From Administrateur where lower(login)=lower(:login)");
 	$query->bindParam(':login', $login, PDO::PARAM_STR);
 	$res = $query->execute();
 	if (!$res) {
