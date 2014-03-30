@@ -69,7 +69,7 @@ abstract class MainView {
 		    $user = $userController->getUser();
 		    ?>
 	    	<div>
-	    	    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom() ?><br /><a href="/<?php echo BASE?>Admin">Administrer le site</a><br /><a href="/<?php echo BASE?>User/logout">Se deconnecter</a>
+	    	    Bienvenue <?php echo $user->getPrenom() . " " . $user->getNom() ?><br /><a href="/<?php echo BASE?>Admin">Administrer le site</a><br /><a href="/<?php echo BASE?>User/logout">Se déconnecter</a>
 	    	</div>
 		    <?php
 		else:
