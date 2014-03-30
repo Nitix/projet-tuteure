@@ -40,7 +40,7 @@ class ModifierAccueilAdminView extends AdminView {
                     </div>
                 </div>	    </form>
 
-            <script>a
+            <script>
                 CKEDITOR.replace('contenu');
             </script>
         </section>
