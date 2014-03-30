@@ -279,7 +279,7 @@ class AjaxAdminController extends Controller {
 	    if (!empty($login)) {
 		$usercontr = new UserController();
 		$admin = $usercontr->getUser();
-		if (Administrateur::exist($login) && $admin->getLogin() != $login) {
+		if (Administrateur::exist($login) && strtolower($admin->getLogin()) != strtolower($login)) {
 		    $reponse = array(
 			"reponse" => "Error",
 			"message" => "Login déjà existant"
