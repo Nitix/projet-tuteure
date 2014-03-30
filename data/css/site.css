@@ -125,6 +125,7 @@ th {
     }
     nav
     {
+        float: left; /* Fix Chrome */
         display: inline-block;
         padding-top: 25px;
         padding-left: 8px;
