@@ -33,7 +33,7 @@ class ModifierAccueilAdminView extends AdminView {
                 <h1>Modification de l'accueil</h1>
                 <br />
 
-                <textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu() ?></textarea>
+                <textarea name="contenu" id="contenu" rows="10" cols="80"><?php echo $this->document->getContenu() ?></textarea><br />
                 <div class="form-group">
                     <div>
                         <button type="submit" class="btn btn-default">Enregistrer</button>
