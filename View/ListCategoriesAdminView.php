@@ -26,7 +26,7 @@ class ListCategoriesAdminView extends AdminView {
 			    <p>La suppression est irréversible</p>
 			</div>
 			<div class="modal-footer">
-			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			    <button type="button" id="delete-cat-id" data-id="0" class="btn btn-danger">Supprimer</button>
 			</div>
 		    </div>

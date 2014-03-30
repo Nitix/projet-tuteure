@@ -35,7 +35,7 @@ class ListDocumentsAdminView extends AdminView {
 			    <p>La suppression est irréversible</p>
 			</div>
 			<div class="modal-footer">
-			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			    <button type="button" id="delete-id" data-id="0" class="btn btn-danger">Supprimer</button>
 			</div>
 		    </div>
@@ -52,7 +52,7 @@ class ListDocumentsAdminView extends AdminView {
 			    <p>Tout les documents masqués seront masqués</p>
 			</div>
 			<div class="modal-footer">
-			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			    <button type="button" id="hide-confirm-button" class="btn btn-warning">Oui</button>
 			</div>
 		    </div>
@@ -69,7 +69,7 @@ class ListDocumentsAdminView extends AdminView {
 			    <p>Tout les documents masqués seront visibles</p>
 			</div>
 			<div class="modal-footer">
-			    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			    <button type="button" id="show-confirm-button" class="btn btn-warning">Oui</button>
 			</div>
 		    </div>
@@ -115,8 +115,8 @@ class ListDocumentsAdminView extends AdminView {
 		    ?>
 		</tbody>
 	    </table>
-	    <button id="hideAll" class="btn btn-default">Masquer tout les documents </button>
-	    <button id="showAll" class="btn btn-default">Montrer tout les documents </button>
+	    <button id="hideAll" class="btn btn-default">Masquer tous les documents </button>
+	    <button id="showAll" class="btn btn-default">Montrer tous les documents </button>
 
 	</section>
 	<?php
