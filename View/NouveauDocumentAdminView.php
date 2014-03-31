@@ -26,7 +26,7 @@ class NouveauDocumentAdminView extends AdminView {
                     <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom du document"/>
                 </div>
                 <div class="form-group">
-                    <label for="categorie_id">Categorie du document.</label>
+                    <label for="categorie_id">Catégorie du document.</label>
                     <select name="categorie_id" class="form-control" id="categorie_id">
                         <?php
                         $categories = Categorie::findAll();
