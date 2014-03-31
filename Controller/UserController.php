@@ -166,7 +166,7 @@ class UserController extends Controller {
                     $headers = 'MIME-Version: 1.0' . "\r\n";
                     $headers .= 'Content-type: text/html; charset=UTF8' . "\r\n";
                     $headers .= 'From: '.$expediteur.' <no-reply@iecn.u-nancy.fr>' . '\r\n';
-                    if (mail(admin->getEmail(), 'Mot de passe changé', 'Votre mot de passe a été changé<br /><br />'
+                    if (mail($admin->getEmail(), 'Mot de passe changé', 'Votre mot de passe a été changé<br /><br />'
                         . '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
                         $view = new OkView("Votre mot de passe a été changé");
                         $view->displayPage();
