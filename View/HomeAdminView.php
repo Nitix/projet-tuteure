@@ -17,7 +17,7 @@ class HomeAdminView extends AdminView {
 	<section class="paddingSection">
 	    <h1>Bienvenue sur le panneau de configuration du site</h1>
 	    <p>Il y a actuellement <?php echo Document::numberOfDocuments() - 1 ?> documents</p>
-	    <p>Ici, vous pouvez modifier un document, un categorie.<br />
+	    <p>Ici, vous pouvez modifier un document, une catégorie.<br />
 		Il est également possible de modifier l'accueil via l'onglet "Modifier Accueil"</p>
 
         <p>
