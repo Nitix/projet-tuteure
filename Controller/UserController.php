@@ -140,7 +140,6 @@ class UserController extends Controller {
         if(isset($_GET['id']) &&  isset($_GET['link'])){
             $admin = Administrateur::findByID($_GET['id']);
             if($admin != null && $admin->getResetLink() == $_GET['link'] && date('Y-m-d') < $admin->getResetTime()){
-               var_dump($admin->getResetTime());
                 $date = DateTime::CreateFromFormat('Y-m-d', $admin->getResetTime());
                 if($date->getTimestamp() > time()){
                     $_SESSION[PREFIX.'id'] = $admin->getID();

@@ -79,7 +79,7 @@ class Administrateur {
         $query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
         $query->bindParam(':email', $this->email, PDO::PARAM_STR);
         $query->bindParam(':resetlink', $this->resetlink, PDO::PARAM_STR);
-        $query->bindParam(':resettime', $this->resetlink, PDO::PARAM_STR);
+        $query->bindParam(':resettime', $this->resettime, PDO::PARAM_STR);
         $query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
         return $query->execute();
