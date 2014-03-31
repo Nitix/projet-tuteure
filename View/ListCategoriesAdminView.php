@@ -57,7 +57,7 @@ class ListCategoriesAdminView extends AdminView {
 		</tbody>
 	    </table>
 	    <div class="alert alert-warning" id="warning" style="display: center">
-		<strong>Attention </strong> , supprimer une catégorie revient a supprimer l'intégralité des documents associés a celle-ci.
+		<strong>Attention </strong> , supprimer une catégorie revient à supprimer l'intégralité des documents associés à celle-ci.
 	    </div> 
 
 	</section> <?php
