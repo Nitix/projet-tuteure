@@ -56,6 +56,11 @@ class Administrateur {
     private $resetlink;
 
     /**
+     * @var resettime lien de reset de l'admin
+     */
+    private $resettime;
+
+    /**
      * Met à jour l' adminstrateur actuel
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
@@ -65,7 +70,7 @@ class Administrateur {
         }
         $pdo = Base::getConnection();
 
-        $query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie, email=:email, resetlink=:resetlink where id=:id');
+        $query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie, email=:email, resetlink=:resetlink , resettime=:resettime where id=:id');
 
         $query->bindParam(':login', $this->login, PDO::PARAM_STR);
         $query->bindParam(':password', $this->password, PDO::PARAM_STR);
@@ -74,7 +79,7 @@ class Administrateur {
         $query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
         $query->bindParam(':email', $this->email, PDO::PARAM_STR);
         $query->bindParam(':resetlink', $this->resetlink, PDO::PARAM_STR);
-
+        $query->bindParam(':resettime', $this->resetlink, PDO::PARAM_STR);
         $query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
         return $query->execute();
@@ -187,6 +192,14 @@ class Administrateur {
     public function setResetLink($resetlink) {
         $this->resetlink = $resetlink;
     }
+
+    /**
+     * Met à jour l'attribut resettime
+     * @param int $resettime valeur à définir
+     */
+    public function setResetTime($resettime) {
+        $this->resettime = $resettime;
+    }
     
     /**
      * Retourne l'attribut id
@@ -238,11 +251,17 @@ class Administrateur {
     }
 
     /**
-     * Met à jour l'attribut resetlink
-     * @param int $resetlink valeur à définir
+     * Retourne l'attribut  resetlink
      */
     public function getResetLink() {
         return $this->resetlink;
+    }
+
+    /**
+     * Retourne l'attribut  resettime
+     */
+    public function getResetTime() {
+        return $this->resettime;
     }
 
     /**
@@ -329,6 +348,7 @@ class Administrateur {
         $this->cookie = $row['cookie'];
         $this->email = $row['email'];
         $this->resetlink = $row['resetlink'];
+        $this->resettime = $row['resettime'];
     }
 
     public static function exist($login) {

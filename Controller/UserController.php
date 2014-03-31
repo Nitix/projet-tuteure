@@ -112,13 +112,15 @@ class UserController extends Controller {
             if($admin != null && strtolower($admin->getEmail()) == strtolower($_POST['email'])){
                 $resetlink = hash('sha256', uniqid());
                 $admin->setResetLink($resetlink);
+                $admin->setResetTime(date('Y-m-d', time() + 172800)); //expiration dans deux jours
                 $admin->update();
                 $expediteur = '=?UTF-8?B?'.base64_encode("Site Pédagogique") .'?=';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=UTF8' . "\r\n";
                 $headers .= 'From: '.$expediteur.' <no-reply@iecn.u-nancy.fr>' . '\r\n';
                 if (mail($admin->getEmail(), 'Perte de mot de passe', "Si vous n'avez pas fait de requête de perte de mot de passe vous pouvez ignorer ce message, votre mot de passe ne sera pas changé.<br /><br />"
-                    .'Cliquez sur ce lien pour changer de mot de passe : <a href="http://iecl.univ-lorraine.fr/SitePedagogique/User/resetPassword/'.$admin->getID().'/'.$resetlink.'">Changer de mot de passe</a><br /><br />'
+                    .'Cliquez sur ce lien pour changer de mot de passe : <a href="http://iecl.univ-lorraine.fr/SitePedagogique/User/resetPassword/'.$admin->getID().'/'.$resetlink.'">Changer de mot de passe</a><br />'
+                    .'Le lien ne sera plus disponible après 24h<br /><br />'
                     . '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
                     $view = new OkView("Vous allez recevoir votre demande de réinitialisation par email");
                     $view->displayPage();
@@ -137,11 +139,17 @@ class UserController extends Controller {
     public function resetPassword(){
         if(isset($_GET['id']) &&  isset($_GET['link'])){
             $admin = Administrateur::findByID($_GET['id']);
-            if($admin != null && $admin->getResetLink() == $_GET['link']){
-                $_SESSION[PREFIX.'id'] = $admin->getID();
-                $_SESSION[PREFIX.'isResetting'] = true;
-                $view = new ModifierMotDePasseView();
-                $view->displayPage();
+            if($admin != null && $admin->getResetLink() == $_GET['link'] && date('Y-m-d') < $admin->getResetTime()){
+                $date = DateTime::CreateFromFormat('Y-m-d', $admin->getResetTime());
+                if($date->getTimestamp() > time()){
+                    $_SESSION[PREFIX.'id'] = $admin->getID();
+                    $_SESSION[PREFIX.'isResetting'] = true;
+                    $view = new ModifierMotDePasseView();
+                    $view->displayPage();
+                }else{
+                    $view = new ErrorDocumentView("Administrateur ou lien de réinitialisation est incorrect");
+                    $view->displayPage();
+                }
             }else{
                 $view = new ErrorDocumentView("Administrateur ou lien de réinitialisation est incorrect");
                 $view->displayPage();
