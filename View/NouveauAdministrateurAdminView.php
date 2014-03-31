@@ -44,7 +44,7 @@ class NouveauAdministrateurAdminView extends AdminView {
 			<span class="glyphicon glyphicon-ok ok" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove" style="display: none"></span>
 		    </label>
-			<input type="text" id="newlogin" name="login"  class="form-control" placeholder="Login"/>
+			<input type="text" id="newlogin" name="login"  class="form-control" placeholder="Identifiant"/>
 		</div>
 		<div class="form-group">
 		    <label for="nom" class="control-label">Nom</label>
