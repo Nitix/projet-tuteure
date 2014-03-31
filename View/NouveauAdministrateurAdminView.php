@@ -44,35 +44,25 @@ class NouveauAdministrateurAdminView extends AdminView {
 			<span class="glyphicon glyphicon-ok ok" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove" style="display: none"></span>
 		    </label>
-		    <div class="">
 			<input type="text" id="newlogin" name="login"  class="form-control" placeholder="Login"/>
-		    </div>
 		</div>
 		<div class="form-group">
 		    <label for="nom" class="control-label">Nom</label>
-		    <div >
 			<input type="text" name="nom" id="nom" class="form-control" placeholder="Nom"/>
-		    </div>
 		</div>
 		<div class="form-group">
 		    <label for="prenom" class="control-label">Prénom</label>
-		    <div >
 			<input type="text" name="prenom" id="prenom" class="form-control" placeholder="Prénom"/>
-		    </div>
-		</div>		
+		</div>
 		<div class="form-group">
 		    <label for="email" class="control-label">Email
 			<span class="glyphicon glyphicon-ok ok-email" style="display: none"></span>
 			<span class="glyphicon glyphicon-remove remove-email" style="display: none"></span>
 		    </label>
-		    <div >
 			<input type="text" name="email" id="email" class="form-control" placeholder="Email"/>
-		    </div>
 		</div>
 		<div class="form-group">
-		    <div>
 			<button type="submit" class="btn btn-default">Enregistrer l'administrateur</button>
-		    </div>
 		</div>
 	    </form>
 	</section>

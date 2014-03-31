@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of UserController
  *
@@ -16,7 +10,12 @@ class UserController extends Controller {
     static $actions = array(
         'login' => 'login',
         'logout' => 'logout',
-        'checkPassword' => 'checkPassword'
+        'checkPassword' => 'checkPassword',
+        'MotDePassePerdu' => 'motDePassePerdu',
+        'VerifierMotDePassePerdu' => 'verifierMotDePassePerdu',
+        'enregistrerMotDePasse' => 'enregistrerMotDePasse',
+        'resetPassword' => 'resetPassword'
+
     );
 
     public function home() {
@@ -102,4 +101,90 @@ class UserController extends Controller {
         return Administrateur::findByID($_SESSION[PREFIX . 'user']);
     }
 
+    public function motDePassePerdu($error = null){
+        $view = new MotDePassePerduView($error);
+        $view->displayPage();
+    }
+
+    public function verifierMotDePassePerdu(){
+        if(isset($_POST['email']) && isset($_POST['login'])){
+            $admin = Administrateur::findByLogin($_POST['login']);
+            if($admin != null && strtolower($admin->getEmail()) == strtolower($_POST['email'])){
+                $resetlink = hash('sha256', uniqid());
+                $admin->setResetLink($resetlink);
+                $admin->update();
+                $expediteur = '=?UTF-8?B?'.base64_encode("Site Pédagogique") .'?=';
+                $headers = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=UTF8' . "\r\n";
+                $headers .= 'From: '.$expediteur.' <no-reply@iecn.u-nancy.fr>' . '\r\n';
+                if (mail($admin->getEmail(), 'Perte de mot de passe', "Si vous n'avez pas fait de requête de perte de mot de passe vous pouvez ignorer ce message, votre mot de passe ne sera pas changé.<br /><br />"
+                    .'Cliquez sur ce lien pour changer de mot de passe : <a href="http://iecl.univ-lorraine.fr/SitePedagogique/User/resetPassword/'.$admin->getID().'/'.$resetlink.'">Changer de mot de passe</a><br /><br />'
+                    . '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
+                    $view = new OkView("Vous allez recevoir votre demande de réinitialisation par email");
+                    $view->displayPage();
+                } else {
+                    $this->motDePassePerdu("Erreur lors de l'envoi du l'email");
+                }
+            }else{
+                $this->motDePassePerdu("Combinaison incorrect");
+            }
+        }else{
+            $view = new ErrorDocumentView("informations manquantes");
+            $view->displayPage();
+        }
+    }
+
+    public function resetPassword(){
+        if(isset($_GET['id']) &&  isset($_GET['link'])){
+            $admin = Administrateur::findByID($_GET['id']);
+            if($admin != null && $admin->getResetLink() == $_GET['link']){
+                $_SESSION[PREFIX.'id'] = $admin->getID();
+                $_SESSION[PREFIX.'isResetting'] = true;
+                $view = new ModifierMotDePasseView();
+                $view->displayPage();
+            }else{
+                $view = new ErrorDocumentView("Administrateur ou lien de réinitialisation est incorrect");
+                $view->displayPage();
+            }
+        }else{
+            $view = new ErrorDocumentView("Nope");
+            $view->displayPage();
+        }
+    }
+
+    public function enregistrerMotDePasse(){
+        if(isset($_POST['password']) && isset($_POST['confirm'])){
+            if(isset($_SESSION[PREFIX.'isResetting']) && $_SESSION[PREFIX.'isResetting']){
+                if($_POST['password'] == $_POST['confirm']){
+                    $admin = Administrateur::findByID($_SESSION[PREFIX.'id']);
+                    $passwordhash = new PasswordHash(10, false);
+                    $hash = $passwordhash->HashPassword($_POST['password']);
+                    $admin->setPassword($hash);
+                    $admin->setResetLink("");
+                    $admin->update();
+                    $expediteur = '=?UTF-8?B?'.base64_encode("Site Pédagogique") .'?=';
+                    $headers = 'MIME-Version: 1.0' . "\r\n";
+                    $headers .= 'Content-type: text/html; charset=UTF8' . "\r\n";
+                    $headers .= 'From: '.$expediteur.' <no-reply@iecn.u-nancy.fr>' . '\r\n';
+                    if (mail($_POST['email'], 'Mot de passe changé', 'Votre mot de passe a été changé<br /><br />'
+                        . '<a href="http://iecl.univ-lorraine.fr/SitePedagogique/">http://iecl.univ-lorraine.fr/SitePedagogique/</a>', $headers)) {
+                        $view = new OkView("Votre mot de passe a été changé");
+                        $view->displayPage();
+                    } else {
+                        $view = new OkView("Votre mot de passe a été changé");
+                        $view->displayPage();
+                    }
+                }else{
+                    $view = new ModifierMotDePasseView("Les mots de passe ne correspondent pas");
+                    $view->displayPage();
+                }
+            }else{
+                $view = new ErrorDocumentView("Tentative de changement de mote de passe non autorisé");
+                $view->displayPage();
+            }
+        }else{
+            $view = new ErrorDocumentView("Nope");
+            $view->displayPage();
+        }
+    }
 }

@@ -3,15 +3,15 @@
 /**
  * Classe de categorie active record sur la table Administrateur
  * Gére la table Administrateur, une ligne correspond à un objet de cette classe
- * 
+ *
  * Un objet correspond à un ligne
- * 
+ *
  * Les fonctions statiques créent des objets de ce categorie
- * 
+ *
  * Des exceptions sont levés si les identifiants sont incorrect
- * 
+ *
  * @package Model
- * 
+ *
  */
 class Administrateur {
 
@@ -51,26 +51,33 @@ class Administrateur {
     private $email;
 
     /**
+     * @var resetlink lien de reset de l'admin
+     */
+    private $resetlink;
+
+    /**
      * Met à jour l' adminstrateur actuel
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function update() {
-	if (!isset($this->id)) {
-	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot update");
-	}
-	$pdo = Base::getConnection();
+        if (!isset($this->id)) {
+            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot update");
+        }
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie, email=:email where id=:id');
+        $query = $pdo->prepare('UPDATE Administrateur SET login=:login, password=:password, nom=:nom, prenom=:prenom, cookie=:cookie, email=:email, resetlink=:resetlink where id=:id');
 
-	$query->bindParam(':login', $this->login, PDO::PARAM_STR);
-	$query->bindParam(':password', $this->password, PDO::PARAM_STR);
-	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-	$query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
-	$query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
-	$query->bindParam(':email', $this->email, PDO::PARAM_STR);
-	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $query->bindParam(':login', $this->login, PDO::PARAM_STR);
+        $query->bindParam(':password', $this->password, PDO::PARAM_STR);
+        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
+        $query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
+        $query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
+        $query->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $query->bindParam(':resetlink', $this->resetlink, PDO::PARAM_STR);
 
-	return $query->execute();
+        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
+
+        return $query->execute();
     }
 
     /**
@@ -78,25 +85,25 @@ class Administrateur {
      * @throw PrimaryKeyNotValidException Identifiant déjà instancié
      * 	 */
     public function insert() {
-	if (isset($this->id)) {
-	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key defined : cannot insert");
-	}
+        if (isset($this->id)) {
+            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key defined : cannot insert");
+        }
 
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare('INSERT INTO Administrateur(login, password, nom, prenom, cookie, email) VALUES(:login, :password, :nom, :prenom, :cookie, :email)');
+        $query = $pdo->prepare('INSERT INTO Administrateur(login, password, nom, prenom, cookie, email) VALUES(:login, :password, :nom, :prenom, :cookie, :email)');
 
-	$query->bindParam(':login', $this->login, PDO::PARAM_STR);
-	$query->bindParam(':password', $this->password, PDO::PARAM_STR);
-	$query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
-	$query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
-	$query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
-	$query->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $query->bindParam(':login', $this->login, PDO::PARAM_STR);
+        $query->bindParam(':password', $this->password, PDO::PARAM_STR);
+        $query->bindParam(':nom', $this->nom, PDO::PARAM_STR);
+        $query->bindParam(':prenom', $this->prenom, PDO::PARAM_STR);
+        $query->bindParam(':cookie', $this->cookie, PDO::PARAM_STR);
+        $query->bindParam(':email', $this->email, PDO::PARAM_STR);
 
-	$nb = $query->execute();
+        $nb = $query->execute();
 
-	$this->id = $pdo->lastInsertId();
-	return $nb;
+        $this->id = $pdo->lastInsertId();
+        return $nb;
     }
 
     /**
@@ -104,17 +111,17 @@ class Administrateur {
      * @throw PrimaryKeyNotValidException Identifiant non instancié
      */
     public function delete() {
-	if (!isset($this->id)) {
-	    throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot delete");
-	}
+        if (!isset($this->id)) {
+            throw new PrimaryKeyNotValidException(__CLASS__ . ": Primary Key undefined : cannot delete");
+        }
 
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare('DELETE FROM Administrateur where id=:id');
+        $query = $pdo->prepare('DELETE FROM Administrateur where id=:id');
 
-	$query->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $query->bindParam(':id', $this->id, PDO::PARAM_INT);
 
-	return $query->execute();
+        return $query->execute();
     }
 
     /**
@@ -122,7 +129,7 @@ class Administrateur {
      * @param int $id valeur à définir
      */
     public function setID($id) {
-	$this->id = $id;
+        $this->id = $id;
     }
 
     /**
@@ -130,7 +137,7 @@ class Administrateur {
      * @param String $login valeur à définir
      */
     public function setLogin($login) {
-	$this->login = $login;
+        $this->login = $login;
     }
 
     /**
@@ -138,7 +145,7 @@ class Administrateur {
      * @param String $password valeur à définir
      */
     public function setPassword($password) {
-	$this->password = $password;
+        $this->password = $password;
     }
 
     /**
@@ -146,7 +153,7 @@ class Administrateur {
      * @param String $nom valeur à définir
      */
     public function setNom($nom) {
-	$this->nom = $nom;
+        $this->nom = $nom;
     }
 
     /**
@@ -154,7 +161,7 @@ class Administrateur {
      * @param int $prenom valeur à définir
      */
     public function setPrenom($prenom) {
-	$this->prenom = $prenom;
+        $this->prenom = $prenom;
     }
 
     /**
@@ -162,7 +169,7 @@ class Administrateur {
      * @param int $cookie valeur à définir
      */
     public function setCookie($cookie) {
-	$this->cookie = $cookie;
+        $this->cookie = $cookie;
     }
 
     /**
@@ -170,56 +177,72 @@ class Administrateur {
      * @param int $email valeur à définir
      */
     public function setEmail($email) {
-	$this->email = $email;
+        $this->email = $email;
     }
 
+    /**
+     * Met à jour l'attribut resetlink
+     * @param int $resetlink valeur à définir
+     */
+    public function setResetLink($resetlink) {
+        $this->resetlink = $resetlink;
+    }
+    
     /**
      * Retourne l'attribut id
      */
     public function getID() {
-	return $this->id;
+        return $this->id;
     }
 
     /**
      * Retourne l'attribut login
      */
     public function getLogin() {
-	return $this->login;
+        return $this->login;
     }
 
     /**
      * Retourne l'attribut password
      */
     public function getPassword() {
-	return $this->password;
+        return $this->password;
     }
 
     /**
      * Retourne l'attribut nom
      */
     public function getNom() {
-	return $this->nom;
+        return $this->nom;
     }
 
     /**
      * Retourne l'attribut prenom
      */
     public function getPrenom() {
-	return $this->prenom;
+        return $this->prenom;
     }
 
     /**
      * Retourne l'attribut cookie
      */
     public function getCookie() {
-	return $this->cookie;
+        return $this->cookie;
     }
 
     /**
      * Retourne l'attribut email
      */
     public function getEmail() {
-	return $this->email;
+        return $this->email;
+    }
+
+    /**
+     * Met à jour l'attribut resetlink
+     * @param int $resetlink valeur à définir
+     */
+    public function getResetLink() {
+        return $this->resetlink;
     }
 
     /**
@@ -229,22 +252,22 @@ class Administrateur {
      * @throws SQLException Erreur lors de la requete
      */
     public static function findByID($id) {
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Administrateur where id=:id");
-	$query->bindParam(':id', $id, PDO::PARAM_INT);
-	$res = $query->execute();
-	if (!$res) {
-	    throw new SQLException('Requete non execute correctement');
-	}
+        $query = $pdo->prepare("Select * From Administrateur where id=:id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
 
-	$row = $query->fetch();
-	if (!$row) {
-	    return null;
-	}
-	$adminstrateur = new Administrateur();
-	$adminstrateur->fetch($row);
-	return $adminstrateur;
+        $row = $query->fetch();
+        if (!$row) {
+            return null;
+        }
+        $adminstrateur = new Administrateur();
+        $adminstrateur->fetch($row);
+        return $adminstrateur;
     }
 
     /**
@@ -253,44 +276,44 @@ class Administrateur {
      * @throws SQLException Erreur lors de la requete
      */
     public static function findALL() {
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * from Administrateur");
-	$res = $query->execute();
-	if (!$res) {
-	    throw new SQLException('Requete non execute correctement');
-	}
-	$adminstrateurs = array();
-	while ($row = $query->fetch()) {
-	    $adminstrateur = new Administrateur();
-	    $adminstrateur->fetch($row);
-	    $adminstrateurs[] = $adminstrateur;
-	}
-	return $adminstrateurs;
+        $query = $pdo->prepare("Select * from Administrateur");
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+        $adminstrateurs = array();
+        while ($row = $query->fetch()) {
+            $adminstrateur = new Administrateur();
+            $adminstrateur->fetch($row);
+            $adminstrateurs[] = $adminstrateur;
+        }
+        return $adminstrateurs;
     }
 
     /**
      * Recherche un adminstrateur dans la bdd à partir de son login
-     * @param String login de l'adminstrateur	
+     * @param String login de l'adminstrateur
      * @return \Administrateur Administrateur récupéré de la base de donnée
      * @throws SQLException Erreur lors de la requete
      */
     public static function findByLogin($login) {
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select * From Administrateur where lower(login)=lower(:login)");
-	$query->bindParam(':login', $login, PDO::PARAM_STR);
-	$res = $query->execute();
-	if (!$res) {
-	    throw new SQLException('Requete non execute correctement');
-	}
-	$row = $query->fetch();
-	if (!$row) {
-	    return null;
-	}
-	$adminstrateur = new Administrateur();
-	$adminstrateur->fetch($row);
-	return $adminstrateur;
+        $query = $pdo->prepare("Select * From Administrateur where lower(login)=lower(:login)");
+        $query->bindParam(':login', $login, PDO::PARAM_STR);
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+        $row = $query->fetch();
+        if (!$row) {
+            return null;
+        }
+        $adminstrateur = new Administrateur();
+        $adminstrateur->fetch($row);
+        return $adminstrateur;
     }
 
     /**
@@ -298,26 +321,27 @@ class Administrateur {
      * @param categorie $row tableau contenant les informations de l'administrateurs
      */
     private function fetch($row) {
-	$this->id = $row['id'];
-	$this->login = $row['login'];
-	$this->password = $row['password'];
-	$this->nom = $row['nom'];
-	$this->prenom = $row['prenom'];
-	$this->cookie = $row['cookie'];
-	$this->email = $row['email'];
+        $this->id = $row['id'];
+        $this->login = $row['login'];
+        $this->password = $row['password'];
+        $this->nom = $row['nom'];
+        $this->prenom = $row['prenom'];
+        $this->cookie = $row['cookie'];
+        $this->email = $row['email'];
+        $this->resetlink = $row['resetlink'];
     }
 
     public static function exist($login) {
-	$pdo = Base::getConnection();
+        $pdo = Base::getConnection();
 
-	$query = $pdo->prepare("Select login From Administrateur where lower(login)=lower(:login)");
-	$query->bindParam(':login', $login, PDO::PARAM_STR);
-	$res = $query->execute();
-	if (!$res) {
-	    throw new SQLException('Requete non execute correctement');
-	}
-	$row = $query->fetch();
-	return $row;
+        $query = $pdo->prepare("Select login From Administrateur where lower(login)=lower(:login)");
+        $query->bindParam(':login', $login, PDO::PARAM_STR);
+        $res = $query->execute();
+        if (!$res) {
+            throw new SQLException('Requete non execute correctement');
+        }
+        $row = $query->fetch();
+        return $row;
     }
 
 }
